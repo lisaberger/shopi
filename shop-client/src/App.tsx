@@ -1,11 +1,21 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
-import HomePage from './views/Home';
+import { RouterProvider } from 'react-router-dom';
+import Header from './components/Header';
+import router from './router/router';
 
-const router = createBrowserRouter([{ path: '/', element: <HomePage /> }]);
+import './assets/styles/index.scss';
+
+import 'primereact/resources/themes/md-light-indigo/theme.css'; // theme
+import 'primereact/resources/primereact.min.css'; //core css
+import 'primeicons/primeicons.css'; //icons
+import 'primeflex/primeflex.css'; // flex
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <>
+            <Header />
+            <RouterProvider router={router} />
+        </>
+    );
 }
 
 export default App;
