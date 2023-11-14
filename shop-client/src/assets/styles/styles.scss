@@ -1,0 +1,18 @@
+/* SHOP Theme*/
+@layer utils, icons, primereact, theme;
+
+/* utils */
+@layer utils {
+    @import './utils/_reset';
+    @import 'primeflex/primeflex.css'; // flex
+}
+
+/* prime icons */
+@layer icons {
+    @import 'primeicons/primeicons.css'; //icons
+}
+
+/* theme */
+@layer theme {
+    @import './themes/shop-theme/theme.scss';
+}
