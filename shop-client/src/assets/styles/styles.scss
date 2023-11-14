@@ -1,12 +1,18 @@
 /* SHOP Theme*/
+@layer utils, icons, primereact, theme;
 
 /* utils */
-@import './utils/_reset';
+@layer utils {
+    @import './utils/_reset';
+    @import 'primeflex/primeflex.css'; // flex
+}
 
-@import 'primeflex/primeflex.css'; // flex
-@import 'primeicons/primeicons.css'; //icons
+/* prime icons */
+@layer icons {
+    @import 'primeicons/primeicons.css'; //icons
+}
 
-// @import 'primereact/resources/primereact.min.css'; //core css
-@import 'primereact/resources/themes/md-light-indigo/theme.css'; // matirial design theme
-
-@import './utils/theme'; // custom md theme
+/* theme */
+@layer theme {
+    @import './themes/shop-theme/theme.scss';
+}
