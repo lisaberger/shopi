@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
+# Shop-Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is where the magic happens. With the assistance of the React Three Fiber library, 3D elements are integrated at different points and in various ways, creating a novel form of interaction.
 
 Currently, two official plugins are available:
 
