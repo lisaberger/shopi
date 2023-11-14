@@ -1,22 +1,10 @@
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { RouterProvider } from 'react-router-dom';
+import router from './router/Router';
 
-import './assets/styles/theme.scss';
-import './assets/styles/index.scss';
-
-import 'primereact/resources/themes/md-light-indigo/theme.css'; // theme
-import 'primereact/resources/primereact.min.css'; //core css
-import 'primeicons/primeicons.css'; //icons
-import 'primeflex/primeflex.css'; // flex
+import './assets/styles/styles.scss';
 
 function App() {
-    return (
-        <>
-            <Header />
-            <main className='py-3'></main>
-            <Footer />
-        </>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
