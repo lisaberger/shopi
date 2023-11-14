@@ -1,7 +1,7 @@
-import { RouterProvider } from 'react-router-dom';
 import Header from './components/Header';
-import router from './router/router';
+import Footer from './components/Footer';
 
+import './assets/styles/theme.scss';
 import './assets/styles/index.scss';
 
 import 'primereact/resources/themes/md-light-indigo/theme.css'; // theme
@@ -13,7 +13,8 @@ function App() {
     return (
         <>
             <Header />
-            <RouterProvider router={router} />
+            <main className='py-3'></main>
+            <Footer />
         </>
     );
 }
