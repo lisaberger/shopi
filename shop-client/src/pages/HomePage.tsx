@@ -1,5 +1,12 @@
+import Teaser from '@/components/Teaser';
+
 const HomePage = () => {
-    return <div>This is a HomePage</div>;
+    return (
+        <>
+            <Teaser />
+            // More soon ...
+        </>
+    );
 };
 
 export default HomePage;
