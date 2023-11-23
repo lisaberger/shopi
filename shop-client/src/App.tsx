@@ -4,8 +4,8 @@ import router from './router/Router';
 import './assets/styles/styles.scss';
 import 'primeicons/primeicons.css';
 
-function App() {
+const App = () => {
     return <RouterProvider router={router} />;
-}
+};
 
 export default App;

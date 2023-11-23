@@ -1,5 +1,5 @@
 /* SHOP Theme*/
-@layer reset, primereact, theme, custom;
+@layer reset, theme, utils;
 
 /* reset */
 @layer reset {
@@ -7,6 +7,7 @@
 }
 
 /* utils */
+@import 'primeicons/primeicons.css';
 @import 'primeflex/primeflex.css'; // flex
 
 /* theme */

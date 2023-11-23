@@ -6,7 +6,7 @@ const RootPage = () => {
     return (
         <>
             <Header />
-            <main className='py-3'>
+            <main className='py-4'>
                 <Outlet />
             </main>
             <Footer />;
