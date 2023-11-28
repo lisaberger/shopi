@@ -4,6 +4,15 @@ import { createBrowserRouter } from 'react-router-dom';
 import HomeView from '../pages/HomePage';
 import RootPage from '../pages/RootPage';
 
-const router = createBrowserRouter([{ path: '/', element: <RootPage />, children: [{ path: '', element: <HomeView /> }] }]);
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <RootPage />,
+        children: [
+            { index: true, path: '/', element: <HomeView /> },
+            { index: true, path: '/login', element: <HomeView /> },
+        ],
+    },
+]);
 
 export default router;

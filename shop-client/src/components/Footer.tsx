@@ -2,10 +2,10 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer>
-            <div className='grid'>
-                <div className='col'>
-                    <p>WebShop &copy; {currentYear}</p>
+        <footer className='px-8'>
+            <div>
+                <div>
+                    <p>eShop &copy; {currentYear}</p>
                 </div>
             </div>
         </footer>

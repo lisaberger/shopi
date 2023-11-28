@@ -6,10 +6,10 @@ const RootPage = () => {
     return (
         <>
             <Header />
-            <main className='py-4'>
+            <main className='px-8 py-4'>
                 <Outlet />
             </main>
-            <Footer />;
+            <Footer />
         </>
     );
 };
