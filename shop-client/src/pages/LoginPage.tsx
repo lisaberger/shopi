@@ -1,8 +1,8 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
-import { useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ const LoginPage = () => {
                 </form>
 
                 <div className='py-3'>
-                    Noch kein Profil? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Registrieren</Link>
+                    Noch kein Profil? <Link to='/register'>Registrieren</Link>
                 </div>
             </div>
         </section>
