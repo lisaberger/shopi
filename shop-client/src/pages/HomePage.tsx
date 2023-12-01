@@ -1,5 +1,5 @@
 import Teaser from '@/components/Teaser';
-import ProductList from '@/components/ProductList';
+import ProductList from '@/components/ProductList/ProductList';
 
 const HomePage = () => {
     return (

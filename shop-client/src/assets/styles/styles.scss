@@ -2,15 +2,11 @@
 @layer reset, theme, utils;
 
 /* reset */
-@layer reset {
-    @import './utils/_reset';
-}
-
-/* utils */
-@import 'primeicons/primeicons.css';
-@import 'primeflex/primeflex.css'; // flex
+@import './reset/_reset.scss' layer(reset);
 
 /* theme */
-@layer theme {
-    @import './themes/shop-theme/theme.scss';
-}
+@import './themes/shop-theme/theme.scss' layer(theme);
+
+/* utils */
+@import 'primeflex/primeflex.css' layer(utils);
+@import 'primeicons/primeicons.css' layer(utils);

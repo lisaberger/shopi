@@ -1,4 +1,4 @@
-import logo from '../../assets/logo-wortbild-marke.svg';
+import logo from '@/assets/logo/logo-wortbild-marke.svg';
 import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';
@@ -37,7 +37,7 @@ const Header = () => {
                     {isLoggedIn ? (
                         <Avatar image='/images/avatar/onyamalimba.png' shape='circle' />
                     ) : (
-                        <Link to='/'>
+                        <Link to='/login'>
                             <span className='flex flex-column justify-content-center align-items-center'>
                                 <i className='pi pi-user' style={{ fontSize: '1.2rem' }}></i>
                                 <p className='text-xs'>Login</p>

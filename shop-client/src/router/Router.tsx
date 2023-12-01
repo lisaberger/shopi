@@ -1,9 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 // views
-import HomePage from '../pages/HomePage';
-import RootPage from '../pages/RootPage';
+import HomePage from '@/pages/HomePage';
+import RootPage from '@/pages/RootPage';
 import ProductPage from '@/pages/ProductPage';
+import RegisterPage from '@/pages/RegisterPage';
+import LoginPage from '@/pages/LoginPage';
+import ProfilePage from '@/pages/ProfilePage';
 
 const router = createBrowserRouter([
     {
@@ -11,8 +14,10 @@ const router = createBrowserRouter([
         element: <RootPage />,
         children: [
             { index: true, path: '/', element: <HomePage /> },
-            { path: '/login', element: <HomePage /> },
             { path: '/product/:productId', element: <ProductPage /> },
+            { path: '/register', element: <RegisterPage /> },
+            { path: '/login', element: <LoginPage /> },
+            { path: '/profile', element: <ProfilePage /> },
         ],
     },
 ]);
