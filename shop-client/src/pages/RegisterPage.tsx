@@ -56,7 +56,7 @@ const RegisterPage = () => {
 
                 <div className='py-3'>
                     Ich besitze schon einen Account?
-                    <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link>
+                    <Link to='/login'>Login</Link>
                 </div>
             </div>
         </section>

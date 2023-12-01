@@ -1,0 +1,29 @@
+{
+    "name": "eshop",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Ecommerce application using 3D concepts build with MERN stack",
+    "main": "server.js",
+    "scripts": {
+        "start": "node shop-api/server",
+        "server": "nodemon shop-api/server"
+    },
+    "keywords": [
+        "eCommerce",
+        "three",
+        "react-three-fiber",
+        "xr"
+    ],
+    "author": "Lisa Berger",
+    "license": "MIT",
+    "homepage": "https://github.com/lisaberger/webshop#readme",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "mongoose": "^8.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}

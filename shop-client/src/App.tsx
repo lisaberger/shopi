@@ -1,11 +1,16 @@
 import { RouterProvider } from 'react-router-dom';
 import router from './router/Router';
+import { Provider } from 'react-redux';
+import store from '@/store/store';
 
 import './assets/styles/styles.scss';
-import 'primeicons/primeicons.css';
 
 const App = () => {
-    return <RouterProvider router={router} />;
+    return (
+        <Provider store={store}>
+            <RouterProvider router={router} />;
+        </Provider>
+    );
 };
 
 export default App;
