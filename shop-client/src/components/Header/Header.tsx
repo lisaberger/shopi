@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header className='px-8 py-3 p-menubar flex flex-nowrap justify-content-between'>
-            <Link to={'/'}>
+            <Link to='/'>
                 <img alt='logo' src={logo} height='40' className='mr-3' />
             </Link>
             <span className='p-inputgroup' style={{ maxWidth: '500px' }}>

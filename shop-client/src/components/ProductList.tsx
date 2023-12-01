@@ -4,6 +4,7 @@ import { Suspense, createRef } from 'react';
 import { Bounds, OrbitControls, PerspectiveCamera, View, Gltf } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
 import styles from './ProductList.module.scss';
+import { Link } from 'react-router-dom';
 
 export default function ProductList() {
     const container = useRef();
@@ -11,14 +12,14 @@ export default function ProductList() {
     const products = [
         { id: '1', model: './headphones.gltf' },
         { id: '2', model: './iphone.gltf' },
-        { id: '1', model: './headphones.gltf' },
-        { id: '2', model: './iphone.gltf' },
-        { id: '3', model: 'macbook.gltf' },
-        { id: '1', model: './headphones.gltf' },
-        { id: '2', model: './iphone.gltf' },
-        { id: '1', model: './headphones.gltf' },
-        { id: '2', model: './iphone.gltf' },
-        { id: '3', model: 'macbook.gltf' },
+        { id: '3', model: './headphones.gltf' },
+        { id: '4', model: './iphone.gltf' },
+        { id: '5', model: './macbook.gltf' },
+        { id: '6', model: './headphones.gltf' },
+        { id: '7', model: './iphone.gltf' },
+        { id: '8', model: './headphones.gltf' },
+        { id: '9', model: './iphone.gltf' },
+        { id: '10', model: './macbook.gltf' },
     ];
 
     const viewRefs = useMemo(() => products.map(() => createRef()), [products]);
@@ -30,10 +31,12 @@ export default function ProductList() {
                 <div className={styles.container} ref={container}>
                     {products.map((product, i) => {
                         return (
-                            <article key={i} className={styles.card}>
-                                <div ref={viewRefs[i]} className={styles.view} />
-                                <p className={styles.card_title}>iPhone X</p>
-                            </article>
+                            <Link key={i} to={'product/' + product.id}>
+                                <article className={styles.card}>
+                                    <div ref={viewRefs[i]} className={styles.view} />
+                                    <p className={styles.card_title}>iPhone X</p>
+                                </article>
+                            </Link>
                         );
                     })}
 
@@ -64,7 +67,7 @@ function ProductEnvironment() {
             <pointLight position={[20, 30, 10]} />
             <pointLight position={[-10, -10, -10]} color='blue' />
             <PerspectiveCamera makeDefault position={[-2.5, 0, 5]} fov={35} />
-            <OrbitControls autoRotate />
+            {/* <OrbitControls /> */}
         </>
     );
 }

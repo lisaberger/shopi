@@ -1,16 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 // views
-import HomeView from '../pages/HomePage';
+import HomePage from '../pages/HomePage';
 import RootPage from '../pages/RootPage';
+import ProductPage from '@/pages/ProductPage';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <RootPage />,
         children: [
-            { index: true, path: '/', element: <HomeView /> },
-            { index: true, path: '/login', element: <HomeView /> },
+            { index: true, path: '/', element: <HomePage /> },
+            { path: '/login', element: <HomePage /> },
+            { path: '/product/:productId', element: <ProductPage /> },
         ],
     },
 ]);
