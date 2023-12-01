@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '@/store/slices/usersApiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@/store/slices/authSlice';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
@@ -10,15 +13,31 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const submitHandler = async (event) => {
+    const [register, { isLoading }] = useRegisterMutation();
+    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+
+    const registerHandler = async (event) => {
         event.preventDefault();
-        console.log(name, email, password, confirmPassword);
+
+        if (password !== confirmPassword) {
+            throw new Error('Passwörter stimmen nicht überein');
+        } else {
+            try {
+                const res = await register({ name, email, password }).unwrap();
+                dispatch(setCredentials({ ...res }));
+                // navigate('/');
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
+
     return (
         <section>
             <div className='mt-5'>
                 <h1 className='text-2xl font-bold'>Register</h1>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={registerHandler}>
                     <div className='flex flex-column gap-2'>
                         <label className='text-s' htmlFor='name'>
                             Name
@@ -51,7 +70,7 @@ const RegisterPage = () => {
                             toggleMask
                         />
                     </div>
-                    <Button>Registrieren</Button>
+                    <Button disabled={isLoading}>Registrieren</Button>
                 </form>
 
                 <div className='py-3'>

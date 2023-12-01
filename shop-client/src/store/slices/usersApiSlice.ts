@@ -1,6 +1,12 @@
 import { apiSlice } from './apiSlice';
 import { USERS_URL } from '@/utils/constants';
 
+interface User {
+    name: string;
+    password: string;
+    email: string;
+}
+
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query({
@@ -10,7 +16,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
             providesTags: ['User'],
             keepUnusedDataFor: 5,
         }),
+        register: builder.mutation({
+            query: (user: User) => ({
+                url: `${USERS_URL}`,
+                method: 'POST',
+                body: user,
+            }),
+        }),
     }),
 });
 
-export const { useGetUsersQuery } = userApiSlice;
+export const { useGetUsersQuery, useRegisterMutation } = userApiSlice;
