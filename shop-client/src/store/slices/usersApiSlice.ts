@@ -23,6 +23,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: user,
             }),
         }),
+        login: builder.mutation({
+            query: (user: User) => ({
+                url: `${USERS_URL}/login`,
+                method: 'POST',
+                body: user,
+            }),
+        }),
+        logout: builder.mutation({
+            query: () => ({
+                url: `${USERS_URL}/logout`,
+                method: 'POST',
+            }),
+        }),
     }),
 });
 

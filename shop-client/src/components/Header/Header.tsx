@@ -4,10 +4,11 @@ import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useAppSelector } from '@/store/hooks';
+import { Dropdown } from 'primereact/dropdown';
 
 const Header = () => {
-    const [isLoggedIn] = useState(false);
+    const { userInfo } = useAppSelector((state) => state.auth);
 
     return (
         <header className='px-8 py-3 p-menubar flex flex-nowrap justify-content-between'>
@@ -34,9 +35,10 @@ const Header = () => {
                             <p className='text-xs'>Merkliste</p>
                         </span>
                     </Link>
-                    {isLoggedIn ? (
-                        <Avatar image='/images/avatar/onyamalimba.png' shape='circle' />
+                    {userInfo ? (
+                        <p>{userInfo.name}</p>
                     ) : (
+                        // <Avatar image='/images/avatar/onyamalimba.png' shape='circle' />
                         <Link to='/login'>
                             <span className='flex flex-column justify-content-center align-items-center'>
                                 <i className='pi pi-user' style={{ fontSize: '1.2rem' }}></i>
