@@ -3,7 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/store/hooks';
 
 const ProfilePage = () => {
     const [name, setName] = useState('');
@@ -11,10 +12,17 @@ const ProfilePage = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const { userInfo } = useAppSelector((state) => state.auth);
+
     const updateHandler = (event) => {
         event.preventDefault();
         console.log(name, email, password, confirmPassword);
     };
+
+    useEffect(() => {
+        setName(userInfo.name);
+        setEmail(userInfo.email);
+    }, [userInfo.email, userInfo.name]);
 
     return (
         <section>

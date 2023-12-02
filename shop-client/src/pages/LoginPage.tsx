@@ -1,16 +1,30 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
+import { useLoginMutation } from '@/store/slices/usersApiSlice';
+import { useAppDispatch } from '@/store/hooks';
+import { setCredentials } from '@/store/slices/authSlice';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const loginHandler = (event) => {
+    const [login, { isLoading }] = useLoginMutation();
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const loginHandler = async (event) => {
         event.preventDefault();
-        console.log(password, email);
+        try {
+            const res = await login({ email, password }).unwrap();
+            dispatch(setCredentials({ ...res }));
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -39,7 +53,7 @@ const LoginPage = () => {
                             toggleMask
                         />
                     </div>
-                    <Button>Login</Button>
+                    <Button disabled={isLoading}>Login</Button>
                 </form>
 
                 <div className='py-3'>

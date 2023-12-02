@@ -7,30 +7,35 @@ interface User {
     email: string;
 }
 
+interface Login {
+    email: string;
+    password: string;
+}
+
 export const userApiSlice = apiSlice.injectEndpoints({
-    endpoints: (builder) => ({
-        getUsers: builder.query({
+    endpoints: (build) => ({
+        getUsers: build.query<User[], void>({
             query: () => ({
                 url: USERS_URL,
             }),
             providesTags: ['User'],
             keepUnusedDataFor: 5,
         }),
-        register: builder.mutation({
+        register: build.mutation({
             query: (user: User) => ({
                 url: `${USERS_URL}`,
                 method: 'POST',
                 body: user,
             }),
         }),
-        login: builder.mutation({
-            query: (user: User) => ({
+        login: build.mutation({
+            query: (user: Login) => ({
                 url: `${USERS_URL}/login`,
                 method: 'POST',
                 body: user,
             }),
         }),
-        logout: builder.mutation({
+        logout: build.mutation({
             query: () => ({
                 url: `${USERS_URL}/logout`,
                 method: 'POST',
@@ -39,4 +44,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery, useRegisterMutation } = userApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useGetUsersQuery } = userApiSlice;

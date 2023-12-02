@@ -3,12 +3,29 @@ import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '@/store/hooks';
-import { Dropdown } from 'primereact/dropdown';
+import { logout } from '@/store/slices/authSlice';
+import { useLogoutMutation } from '@/store/slices/usersApiSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 const Header = () => {
     const { userInfo } = useAppSelector((state) => state.auth);
+
+    const [logoutApiCall] = useLogoutMutation();
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap();
+
+            dispatch(logout());
+            navigate('/login');
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     return (
         <header className='px-8 py-3 p-menubar flex flex-nowrap justify-content-between'>
@@ -36,7 +53,12 @@ const Header = () => {
                         </span>
                     </Link>
                     {userInfo ? (
-                        <p>{userInfo.name}</p>
+                        <>
+                            <Link to='/profile'>
+                                <p>{userInfo.name}</p>
+                            </Link>
+                            <p onClick={logoutHandler}>Logout</p>
+                        </>
                     ) : (
                         // <Avatar image='/images/avatar/onyamalimba.png' shape='circle' />
                         <Link to='/login'>
