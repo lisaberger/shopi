@@ -6,7 +6,9 @@
     "main": "server.js",
     "scripts": {
         "start": "node shop-api/server",
-        "server": "nodemon shop-api/server"
+        "server": "nodemon shop-api/server",
+        "client": "npm run dev --prefix shop-client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
     },
     "keywords": [
         "eCommerce",
