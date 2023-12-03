@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 const connectDB = async () => {
     try {
@@ -26,5 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
 app.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`));

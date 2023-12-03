@@ -18,7 +18,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: USERS_URL,
             }),
-            providesTags: ['User'],
+            providesTags: ['Users'],
             keepUnusedDataFor: 5,
         }),
         register: build.mutation({
@@ -27,6 +27,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: user,
             }),
+            invalidatesTags: ['Users'],
         }),
         login: build.mutation({
             query: (user: Login) => ({
