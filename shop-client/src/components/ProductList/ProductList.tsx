@@ -1,10 +1,8 @@
 import { Canvas } from '@react-three/fiber';
-// import useRefs from 'react-use-refs';
-import { Suspense, createRef } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Gltf, Stage } from '@react-three/drei';
-import { useRef } from 'react';
 import styles from './ProductList.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
 
 interface Product {
@@ -20,13 +18,35 @@ interface Product {
 }
 
 export default function ProductList() {
-    const container = useRef();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchInput, setSearchInput] = useState('');
+    const [categories, setCategories] = useState('');
 
-    const { data: products, isLoading, error } = useGetProductsQuery();
+    const params = {};
+
+    searchParams.forEach((value, key) => {
+        params[key] = value;
+    });
+
+    useEffect(() => {
+        setSearchParams({
+            search: searchInput,
+            categories: 'Electronics',
+        });
+    }, [categories, searchInput, setSearchParams]);
+
+    const { data: products, isLoading, error } = useGetProductsQuery(params);
 
     return (
         <>
             <h1>Products</h1>
+            <input
+                type='text'
+                value={searchInput}
+                onChange={(e) => {
+                    setSearchInput(e.target.value);
+                }}
+            />
             <section className={styles.productList}>
                 <div className={styles.container}>
                     {products &&
@@ -47,49 +67,7 @@ export default function ProductList() {
                             );
                         })}
                 </div>
-                {/* <div className={styles.container} ref={container}>
-                    {products &&
-                        products.map((product, i) => {
-                            return (
-                                <Link key={i} to={'product/' + product.id}>
-                                    <article className={styles.card}>
-                                        <div ref={viewRefs[i]} className={styles.view} />
-                                        <p className={styles.card_title}>iPhone X</p>
-                                    </article>
-                                </Link>
-                            );
-                        })}
-
-                    <Canvas className={styles.canvas} eventSource={container}>
-                        {products &&
-                            viewRefs > 0 &&
-                            products.map((product, i) => {
-                                return (
-                                    <View key={i} index={1} track={viewRefs[i]}>
-                                        <ProductEnvironment />
-                                        <Bounds fit clip observe>
-                                            <Suspense fallback={null}>
-                                                <Gltf src={product.model} />
-                                            </Suspense>
-                                        </Bounds>
-                                    </View>
-                                );
-                            })}
-                    </Canvas>
-                </div> */}
             </section>
-        </>
-    );
-}
-
-function ProductEnvironment() {
-    return (
-        <>
-            <ambientLight intensity={1} />
-            <pointLight position={[20, 30, 10]} />
-            <pointLight position={[-10, -10, -10]} color='blue' />
-            <PerspectiveCamera makeDefault position={[-2.5, 0, 5]} fov={35} />
-            {/* <OrbitControls /> */}
         </>
     );
 }
