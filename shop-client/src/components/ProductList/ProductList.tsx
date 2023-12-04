@@ -47,6 +47,7 @@ export default function ProductList() {
                     setSearchInput(e.target.value);
                 }}
             />
+            {isLoading && <p>Products are loading ...</p>}
             <section className={styles.productList}>
                 <div className={styles.container}>
                     {products &&
