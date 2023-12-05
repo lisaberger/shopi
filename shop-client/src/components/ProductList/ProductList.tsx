@@ -1,63 +1,53 @@
-import { Canvas } from '@react-three/fiber';
-import { Suspense, useEffect, useState } from 'react';
-import { Gltf, Stage } from '@react-three/drei';
+import { useEffect, useState } from 'react';
 import styles from './ProductList.module.scss';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
 import { Product } from '@/utils/types/product.interface';
+import { Dropdown } from 'primereact/dropdown';
+import ProductCard from '../ProductCard/ProductCard';
 
 export default function ProductList() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [searchInput, setSearchInput] = useState('');
-    const [categories, setCategories] = useState('');
+    const [URLSearchParams, setURLSearchParams] = useSearchParams();
+    const [searchInput, setSearchInput] = useState<string>('');
+    const [category, setCategory] = useState<string>('');
 
-    const params = {};
-
-    searchParams.forEach((value, key) => {
-        params[key] = value;
-    });
+    const categoryOptions = ['Electronics', 'Shoes'];
 
     useEffect(() => {
-        setSearchParams({
+        setURLSearchParams({
             search: searchInput,
-            categories: 'Electronics',
+            category: category,
         });
-    }, [categories, searchInput, setSearchParams]);
+    }, [category, searchInput, setURLSearchParams]);
 
-    const { data: products, isLoading, error } = useGetProductsQuery(params);
+    const { data: products, isLoading, error } = useGetProductsQuery(URLSearchParams);
 
     return (
-        <>
-            <h1>Products</h1>
-            <input
-                type='text'
-                value={searchInput}
-                onChange={(e) => {
-                    setSearchInput(e.target.value);
-                }}
-            />
-            {isLoading && <p>Products are loading ...</p>}
-            <section className={styles.productList}>
-                <div className={styles.container}>
-                    {products &&
-                        products.map((product: Product) => {
-                            return (
-                                <Link key={product._id} to={'product/' + product._id}>
-                                    <article className={styles.card}>
-                                        <Canvas>
-                                            <Stage>
-                                                <Suspense fallback={null}>
-                                                    <Gltf src={product.model} />
-                                                </Suspense>
-                                            </Stage>
-                                        </Canvas>
-                                        <p className={styles.card_title}>{product.name}</p>
-                                    </article>
-                                </Link>
-                            );
-                        })}
+        <section className={styles.productList}>
+            <div className='grid'>
+                <div className='col-3'>
+                    <div>
+                        <h2>Filter</h2>
+                        <Dropdown
+                            id='category'
+                            options={categoryOptions}
+                            value={category}
+                            onChange={(e) => setCategory(e.value)}
+                            placeholder='Wähle eine Kategorie'
+                        />
+                    </div>
                 </div>
-            </section>
-        </>
+                <div className='col-7'>
+                    <h2>Produkte</h2>
+                    <div className='flex gap-3'>
+                        {isLoading && <p>Die Produkte werden geladen ...</p>}
+                        {products &&
+                            products.map((product: Product) => {
+                                return <ProductCard key={product._id} product={product} />;
+                            })}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
