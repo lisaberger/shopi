@@ -8,15 +8,18 @@
         "client": "npm run dev --prefix shop-client",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lisaberger/webshop.git"
+    },
     "keywords": [
-        "eCommerce",
+        "ecommerce",
         "three",
         "react-three-fiber",
         "xr"
     ],
     "author": "Lisa Berger",
     "license": "MIT",
-    "homepage": "https://github.com/lisaberger/webshop#readme",
     "devDependencies": {
         "concurrently": "^8.2.2"
     }

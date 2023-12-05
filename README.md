@@ -4,14 +4,45 @@
 
 **3D-Features** included:
 
--   Interactive 3D Product Views
--   AR-Product-Viewer
--   3D-Icons
+- Interactive 3D Product Views
+- AR-Product-Viewer
+- 3D-Icons
 
 ## Installation
 
-dev
+## Install
+
+Some basic Git commands are:
+
+```
+$ git clone https://github.com/lisaberger/webshop.git
+$ cd project
+$ npm install
+```
+## Start development
 
 ```bash
 npm run dev
 ```
+
+## Languages & tools
+
+### Backend
+
+- [Node](https://nodejs.org/en/)
+
+- [Express](https://expressjs.com/)
+
+- [Mongoose](https://mongoosejs.com/)
+
+### Frontend
+
+- [React](https://reactjs.org/)
+
+- [Primereact](https://primereact.org/)
+
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
+
+- [Drei](https://docs.pmnd.rs/drei/)
+
+- [Vite](https://vitejs.dev/)
