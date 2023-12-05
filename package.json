@@ -1,12 +1,10 @@
 {
     "name": "eshop",
     "version": "1.0.0",
-    "type": "module",
     "description": "Ecommerce application using 3D concepts build with MERN stack",
-    "main": "server.js",
+    "main": "shop-api/server.js",
     "scripts": {
-        "start": "node shop-api/server",
-        "server": "nodemon shop-api/server",
+        "server": "npm run dev --prefix shop-api",
         "client": "npm run dev --prefix shop-client",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
@@ -19,15 +17,7 @@
     "author": "Lisa Berger",
     "license": "MIT",
     "homepage": "https://github.com/lisaberger/webshop#readme",
-    "dependencies": {
-        "bcrypt": "^5.1.1",
-        "cookie-parser": "^1.4.6",
-        "dotenv": "^16.3.1",
-        "express": "^4.18.2",
-        "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.0.2"
-    },
     "devDependencies": {
-        "nodemon": "^3.0.1"
+        "concurrently": "^8.2.2"
     }
 }

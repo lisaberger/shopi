@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema(
             required: true,
             default: false,
         },
+        image: {
+            type: String,
+            required: false,
+        },
     },
     {
         timestamps: true,

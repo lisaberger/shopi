@@ -1,10 +1,12 @@
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import { Outlet } from 'react-router-dom';
+import Banner from '@/components/Banner';
 
 const RootPage = () => {
     return (
         <>
+            <Banner />
             <Header />
             <main className='px-8 py-4'>
                 <Outlet />

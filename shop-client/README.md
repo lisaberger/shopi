@@ -1,27 +1,29 @@
 # Shop-Client
 
-This is where the magic happens. With the assistance of the React Three Fiber library, 3D elements are integrated at different points and in various ways, creating a novel form of interaction.
+This is where the magic 🧙‍♂️ happens. With the assistance of the react three fiber library (r3f), 3D elements are integrated at different points and in various ways, creating a novel form of interaction.
 
-Currently, two official plugins are available:
+## Installation
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+dev
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
--   Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+npm run dev
 ```
 
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+build
+
+```bash
+npm run build
+```
+
+## Client Tech-Stack
+
+-   React + Vite + Typescript
+-   React Three Fiber
+-   Drei
+-   Model Viewer
+-   Eslint + Stylelint
+-   Primereact
+-   Primeflex
+-   Prettier
+-   Docker

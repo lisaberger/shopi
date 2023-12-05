@@ -1,8 +1,8 @@
 import { Carousel } from 'primereact/carousel';
 import { Button } from 'primereact/button';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Gltf, Stage, OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 
 interface CarouselItem {
     id: string;
@@ -23,7 +23,7 @@ const Teaser = () => {
                     <p className='mt-2'>{teaser.description}</p>
                     <Button className='mt-4' type='button' label='Mehr erfahren' icon='pi pi-bell' outlined />
                 </div>
-                <Canvas className='h-full' style={{ height: 'inherit' }}>
+                <Canvas style={{ height: 'inherit', position: 'absolute' }}>
                     <Stage adjustCamera intensity={0.5} shadows='contact' environment='city'>
                         <Gltf src={teaser.image} />
                     </Stage>

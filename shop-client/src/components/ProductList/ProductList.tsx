@@ -4,18 +4,7 @@ import { Gltf, Stage } from '@react-three/drei';
 import styles from './ProductList.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
-
-interface Product {
-    _id: string;
-    name: string;
-    model: string;
-    description: string;
-    brand: string;
-    category: string;
-    price: number;
-    countInStock: number;
-    rating: number;
-}
+import { Product } from '@/utils/types/product.interface';
 
 export default function ProductList() {
     const [searchParams, setSearchParams] = useSearchParams();
