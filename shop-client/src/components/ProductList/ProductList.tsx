@@ -5,29 +5,39 @@ import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
 import { Product } from '@/utils/types/product.interface';
 import { Dropdown } from 'primereact/dropdown';
 import ProductCard from '../ProductCard/ProductCard';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 
-export default function ProductList() {
+const ProductList = () => {
     const [URLSearchParams, setURLSearchParams] = useSearchParams();
-    const [searchInput, setSearchInput] = useState<string>('');
     const [category, setCategory] = useState<string>('');
+    const [search, setSearch] = useState<string>('');
 
     const categoryOptions = ['Electronics', 'Shoes'];
 
-    useEffect(() => {
-        setURLSearchParams({
-            search: searchInput,
-            category: category,
-        });
-    }, [category, searchInput, setURLSearchParams]);
+    const { searchInput } = useAppSelector((state) => state.filter);
 
-    const { data: products, isLoading, error } = useGetProductsQuery(URLSearchParams);
+    console.log(URLSearchParams);
+
+    useEffect(() => {
+        setSearch(searchInput);
+
+        setURLSearchParams({
+            search,
+            category,
+        });
+    }, [category, search, searchInput, setURLSearchParams]);
+
+    const { data: products, isLoading, error } = useGetProductsQuery({ search, category });
+
+    const productTemplate = (product) => <ProductCard product={product} />;
 
     return (
-        <section className={styles.productList}>
-            <div className='grid'>
-                <div className='col-3'>
-                    <div>
-                        <h2>Filter</h2>
+        <section>
+            <div className='grid gap-5'>
+                <div className='col-2'>
+                    <h2>Filter</h2>
+                    <div className='p-2'>
                         <Dropdown
                             id='category'
                             options={categoryOptions}
@@ -37,17 +47,13 @@ export default function ProductList() {
                         />
                     </div>
                 </div>
-                <div className='col-7'>
+                <div className='col'>
                     <h2>Produkte</h2>
-                    <div className='flex gap-3'>
-                        {isLoading && <p>Die Produkte werden geladen ...</p>}
-                        {products &&
-                            products.map((product: Product) => {
-                                return <ProductCard key={product._id} product={product} />;
-                            })}
-                    </div>
+                    <DataView value={products} itemTemplate={productTemplate} />
                 </div>
             </div>
         </section>
     );
-}
+};
+
+export default ProductList;
