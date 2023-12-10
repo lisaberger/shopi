@@ -33,14 +33,13 @@ const ProductPage = () => {
                             </Stage>
                         </Canvas>
                     </div>
-                    <div className='col-3'>
+                    <div className='col-6'>
                         <h1>{product.name}</h1>
                         <Rating value={product.rating} onChange={(e) => setRating(e.value)} />
                         <span className='text-xs'>{product.numRatings} reviews</span>
                         <p>Preis: € {product.price}</p>
                         <p>{product.description}</p>
-                    </div>
-                    <div className='col-3'>
+
                         <Card>
                             <p>Preis:</p>
                             <p>
