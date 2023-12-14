@@ -5,7 +5,7 @@ import { logout } from '@/store/slices/authSlice';
 import { useLogoutMutation } from '@/store/slices/usersApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import Searchbar from '../Searchbar';
+import Searchbar from '@/components/Searchbar/Searchbar';
 
 const Header = () => {
     const { userInfo } = useAppSelector((state) => state.auth);

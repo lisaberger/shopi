@@ -1,6 +1,6 @@
 import { Carousel } from 'primereact/carousel';
 import { Button } from 'primereact/button';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Gltf, Stage, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import styles from './Teaser.module.scss';
@@ -26,9 +26,17 @@ const Teaser = () => {
                         <Button className='mt-4' type='button' label='Mehr erfahren' icon='pi pi-bell' outlined />
                     </div>
                     <Canvas style={{ height: '500px', width: '500px' }}>
-                        <Stage adjustCamera intensity={0.5} shadows='contact' environment='city'>
-                            <Gltf src={teaser.image} />
-                        </Stage>
+                        <Suspense
+                            fallback={
+                                <Stage>
+                                    <Gltf src='./macbook-low-poly.glb' />
+                                </Stage>
+                            }
+                        >
+                            <Stage adjustCamera intensity={0.5} shadows='contact' environment='city'>
+                                <Gltf src={teaser.image} />
+                            </Stage>
+                        </Suspense>
                         <OrbitControls />
                     </Canvas>
                 </article>

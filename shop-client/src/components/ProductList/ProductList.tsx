@@ -17,8 +17,6 @@ const ProductList = () => {
 
     const { searchInput } = useAppSelector((state) => state.filter);
 
-    console.log(URLSearchParams);
-
     useEffect(() => {
         setSearch(searchInput);
 
