@@ -1,24 +1,24 @@
-const Banner = (props) => {
+import React from 'react';
+
+interface Banner {
+    onCloseBanner: () => void;
+}
+
+const Banner: React.FC<Banner> = (props) => {
     const onCloseHandler = () => {
-        props.onCloseBanner(false);
+        props.onCloseBanner();
     };
 
     return (
-        <div className='bg-bluegray-900 text-xs text-gray-100 py-2 px-8 flex justify-content-between lg:justify-content-center align-items-center flex-wrap'>
-            <div className='font-semibold mr-8'>🔥 Black Friday!</div>
-            <div className='align-items-center hidden lg:flex'>
-                <span className='line-height-3'>Sichere dir die neusten Angebote.</span>
+        <div className='bg-primary-500'>
+            <div className='flex text-xs text-bg-bluegray-900 py-2 px-4 md:px-8 flex flex-row justify-content-between align-items-center'>
+                <div></div>
+                <div className='flex'>
+                    <p className='font-semibold'>🔥 Black Friday!</p>
+                    <p className='pl-2 pr-8 align-items-center hidden md:block'>Jetzt tolle Angebote sichern.</p>
+                </div>
+                <i className='px-2 pi pi-times cursor-pointer' onClick={onCloseHandler} />
             </div>
-            <a className='flex align-items-center ml-2 mr-8'>
-                <span className='underline font-bold'>Mehr dazu</span>
-            </a>
-            <a
-                onClick={onCloseHandler}
-                className='flex align-items-center no-underline justify-content-center border-circle text-100 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150'
-                style={{ width: '1rem', height: '1rem' }}
-            >
-                <i className='pi pi-times'></i>
-            </a>
         </div>
     );
 };

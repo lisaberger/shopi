@@ -7,18 +7,18 @@ import { useState } from 'react';
 const RootPage = () => {
     const [banner, setBanner] = useState(true);
 
-    const closeBannerHandler = (event) => {
-        setBanner(event);
+    const closeBannerHandler = () => {
+        setBanner(false);
     };
 
     return (
         <>
             {banner && <Banner onCloseBanner={closeBannerHandler} />}
             <Header />
-            <main>
+            {/* <main>
                 <Outlet />
             </main>
-            <Footer />
+            <Footer /> */}
         </>
     );
 };
