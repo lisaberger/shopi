@@ -15,10 +15,10 @@ const RootPage = () => {
         <>
             {banner && <Banner onCloseBanner={closeBannerHandler} />}
             <Header />
-            {/* <main>
+            <main>
                 <Outlet />
             </main>
-            <Footer /> */}
+            <Footer />
         </>
     );
 };

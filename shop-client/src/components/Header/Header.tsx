@@ -1,11 +1,24 @@
-import logo from '@/assets/logo/logo-wortbild-marke.svg';
 import { Badge } from 'primereact/badge';
-import { Avatar } from 'primereact/avatar';
 import { logout } from '@/store/slices/authSlice';
 import { useLogoutMutation } from '@/store/slices/usersApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import Searchbar from '@/components/Searchbar/Searchbar';
+import logo from '@/assets/logo/logo-bild-marke.svg';
+import styles from './Header.module.scss';
+import { useState } from 'react';
+import { Button } from 'primereact/button';
+
+const Logo = () => {
+    return (
+        <Link to='/'>
+            <div className='flex align-items-center'>
+                <img alt='logo' src={logo} className={styles.logo} />
+                <p className='pl-1 text-xl font-semibold hidden md:block'>shopi</p>
+            </div>
+        </Link>
+    );
+};
 
 const Header = () => {
     const { userInfo } = useAppSelector((state) => state.auth);
@@ -26,46 +39,64 @@ const Header = () => {
         }
     };
 
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
+
+    const toggleHeaderHandler = () => {
+        setIsNavExpanded(!isNavExpanded);
+    };
+
+    const closeHeaderOnNavigationHandler = () => {
+        setIsNavExpanded(false);
+    };
+
+    const expanded = isNavExpanded ? styles.expanded : '';
+
+    const menuButton = !isNavExpanded ? (
+        <Button icon='pi pi-bars' severity='secondary' text className='md:hidden cursor-pointer' onClick={toggleHeaderHandler} />
+    ) : (
+        <Button icon='pi pi-times' severity='secondary' text className='md:hidden cursor-pointer' onClick={toggleHeaderHandler} />
+    );
+
     return (
-        <header className='px-8 py-2 p-menubar flex flex-nowrap justify-content-between'>
-            <Link to='/'>
-                <img alt='logo' src={logo} style={{ height: '2rem' }} className='mr-3' />
-            </Link>
-            <Searchbar />
-            <span className='flex align-items-center flex-nowrap'>
-                <span className='flex flex-nowrap gap-3 align-items-center'>
-                    <Link to='/'>
-                        <span className='flex flex-column justify-content-center align-items-center'>
-                            <i className='pi pi-shopping-cart p-overlay-badge' style={{ fontSize: '1rem' }}>
-                                <Badge value='1' />
-                            </i>
-                            <p className='text-xs'>Warenkorb</p>
-                        </span>
-                    </Link>
-                    <Link to='/'>
-                        <span className='flex flex-column justify-content-center align-items-center'>
-                            <i className='pi pi-heart' style={{ fontSize: '1rem' }}></i>
-                            <p className='text-xs'>Merkliste</p>
-                        </span>
-                    </Link>
-                    {userInfo ? (
-                        <>
-                            <Link to='/profile'>
-                                <p>{userInfo.name}</p>
+        <header className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative`}>
+            <nav className='flex justify-content-between w-full align-items-center'>
+                <Logo />
+                <Searchbar />
+                {menuButton}
+                <div className={`${styles.menu} ${expanded}`}>
+                    <ul className={styles.list}>
+                        <li>
+                            <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                <i className={`${styles.icon} pi pi-shopping-cart p-overlay-badge`}>
+                                    <Badge value='1' />
+                                </i>
+                                <p>Warenkorb</p>
                             </Link>
-                            <p onClick={logoutHandler}>Logout</p>
-                        </>
-                    ) : (
-                        // <Avatar image='/images/avatar/onyamalimba.png' shape='circle' />
-                        <Link to='/login'>
-                            <span className='flex flex-column justify-content-center align-items-center'>
-                                <i className='pi pi-user' style={{ fontSize: '1rem' }}></i>
-                                <p className='text-xs'>Login</p>
-                            </span>
-                        </Link>
-                    )}
-                </span>
-            </span>
+                        </li>
+                        <li>
+                            <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                <i className={`${styles.icon} pi pi-heart`} />
+                                <p>Merkliste</p>
+                            </Link>
+                        </li>
+                        {userInfo ? (
+                            <li>
+                                <Link to='/profile'>
+                                    <p>{userInfo.name}</p>
+                                </Link>
+                                <p onClick={logoutHandler}>Logout</p>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link to='/login' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                    <i className={`${styles.icon} pi pi-user`} />
+                                    <p>Login</p>
+                                </Link>
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            </nav>
         </header>
     );
 };
