@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Stage } from '@react-three/drei';
 import AnimatedGltfModel from '../AnimatedProductModel';
-import { Button } from 'primereact/button';
 
 const ProductCard = ({ product }) => {
     return (

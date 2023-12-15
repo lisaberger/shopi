@@ -38,8 +38,6 @@ const ProductList = () => {
 
     const { data: products, isLoading, error } = useGetProductsQuery({ search, ...selectedCategories });
 
-    const productTemplate = (product) => <ProductCard product={product} />;
-
     const onCategoryChange = (e: CheckboxChangeEvent) => {
         let _selectedCategories = [...selectedCategories];
 
@@ -48,6 +46,8 @@ const ProductList = () => {
 
         setSelectedCategories(_selectedCategories);
     };
+
+    const productTemplate = (product) => <ProductCard product={product} />;
 
     return (
         <section>
