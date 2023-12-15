@@ -17,7 +17,7 @@ const Banner: React.FC<Banner> = (props) => {
                     <p className='font-semibold'>🔥 Black Friday!</p>
                     <p className='pl-2 pr-8 align-items-center hidden md:block'>Jetzt tolle Angebote sichern.</p>
                 </div>
-                <i className='pl-2 pi pi-times cursor-pointer' onClick={onCloseHandler} />
+                <i className='pl-2 px-2 pi pi-times cursor-pointer' onClick={onCloseHandler} />
             </div>
         </div>
     );

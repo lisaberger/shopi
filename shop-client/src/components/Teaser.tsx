@@ -19,26 +19,29 @@ const Teaser = () => {
     const teaserTemplate = (teaser: CarouselItem) => {
         return (
             <>
-                <article className='flex align-items-center m-2 py-3 mb-6 px-5 h-20rem'>
-                    <div className='max-w-26rem'>
+                <article className='flex flex-column justifty-content-center pt-3 px-2 md:px-8 md:flex-row  md:pt-4'>
+                    <div className='md:w-6'>
                         <h1 className='text-5xl font-semibold'>{teaser.title}</h1>
                         <p className='mt-2'>{teaser.description}</p>
                         <Button className='mt-4' type='button' label='Mehr erfahren' icon='pi pi-bell' outlined />
                     </div>
-                    <Canvas style={{ height: '500px', width: '500px' }}>
-                        <Suspense
-                            fallback={
-                                <Stage>
-                                    <Gltf src='./macbook-low-poly.glb' />
+
+                    <div className={`${styles.canvas} relative flex justify-content-center`} style={{ touchAction: 'none' }}>
+                        <Canvas>
+                            <Suspense
+                                fallback={
+                                    <Stage>
+                                        <Gltf src='./macbook-low-poly.glb' />
+                                    </Stage>
+                                }
+                            >
+                                <Stage adjustCamera={true}>
+                                    <Gltf src={teaser.image} />
                                 </Stage>
-                            }
-                        >
-                            <Stage adjustCamera intensity={0.5} shadows='contact' environment='city'>
-                                <Gltf src={teaser.image} />
-                            </Stage>
-                        </Suspense>
-                        <OrbitControls />
-                    </Canvas>
+                            </Suspense>
+                            <OrbitControls enableDamping enablePan={false} />
+                        </Canvas>
+                    </div>
                 </article>
             </>
         );
@@ -49,16 +52,11 @@ const Teaser = () => {
     }, []);
 
     return (
-        <section className={`${styles.teaser} px-8 pt-3 mb-8 text-white`}>
-            <Carousel
-                autoplayInterval={8000}
-                className='custom-carousel'
-                circular
-                value={productTeaser}
-                numVisible={1}
-                numScroll={1}
-                itemTemplate={teaserTemplate}
-            />
+        <section className='relative'>
+            <div className={`${styles.teaser} absolute`} />
+            <div className='px-4 md:px-8 pt-3 md:mb-8 text-white'>
+                <Carousel value={productTeaser} numVisible={1} numScroll={1} itemTemplate={teaserTemplate} />
+            </div>
         </section>
     );
 };
