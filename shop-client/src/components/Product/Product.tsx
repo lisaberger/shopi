@@ -104,7 +104,7 @@ const Product: React.FC = () => {
             <article className='h-full' style={{ position: 'relative' }}>
                 <model-viewer
                     className={styles.modelViewer}
-                    src='/bust-hi.glb'
+                    src='/api/media/bust-hi.glb'
                     alt='Eine Interaktive Statuen-Grafik'
                     camera-controls
                     auto-rotate

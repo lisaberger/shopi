@@ -28,13 +28,13 @@ const ProductPage = () => {
                 {product && (
                     <section className='grid mt-5' style={{ height: '80vh' }}>
                         <div className='col-6 h-full'>
-                            <Canvas>
+                            {/* <Canvas>
                                 <Stage>
                                     <OrbitControls />
                                     <Gltf src={product.model} />
                                 </Stage>
-                            </Canvas>
-                            {/* <Product /> */}
+                            </Canvas> */}
+                            <Product />
                         </div>
                         <div className='col-6'>
                             <h1>{product.name}</h1>
