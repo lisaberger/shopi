@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Gltf, Stage } from '@react-three/drei';
 import AnimatedGltfModel from '../AnimatedProductModel';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
 
 const ProductCard = ({ product }) => {
     return (
@@ -19,7 +17,7 @@ const ProductCard = ({ product }) => {
                 </div>
                 <Link to={`/product/${product._id}`}>
                     <div className='flex flex-column align-items-center gap-3 py-4'>
-                        <Canvas className='flex-grow-1'>
+                        <Canvas>
                             <Stage>
                                 <Suspense fallback={null}>
                                     {
@@ -31,11 +29,10 @@ const ProductCard = ({ product }) => {
                         </Canvas>
                     </div>
                 </Link>
-                <h3 className='py-2 text-s font-semibold'>{product.name}</h3>
-                <Rating value={3.5} readOnly cancel={false}></Rating>
+                <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
                 <div className='flex align-items-center justify-content-between'>
-                    <span className='text-l font-semibold'>$12</span>
-                    <Button severity='secondary' icon='pi pi-shopping-cart'></Button>
+                    <span className='text-base'>$12</span>
+                    <i className='pi pi-shopping-cart'></i>
                 </div>
             </div>
         </div>
