@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
-import { Stage } from '@react-three/drei';
+import { Gltf, Stage } from '@react-three/drei';
 import AnimatedGltfModel from '../AnimatedProductModel';
 import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
@@ -22,7 +22,10 @@ const ProductCard = ({ product }) => {
                         <Canvas className='flex-grow-1'>
                             <Stage>
                                 <Suspense fallback={null}>
-                                    <AnimatedGltfModel model={product.model} />
+                                    {
+                                        <Gltf src={product.model} />
+                                        /* <AnimatedGltfModel model={product.model} /> */
+                                    }
                                 </Suspense>
                             </Stage>
                         </Canvas>

@@ -29,7 +29,7 @@ const Teaser = () => {
                         <Suspense
                             fallback={
                                 <Stage>
-                                    <Gltf src='./macbook-low-poly.glb' />
+                                    <Gltf src='/api/media/macbook-low-poly.glb' />
                                 </Stage>
                             }
                         >
@@ -73,21 +73,21 @@ export const ProductService = {
                 name: 'iphone',
                 title: 'Entdecke das neue iPhone.',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: './iphone.gltf',
+                image: '/api/media/iphone.gltf',
             },
             {
                 id: '2',
                 name: 'macbook',
                 title: 'Entdecke das neue Macbook.',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: './macbook.gltf',
+                image: '/api/media/macbook.gltf',
             },
             {
                 id: '3',
                 name: 'headphones',
                 title: 'Entdecke die neuen Headphones.',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: './headphones.gltf',
+                image: '/api/media/headphones.gltf',
             },
         ];
     },
