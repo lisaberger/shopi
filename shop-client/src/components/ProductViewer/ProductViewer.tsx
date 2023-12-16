@@ -119,7 +119,7 @@ const ProductViewer = ({ product }) => {
             <article className='h-full relative'>
                 <model-viewer
                     className={styles.modelViewer}
-                    src='/cabinet.glb'
+                    src='/api/media/cabinet.glb'
                     alt='Eine Interaktive Statuen-Grafik'
                     camera-controls
                     ar
