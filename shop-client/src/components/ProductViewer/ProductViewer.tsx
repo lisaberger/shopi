@@ -36,7 +36,12 @@ interface ModelViewerJSX {
 
 const initalAnnotations = ['1 0 24 25 26 0.416 0.028 0.556'];
 
-const ProductViewer = () => {
+const annotationsInit = [
+    { surface: '1 0 24 25 26 0.416 0.028 0.556', title: 'Text', description: 'Ein schöner Text' },
+    { surface: '5 0 20 21 22 0.543 0.369 0.088', title: 'Text-1', description: 'NOch besser' },
+];
+
+const ProductViewer = ({ product }) => {
     const modelRef = useRef<ModelViewerElement>();
     const [annotations, setAnnotations] = useState([]);
     const [variants, setVariants] = useState([]);
@@ -48,6 +53,8 @@ const ProductViewer = () => {
     //     if (modelRef.current) {
     //         const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
 
+    //         console.log(hit);
+
     //         if (hit) {
     //             setAnnotations((previousAnnotations) => [...previousAnnotations, hit]);
     //         }
@@ -55,8 +62,8 @@ const ProductViewer = () => {
     // };
 
     useEffect(() => {
-        if (modelRef.current?.availableVariants) {
-            setAnnotations(initalAnnotations);
+        if (modelRef.current) {
+            setAnnotations(annotationsInit);
         }
     }, []);
 
@@ -130,7 +137,7 @@ const ProductViewer = () => {
                             data-visibility-attribute='visible'
                         >
                             {index + 1}
-                            <div className={`${styles.HotspotAnnotation} ${visible ? styles.visible : styles.hidden}`}>test</div>
+                            <div className={`${styles.HotspotAnnotation} ${visible ? styles.visible : styles.hidden}`}>{annotation.description}</div>
                         </button>
                     ))}
 

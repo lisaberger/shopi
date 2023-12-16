@@ -19,9 +19,9 @@ const ProductPage = () => {
                     <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
                 {product && (
-                    <section className='grid mt-2'>
+                    <section className='grid mt-2 text-color'>
                         <div className='col-12 md:col-6 h-full'>
-                            <ProductViewer />
+                            <ProductViewer product={product.model} />
                         </div>
                         <div className='col-12 md:col-6'>
                             <div className='flex align-items-center text-primary pb-1'>
