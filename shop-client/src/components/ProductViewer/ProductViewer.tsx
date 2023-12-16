@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import '@google/model-viewer/dist/model-viewer';
-import styles from './Product.module.scss';
+import styles from './ProductViewer.module.scss';
 import { ModelViewerElement } from '@google/model-viewer/dist/model-viewer';
+import { Button } from 'primereact/button';
+import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 
 declare global {
     namespace JSX {
@@ -34,7 +36,7 @@ interface ModelViewerJSX {
 
 const initalAnnotations = ['1 0 24 25 26 0.416 0.028 0.556'];
 
-const Product: React.FC = () => {
+const ProductViewer = () => {
     const modelRef = useRef<ModelViewerElement>();
     const [annotations, setAnnotations] = useState([]);
     const [variants, setVariants] = useState([]);
@@ -63,23 +65,16 @@ const Product: React.FC = () => {
         setAnimations([...modelRef.current.availableAnimations]);
     });
 
-    const handleVariantChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleVariantChange = (event: DropdownChangeEvent) => {
         if (modelRef.current) {
             modelRef.current.variantName = event.target.value === 'default' ? null : event.target.value;
         }
     };
 
-    const handleAnimationChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleAnimationChange = (event: DropdownChangeEvent) => {
         if (modelRef.current) {
             modelRef.current.animationName = event.target.value;
         }
-    };
-
-    const stopAnimationHandler = () => {
-        modelRef.current?.pause();
-    };
-    const startAnimationHandler = () => {
-        modelRef.current?.play();
     };
 
     const [visible, setVisible] = useState(false);
@@ -89,25 +84,37 @@ const Product: React.FC = () => {
         setVisible(!visible);
     };
 
-    const handleCloseOverlay = () => {
-        setIsActive(false);
-    };
-
     const handleOpenOverlay = () => {
         setIsActive(true);
     };
 
-    const qrValue = window.location.href;
+    const handleCloseOverlay = () => {
+        setIsActive(false);
+    };
+
+    const [animationIsRunning, setAnimationIsRunning] = useState(false);
+    const animationIcon = animationIsRunning ? 'pi pi-pause' : 'pi pi-play';
+
+    const handleAnimation = () => {
+        if (modelRef.current) {
+            if (modelRef.current.paused) {
+                modelRef.current.play();
+                setAnimationIsRunning(true);
+            } else {
+                modelRef.current.pause();
+                setAnimationIsRunning(false);
+            }
+        }
+    };
 
     return (
         <>
-            <article className='h-full' style={{ position: 'relative' }}>
+            <article className='h-full relative'>
                 <model-viewer
                     className={styles.modelViewer}
-                    src='/bust-hi.glb'
+                    src='/cabinet.glb'
                     alt='Eine Interaktive Statuen-Grafik'
                     camera-controls
-                    auto-rotate
                     ar
                     ar-modes='webxr scene-viewer quick-look'
                     // onClick={handleCreateAnnotation}
@@ -127,59 +134,64 @@ const Product: React.FC = () => {
                         </button>
                     ))}
 
-                    {variants.length > 0 && (
-                        <div>
-                            <select id='variant' onChange={handleVariantChange}>
-                                <option>Farbvarianten</option>
-                                {variants.map((variant, index) => (
-                                    <option key={index} value={variant}>
-                                        {variant}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                    <div className='flex p-2 gap-2'>
+                        {variants.length > 0 && (
+                            <Dropdown value={variants} options={variants} onChange={handleVariantChange} placeholder='Varianten' />
+                        )}
 
-                    {animations.length > 0 && (
-                        <div>
-                            <select id='variant' onChange={handleAnimationChange}>
-                                <option>Animationen</option>
-                                {animations.map((animation, index) => (
-                                    <option key={index} value={animation}>
-                                        {animation}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                        {animations.length > 0 && (
+                            <div>
+                                <Dropdown value={animations} options={animations} onChange={handleAnimationChange} placeholder='Animationen' />
+                                <Button icon={animationIcon} onClick={handleAnimation} />
+                            </div>
+                        )}
+                    </div>
 
                     <div className='progress-bar hide' slot='progress-bar'>
                         <div className='update-bar'></div>
                     </div>
-
-                    <button onClick={stopAnimationHandler}>Stop Animation</button>
-                    <button onClick={startAnimationHandler}>Start Animation</button>
                 </model-viewer>
 
-                <button onClick={handleOpenOverlay}>
-                    <i className='pi pi-box'></i>
-                </button>
+                <Button
+                    className='hidden md:block mx-auto'
+                    severity='secondary'
+                    rounded
+                    text
+                    label='In AR betrachten'
+                    icon='pi pi-box'
+                    onClick={handleOpenOverlay}
+                />
 
-                {isActive && (
-                    <div style={{ zIndex: 100, position: 'absolute', width: '100%', height: '100%', backgroundColor: '#1C1B1FF2', top: 0 }}>
-                        <i onClick={handleCloseOverlay} className='pi pi-times'></i>
-                        <h3>Augmented Reality ist nur auf Smartphones und Tablets möglich!</h3>
-                        <p>Unterstützte Geräte: iPhone 6S+ & iPad 5+ on iOS 12+ und Android 8.0+ mit ARCore 1.9 support</p>
-                        <div>
-                            <QRCode className='qr-code' size={256} value={qrValue} viewBox={`0 0 256 256`} />
-                        </div>
-                        <p>Über QR-Code öffnen:</p>
-                        <p>Scanne den QR-Code, um das Produkt auf deinem Gerät zu öffnen. Klicke dann auf den AR-Button</p>
-                    </div>
-                )}
+                {isActive && <Overlay onClose={handleCloseOverlay} />}
             </article>
         </>
     );
 };
 
-export default Product;
+const Overlay = ({ onClose }) => {
+    const qrValue = window.location.href;
+
+    return (
+        <div className='bg-black-alpha-90 absolute top-0 text-sm w-full p-4 pb-8'>
+            {/* <div style={{ zIndex: 100, position: 'absolute', width: '100%', height: '100%', backgroundColor: '#1C1B1FF2', top: 0 }}> */}
+            <div className='mb-4 '>
+                <Button size='small' label='schließen' rounded text icon='pi pi-times' onClick={() => onClose()} />
+            </div>
+            <div className='flex flex-column align-items-center text-white gap-4 text-center'>
+                <div>
+                    <h3>Augmented Reality ist nur auf Smartphones und Tablets möglich!</h3>
+                    <p className='text-xs text-500'>Unterstützte Geräte: iPhone 6S+ & iPad 5+ on iOS 12+ und Android 8.0+ mit ARCore 1.9 support</p>
+                </div>
+                <div className='qr-code flex-shrink-0 bg-white p-2 h-auto max-w-12rem'>
+                    <QRCode className='w-full h-auto max-w-full' size={256} value={qrValue} viewBox={`0 0 256 256`} />
+                </div>
+                <div>
+                    <h3>Über QR-Code öffnen:</h3>
+                    <p className='text-xs text-500'>Scanne den QR-Code, um das Produkt auf deinem Gerät zu öffnen. Klicke dann auf den AR-Button</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ProductViewer;

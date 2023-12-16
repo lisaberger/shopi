@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className='px-8 py-3'>
             <div className='flex justify-content-center'>
-                <p className='text-xs'>eShop &copy; {currentYear}</p>
+                <p className='text-xs'>shopi &copy; {currentYear}</p>
             </div>
         </footer>
     );

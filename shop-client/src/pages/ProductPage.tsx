@@ -1,70 +1,56 @@
-import { Gltf, OrbitControls, Stage } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
 import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Card } from 'primereact/card';
 import { Link, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
-import Product from '@/components/Product/Product';
+import ProductViewer from '@/components/ProductViewer/ProductViewer';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
 
-    const { data: product, isLoading, error } = useGetProductByIdQuery(productId);
+    const { data: product, isLoading, error } = useGetProductByIdQuery(productId ? productId : '');
 
     const [qty, setQty] = useState(1);
-    const [rating, setRating] = useState(0);
 
     return (
         <>
-            <section className='px-8 py-5'>
+            <section className='px-4 md:px-8 py-4'>
                 <Link to='/'>
-                    <Button severity='secondary' outlined>
-                        Zurück
-                    </Button>
+                    <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
                 {product && (
-                    <section className='grid mt-5' style={{ height: '80vh' }}>
-                        <div className='col-6 h-full'>
-                            {/* <Canvas>
-                            <Stage>
-                                <OrbitControls />
-                                <Gltf src={product.model} />
-                            </Stage>
-                        </Canvas> */}
-                            <Product />
+                    <section className='grid mt-2'>
+                        <div className='col-12 md:col-6 h-full'>
+                            <ProductViewer />
                         </div>
-                        <div className='col-6'>
-                            <h1>{product.name}</h1>
-                            <Rating value={product.rating} onChange={(e) => setRating(e.value)} />
-                            <span className='text-xs'>{product.numRatings} reviews</span>
-                            <p>Preis: € {product.price}</p>
+                        <div className='col-12 md:col-6'>
+                            <div className='flex align-items-center text-primary pb-1'>
+                                <i className='font-semibold pi pi-tag pr-2' />
+                                <p className='font-semibold'>{product.category}</p>
+                            </div>
+                            <h1 className='font-bold text-3xl pb-2'>{product.name}</h1>
+                            {product.countInStock ? (
+                                <span className='text-green-300 text-sm'>
+                                    <i className='pi pi-check pr-2 text-sm' />
+                                    Verfügbar
+                                </span>
+                            ) : (
+                                <span className='text-red-300 text-sm'>Aktuell nicht verfügbar</span>
+                            )}
+                            <p className='text-lg font-semibold pt-4 pb-2'>Preis: € {product.price}</p>
+
                             <p>{product.description}</p>
-
-                            <Card>
-                                <p>Preis:</p>
-                                <p>
-                                    <strong>{product.price}</strong>
-                                </p>
-                                <p>Status:</p>
-                                {product.countInStock ? 'Verfügbar' : 'Aktuell nicht verfügbar'}
-
-                                {/* {Qty Select} */}
-                                <div>
-                                    <p>Menge:</p>
-                                    {product.countInStock > 0 && (
-                                        <Dropdown
-                                            value={qty}
-                                            onChange={(e) => setQty(e.value)}
-                                            options={[...Array(product.countInStock).keys()].map((x) => x + 1)}
-                                        />
-                                    )}
-                                </div>
-
-                                <Button>Zum Warenkorb hinzufügen</Button>
-                            </Card>
+                            <div className='pt-4'>
+                                {product.countInStock > 0 && (
+                                    <Dropdown
+                                        value={qty}
+                                        onChange={(e) => setQty(e.value)}
+                                        options={[...Array(product.countInStock).keys()].map((x) => x + 1)}
+                                        placeholder='Menge'
+                                    />
+                                )}
+                                <Button className='text-color ml-2' label='Zum Warenkorb hinzufügen' />
+                            </div>
                         </div>
                     </section>
                 )}
