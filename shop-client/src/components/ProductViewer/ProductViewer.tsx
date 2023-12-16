@@ -61,6 +61,8 @@ const ProductViewer = ({ product }) => {
     //     }
     // };
 
+    console.log(product);
+
     useEffect(() => {
         if (modelRef.current) {
             setAnnotations(annotationsInit);
@@ -119,7 +121,7 @@ const ProductViewer = ({ product }) => {
             <article className='h-full relative'>
                 <model-viewer
                     className={styles.modelViewer}
-                    src='/api/media/cabinet.glb'
+                    src='/api/media/bust-hi.glb'
                     alt='Eine Interaktive Statuen-Grafik'
                     camera-controls
                     ar
@@ -180,7 +182,6 @@ const Overlay = ({ onClose }) => {
 
     return (
         <div className='bg-black-alpha-90 absolute top-0 text-sm w-full p-4 pb-8'>
-            {/* <div style={{ zIndex: 100, position: 'absolute', width: '100%', height: '100%', backgroundColor: '#1C1B1FF2', top: 0 }}> */}
             <div className='mb-4 '>
                 <Button size='small' label='schließen' rounded text icon='pi pi-times' onClick={() => onClose()} />
             </div>

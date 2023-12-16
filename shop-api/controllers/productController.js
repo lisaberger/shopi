@@ -1,3 +1,4 @@
+import Annotation from '../models/annotationModel.js';
 import Product from '../models/productModel.js';
 
 // const getProducts = async (req, res) => {
@@ -26,7 +27,7 @@ const getProducts = async (req, res) => {
     }
 
     try {
-        const products = await Product.find(query).sort(sort).skip(skip).limit(parseInt(limit));
+        const products = await Product.find(query).sort(sort).skip(skip).limit(parseInt(limit)).populate('annotations');
         console.log(products);
 
         res.json(products);
@@ -36,7 +37,7 @@ const getProducts = async (req, res) => {
 };
 
 const getProductById = async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('annotations');
 
     if (product) {
         return res.json(product);

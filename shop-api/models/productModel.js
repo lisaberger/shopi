@@ -15,6 +15,13 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        annotations: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true,
+                ref: 'Annotation',
+            },
+        ],
         brand: {
             type: String,
             required: true,
