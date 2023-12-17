@@ -6,7 +6,7 @@ import QRCode from 'react-qr-code';
 import { Button } from 'primereact/button';
 import { Annotation } from '@/utils/types/annotation.interface.ts';
 
-import styles from './ProductViewer.module.scss';
+import styles from './ProductARViewer.module.scss';
 
 declare global {
     namespace JSX {
@@ -34,13 +34,13 @@ interface ModelViewerJSX {
     alt?: string;
 }
 
-interface ProductViewerProps {
+interface ProductARViewerProps {
     model: string;
     annotations: Annotation[];
     name: string;
 }
 
-const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name }) => {
+const ProductARViewer: React.FC<ProductARViewerProps> = ({ model, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
     const [variants, setVariants] = useState<string[]>([]);
     const [animations, setAnimations] = useState<string[]>([]);
@@ -235,4 +235,4 @@ const Overlay = ({ onClose }) => {
     );
 };
 
-export default ProductViewer;
+export default ProductARViewer;

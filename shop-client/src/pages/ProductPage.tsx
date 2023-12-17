@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
-import ProductViewer from '@/components/ProductViewer/ProductViewer';
+import ProductARViewer from '@/components/ProductARViewer/ProductARViewer';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
@@ -23,7 +23,7 @@ const ProductPage = () => {
                 {product && (
                     <section className='grid mt-2 text-color'>
                         <div className='col-12 md:col-6 h-full bg-surface-50'>
-                            <ProductViewer model={product.model} name={product.name} annotations={product.annotations} />
+                            <ProductARViewer model={product.model} name={product.name} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center text-primary pb-1'>

@@ -2,7 +2,7 @@ import { Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Gltf, Stage } from '@react-three/drei';
-import AnimatedGltfModel from '../AnimatedProductModel';
+import Product360Viewer from '../Product360Viewer';
 
 const ProductCard = ({ product }) => {
     const [liked, setLiked] = useState(false);
@@ -27,20 +27,22 @@ const ProductCard = ({ product }) => {
                         )}
                     </span>
                 </div>
-                <Link to={`/product/${product._id}`}>
-                    <div className='flex flex-column align-items-center gap-3 py-4'>
-                        <Canvas>
+
+                <div className='flex flex-column align-items-center gap-3 py-4'>
+                    <Product360Viewer images={product ? product.images : []} />
+                    {/* <Canvas>
                             <Stage>
                                 <Suspense fallback={null}>{<Gltf src={product.model} />}</Suspense>
                             </Stage>
-                        </Canvas>
+                        </Canvas> */}
+                </div>
+                <Link to={`/product/${product._id}`}>
+                    <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
+                    <div className='flex align-items-center justify-content-between'>
+                        <span className='text-base'>$12</span>
+                        <i className='pi pi-shopping-cart'></i>
                     </div>
                 </Link>
-                <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
-                <div className='flex align-items-center justify-content-between'>
-                    <span className='text-base'>$12</span>
-                    <i className='pi pi-shopping-cart'></i>
-                </div>
             </div>
         </div>
     );

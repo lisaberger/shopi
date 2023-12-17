@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styles from './ProductList.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
-import { Product } from '@/utils/types/product.interface';
 import ProductCard from '../ProductCard/ProductCard';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { DataView } from 'primereact/dataview';
