@@ -68,19 +68,19 @@ const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name 
     }, []);
 
     if (modelRef.current) {
-        modelRef.current.addEventListener('load', () => {
+        modelRef.current?.addEventListener('load', () => {
             setVariants([...modelRef.current.availableVariants]);
             setAnimations([...modelRef.current.availableAnimations]);
         });
     }
 
-    const handleVariantChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleVariantChange = (event) => {
         if (modelRef.current) {
             modelRef.current.variantName = event.target.value === 'default' ? null : event.target.value;
         }
     };
 
-    const handleAnimationChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleAnimationChange = (event) => {
         if (modelRef.current) {
             modelRef.current.animationName = event.target.value;
         }
@@ -121,7 +121,7 @@ const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name 
 
     return (
         <>
-            <article className='h-full relative'>
+            <article className='h-full relative surface-50 p-4'>
                 <model-viewer
                     className={styles.modelViewer}
                     src={model}
@@ -157,11 +157,7 @@ const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name 
                     <div className='flex p-2 gap-2'>
                         {variants.length > 0 && (
                             <div>
-                                <select
-                                    id='variant'
-                                    className='h-full p-2 border-round-sm border-primary text-color'
-                                    onChange={() => handleVariantChange}
-                                >
+                                <select id='variant' className='h-full p-2 border-round-sm border-primary text-color' onChange={handleVariantChange}>
                                     <option value='' disabled selected>
                                         Varianten
                                     </option>
@@ -180,7 +176,7 @@ const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name 
                                     <select
                                         id='animation'
                                         className='h-full p-2 border-round-sm border-primary text-color'
-                                        onChange={() => handleAnimationChange}
+                                        onChange={handleAnimationChange}
                                     >
                                         <option value='' disabled selected>
                                             Animationen

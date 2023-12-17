@@ -14,21 +14,23 @@ const ProductPage = () => {
 
     return (
         <>
-            <section className='px-4 md:px-8 py-4'>
+            <section className='p-4 md:px-8'>
                 <Link to='/'>
                     <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
+                {error && <p>Fehler beim Laden des Produkts</p>}
+                {isLoading && <p>Produktinformationen werden geladen ...</p>}
                 {product && (
                     <section className='grid mt-2 text-color'>
-                        <div className='col-12 md:col-6 h-full'>
+                        <div className='col-12 md:col-6 h-full bg-surface-50'>
                             <ProductViewer model={product.model} name={product.name} annotations={product.annotations} />
                         </div>
-                        <div className='col-12 md:col-6'>
+                        <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center text-primary pb-1'>
                                 <i className='font-semibold pi pi-tag pr-2' />
                                 <p className='font-semibold'>{product.category}</p>
                             </div>
-                            <h1 className='font-bold text-3xl pb-2'>{product.name}</h1>
+                            <h1 className='font-semibold text-3xl pb-2'>{product.name}</h1>
                             {product.countInStock ? (
                                 <span className='text-green-300 text-sm'>
                                     <i className='pi pi-check pr-2 text-sm' />
@@ -39,7 +41,7 @@ const ProductPage = () => {
                             )}
                             <p className='text-lg font-semibold pt-4 pb-2'>Preis: € {product.price}</p>
 
-                            <p>{product.description}</p>
+                            <p className='text-base'>{product.description}</p>
                             <div className='pt-4'>
                                 {product.countInStock > 0 && (
                                     <Dropdown

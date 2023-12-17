@@ -6,7 +6,6 @@ model-viewer {
     display: block;
     width: 100%;
     min-height: 60vh;
-    background-color: #ffffff;
 }
 
 .hotspot {
@@ -16,7 +15,7 @@ model-viewer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     height: 24px;
-    font-family: Poppins;
+    font-family: 'Poppins';
     width: 24px;
     position: relative;
     transition: opacity 0.3s;
