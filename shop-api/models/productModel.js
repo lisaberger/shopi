@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Annotation from './annotationModel.js';
 
 const productSchema = mongoose.Schema(
     {
@@ -15,6 +16,13 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        annotations: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                required: false,
+                ref: 'Annotation',
+            },
+        ],
         brand: {
             type: String,
             required: true,

@@ -1,39 +1,42 @@
-import { Suspense } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Canvas } from '@react-three/fiber';
-import { Stage } from '@react-three/drei';
-import AnimatedGltfModel from '../AnimatedProductModel';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
+
+import Product360Viewer from '../Product360Viewer/Product360Viewer';
 
 const ProductCard = ({ product }) => {
+    const [liked, setLiked] = useState(false);
+
+    const toggleLike = () => {
+        setLiked(!liked);
+    };
+
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
             <div className='p-3 border-1 surface-border surface-card border-round'>
-                <div className='flex flex-wrap align-items-center justify-content-between gap-2'>
+                <div className='flex flex-wrap align-items-center justify-content-between gap-2 relative'>
                     <div className='flex align-items-center gap-2'>
                         <i className='pi pi-tag'></i>
                         <span className='font-semibold text-s'>{product.category}</span>
                     </div>
-                    <i className='pi pi-heart'></i>
+                    <span onClick={toggleLike}>
+                        {!liked ? (
+                            <i className='pi pi-heart' />
+                        ) : (
+                            <img src='/like.svg' className='absolute top-0' style={{ height: '30px', right: '2px' }} />
+                        )}
+                    </span>
+                </div>
+
+                <div className='flex flex-column align-items-center gap-3 py-4'>
+                    <Product360Viewer images={product ? product.images : []} />
                 </div>
                 <Link to={`/product/${product._id}`}>
-                    <div className='flex flex-column align-items-center gap-3 py-4'>
-                        <Canvas className='flex-grow-1'>
-                            <Stage>
-                                <Suspense fallback={null}>
-                                    <AnimatedGltfModel model={product.model} />
-                                </Suspense>
-                            </Stage>
-                        </Canvas>
+                    <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
+                    <div className='flex align-items-center justify-content-between'>
+                        <span className='text-base'>$12</span>
+                        <i className='pi pi-shopping-cart'></i>
                     </div>
                 </Link>
-                <h3 className='py-2 text-s font-semibold'>{product.name}</h3>
-                <Rating value={3.5} readOnly cancel={false}></Rating>
-                <div className='flex align-items-center justify-content-between'>
-                    <span className='text-l font-semibold'>$12</span>
-                    <Button severity='secondary' icon='pi pi-shopping-cart'></Button>
-                </div>
             </div>
         </div>
     );

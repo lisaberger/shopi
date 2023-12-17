@@ -1,3 +1,5 @@
+import { Annotation } from './annotation.interface';
+
 interface Product {
     _id: string;
     name: string;
@@ -9,17 +11,7 @@ interface Product {
     countInStock: number;
     rating: number;
     numReviews: number;
+    annotations: Annotation[];
 }
 
-interface ListOptions {
-    page: number;
-    perPage: number;
-    total: number;
-    currentPage: number;
-    nextPage: number;
-    previousPage: number;
-}
-
-type ProductList = Product & ListOptions;
-
-export type { Product, ProductList };
+export type { Product };

@@ -1,17 +1,7 @@
 import Product from '../models/productModel.js';
 
-// const getProducts = async (req, res) => {
-//     const page = req.query.page;
-
-//     const products = await Product.find({
-//         category: req.query.category,
-//     });
-//     res.json(products);
-// };
-
 const getProducts = async (req, res) => {
-    const { page = 1, limit = 10, sort, categories, search } = req.query;
-    const skip = (page - 1) * limit;
+    const { categories, search } = req.query;
 
     let query = {};
 
@@ -26,8 +16,7 @@ const getProducts = async (req, res) => {
     }
 
     try {
-        const products = await Product.find(query).sort(sort).skip(skip).limit(parseInt(limit));
-        console.log(products);
+        const products = await Product.find(query);
 
         res.json(products);
     } catch (error) {
@@ -36,7 +25,7 @@ const getProducts = async (req, res) => {
 };
 
 const getProductById = async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('annotations');
 
     if (product) {
         return res.json(product);
