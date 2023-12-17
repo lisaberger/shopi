@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import '@google/model-viewer/dist/model-viewer';
 import { ModelViewerElement } from '@google/model-viewer/dist/model-viewer';
 import QRCode from 'react-qr-code';
 import { Button } from 'primereact/button';
+import { Annotation } from '@/utils/types/annotation.interface.ts';
 
 import styles from './ProductViewer.module.scss';
 
@@ -31,13 +32,18 @@ interface ModelViewerJSX {
     cameraControls?: boolean;
     cameraOrbit?: string;
     alt?: string;
-    sx?: any;
 }
 
-const ProductViewer = ({ model, annotations, name }) => {
+interface ProductViewerProps {
+    model: string;
+    annotations: Annotation[];
+    name: string;
+}
+
+const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
-    const [variants, setVariants] = useState([]);
-    const [animations, setAnimations] = useState([]);
+    const [variants, setVariants] = useState<string[]>([]);
+    const [animations, setAnimations] = useState<string[]>([]);
 
     // const handleCreateAnnotation = (event: MouseEvent) => {
     //     const { clientX, clientY } = event;
@@ -53,24 +59,41 @@ const ProductViewer = ({ model, annotations, name }) => {
     //     }
     // };
 
-    const handleVariantChange = (event: ChangeEventHandler<HTMLSelectElement>) => {
+    /* initialise and update animations and variants */
+    useEffect(() => {
+        if (modelRef.current) {
+            setVariants([...modelRef.current.availableVariants]);
+            setAnimations([...modelRef.current.availableAnimations]);
+        }
+    }, []);
+
+    if (modelRef.current) {
+        modelRef.current.addEventListener('load', () => {
+            setVariants([...modelRef.current.availableVariants]);
+            setAnimations([...modelRef.current.availableAnimations]);
+        });
+    }
+
+    const handleVariantChange = (event: ChangeEvent<HTMLSelectElement>) => {
         if (modelRef.current) {
             modelRef.current.variantName = event.target.value === 'default' ? null : event.target.value;
         }
     };
 
-    const handleAnimationChange = (event: ChangeEventHandler<HTMLSelectElement>) => {
+    const handleAnimationChange = (event: ChangeEvent<HTMLSelectElement>) => {
         if (modelRef.current) {
             modelRef.current.animationName = event.target.value;
         }
     };
 
-    const [isActive, setIsActive] = useState(false);
-    const [visibleIndex, setVisibleIndex] = useState(null);
-
-    const handleAnnotationToggle = (index) => {
+    /* toggle annotations  */
+    const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
+    const handleAnnotationToggle = (index: number) => {
         setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
     };
+
+    /* toggle desktop ar overlay */
+    const [isActive, setIsActive] = useState(false);
 
     const handleOpenOverlay = () => {
         setIsActive(true);
@@ -80,6 +103,7 @@ const ProductViewer = ({ model, annotations, name }) => {
         setIsActive(false);
     };
 
+    /* play and stop an animation */
     const [animationIsRunning, setAnimationIsRunning] = useState(false);
     const animationIcon = animationIsRunning ? 'pi pi-pause' : 'pi pi-play';
 
@@ -94,18 +118,6 @@ const ProductViewer = ({ model, annotations, name }) => {
             }
         }
     };
-
-    useEffect(() => {
-        if (modelRef.current) {
-            setVariants([...modelRef.current.availableVariants]);
-            setAnimations([...modelRef.current.availableAnimations]);
-        }
-    }, []);
-
-    modelRef.current?.addEventListener('load', () => {
-        setVariants([...modelRef.current.availableVariants]);
-        setAnimations([...modelRef.current.availableAnimations]);
-    });
 
     return (
         <>
@@ -122,11 +134,11 @@ const ProductViewer = ({ model, annotations, name }) => {
                     // onClick={handleCreateAnnotation}
                     ref={modelRef}
                 >
-                    {annotations?.map((annotation, index) => (
+                    {annotations?.map((annotation: Annotation, index: number) => (
                         <button
                             onClick={() => handleAnnotationToggle(index)}
                             key={`hotspot-${index}`}
-                            className={styles.Hotspot}
+                            className={styles.hotspot}
                             slot={`hotspot-${index}`}
                             data-surface={annotation.surface}
                             data-visibility-attribute='visible'
@@ -134,7 +146,7 @@ const ProductViewer = ({ model, annotations, name }) => {
                             {index + 1}
 
                             {visibleIndex === index && (
-                                <div className={`${styles.HotspotAnnotation} text-xs text-white bg-black-alpha-70`}>
+                                <div className={`${styles.annotation} text-xs text-white bg-black-alpha-70`}>
                                     <p className='font-bold'>{annotation.title}</p>
                                     <p>{annotation.description}</p>
                                 </div>
@@ -145,7 +157,11 @@ const ProductViewer = ({ model, annotations, name }) => {
                     <div className='flex p-2 gap-2'>
                         {variants.length > 0 && (
                             <div>
-                                <select id='variant' className='h-full p-2 border-round-sm border-primary text-color' onChange={handleVariantChange}>
+                                <select
+                                    id='variant'
+                                    className='h-full p-2 border-round-sm border-primary text-color'
+                                    onChange={() => handleVariantChange}
+                                >
                                     <option value='' disabled selected>
                                         Varianten
                                     </option>
@@ -164,7 +180,7 @@ const ProductViewer = ({ model, annotations, name }) => {
                                     <select
                                         id='animation'
                                         className='h-full p-2 border-round-sm border-primary text-color'
-                                        onChange={handleAnimationChange}
+                                        onChange={() => handleAnimationChange}
                                     >
                                         <option value='' disabled selected>
                                             Animationen
@@ -179,10 +195,6 @@ const ProductViewer = ({ model, annotations, name }) => {
                                 <Button icon={animationIcon} onClick={handleAnimation} />
                             </div>
                         )}
-                    </div>
-
-                    <div className='progress-bar hide' slot='progress-bar'>
-                        <div className='update-bar' />
                     </div>
                 </model-viewer>
 
