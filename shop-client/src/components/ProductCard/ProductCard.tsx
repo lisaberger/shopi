@@ -1,8 +1,7 @@
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Canvas } from '@react-three/fiber';
-import { Gltf, Stage } from '@react-three/drei';
-import Product360Viewer from '../Product360Viewer';
+
+import Product360Viewer from '../Product360Viewer/Product360Viewer';
 
 const ProductCard = ({ product }) => {
     const [liked, setLiked] = useState(false);
@@ -30,11 +29,6 @@ const ProductCard = ({ product }) => {
 
                 <div className='flex flex-column align-items-center gap-3 py-4'>
                     <Product360Viewer images={product ? product.images : []} />
-                    {/* <Canvas>
-                            <Stage>
-                                <Suspense fallback={null}>{<Gltf src={product.model} />}</Suspense>
-                            </Stage>
-                        </Canvas> */}
                 </div>
                 <Link to={`/product/${product._id}`}>
                     <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
