@@ -31,7 +31,7 @@ const Teaser = () => {
                             <Suspense
                                 fallback={
                                     <Stage>
-                                        <Gltf src='./macbook-low-poly.glb' />
+                                        <Gltf src='/api/media/macbook/low/macbook-low.glb' />
                                     </Stage>
                                 }
                             >
