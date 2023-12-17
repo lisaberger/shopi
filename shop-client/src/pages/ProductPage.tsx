@@ -12,8 +12,6 @@ const ProductPage = () => {
 
     const [qty, setQty] = useState(1);
 
-    console.log(product);
-
     return (
         <>
             <section className='px-4 md:px-8 py-4'>
@@ -23,7 +21,7 @@ const ProductPage = () => {
                 {product && (
                     <section className='grid mt-2 text-color'>
                         <div className='col-12 md:col-6 h-full'>
-                            <ProductViewer product={product} />
+                            <ProductViewer model={product.model} name={product.name} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6'>
                             <div className='flex align-items-center text-primary pb-1'>

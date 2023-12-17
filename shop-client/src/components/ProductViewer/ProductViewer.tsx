@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import QRCode from 'react-qr-code';
+import { useEffect, useRef, useState } from 'react';
 import '@google/model-viewer/dist/model-viewer';
-import styles from './ProductViewer.module.scss';
 import { ModelViewerElement } from '@google/model-viewer/dist/model-viewer';
+import QRCode from 'react-qr-code';
 import { Button } from 'primereact/button';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+
+import styles from './ProductViewer.module.scss';
 
 declare global {
     namespace JSX {
@@ -34,16 +35,8 @@ interface ModelViewerJSX {
     sx?: any;
 }
 
-const initalAnnotations = ['1 0 24 25 26 0.416 0.028 0.556'];
-
-const annotationsInit = [
-    { surface: '1 0 24 25 26 0.416 0.028 0.556', title: 'Text', description: 'Ein schöner Text' },
-    { surface: '5 0 20 21 22 0.543 0.369 0.088', title: 'Text-1', description: 'NOch besser' },
-];
-
-const ProductViewer = ({ product }) => {
+const ProductViewer = ({ model, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
-    const [annotations, setAnnotations] = useState([]);
     const [variants, setVariants] = useState([]);
     const [animations, setAnimations] = useState([]);
 
@@ -60,19 +53,6 @@ const ProductViewer = ({ product }) => {
     //         }
     //     }
     // };
-
-    console.log(product);
-
-    useEffect(() => {
-        if (modelRef.current) {
-            setAnnotations(annotationsInit);
-        }
-    }, []);
-
-    modelRef.current?.addEventListener('load', () => {
-        setVariants([...modelRef.current.availableVariants]);
-        setAnimations([...modelRef.current.availableAnimations]);
-    });
 
     const handleVariantChange = (event: DropdownChangeEvent) => {
         if (modelRef.current) {
@@ -116,37 +96,53 @@ const ProductViewer = ({ product }) => {
         }
     };
 
+    useEffect(() => {
+        if (modelRef.current) {
+            setVariants([...modelRef.current.availableVariants]);
+            setAnimations([...modelRef.current.availableAnimations]);
+        }
+    }, []);
+
+    modelRef.current?.addEventListener('load', () => {
+        setVariants([...modelRef.current.availableVariants]);
+        setAnimations([...modelRef.current.availableAnimations]);
+    });
+
     return (
         <>
             <article className='h-full relative'>
                 <model-viewer
                     className={styles.modelViewer}
-                    src='/api/media/bust-hi.glb'
-                    alt='Eine Interaktive Statuen-Grafik'
+                    src={model}
+                    alt={name}
                     camera-controls
+                    disable-tap
                     ar
                     ar-modes='webxr scene-viewer quick-look'
                     // onClick={handleCreateAnnotation}
                     ref={modelRef}
                 >
-                    {annotations.map((annotation, index) => (
+                    {annotations?.map((annotation, index) => (
                         <button
                             onClick={handleAnnotationToggle}
                             key={`hotspot-${index}`}
                             className={styles.Hotspot}
                             slot={`hotspot-${index}`}
-                            data-surface={annotation}
+                            data-surface={annotation.surface}
                             data-visibility-attribute='visible'
                         >
                             {index + 1}
-                            <div className={`${styles.HotspotAnnotation} ${visible ? styles.visible : styles.hidden}`}>{annotation.description}</div>
+                            {visible && (
+                                <div className={`${styles.HotspotAnnotation}`}>
+                                    <p>{annotation.title}</p>
+                                    <p>{annotation.description}</p>
+                                </div>
+                            )}
                         </button>
                     ))}
 
                     <div className='flex p-2 gap-2'>
-                        {variants.length > 0 && (
-                            <Dropdown value={variants} options={variants} onChange={handleVariantChange} placeholder='Varianten' />
-                        )}
+                        <Dropdown value={variants} options={variants} onChange={handleVariantChange} placeholder='Varianten' />
 
                         {animations.length > 0 && (
                             <div>
@@ -157,7 +153,7 @@ const ProductViewer = ({ product }) => {
                     </div>
 
                     <div className='progress-bar hide' slot='progress-bar'>
-                        <div className='update-bar'></div>
+                        <div className='update-bar' />
                     </div>
                 </model-viewer>
 
