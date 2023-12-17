@@ -133,8 +133,8 @@ const ProductViewer = ({ model, annotations, name }) => {
                         >
                             {index + 1}
                             {visible && (
-                                <div className={`${styles.HotspotAnnotation}`}>
-                                    <p>{annotation.title}</p>
+                                <div className={`${styles.HotspotAnnotation} hidden text-xs text-white bg-black-alpha-70`}>
+                                    <p className='font-bold'>{annotation.title}</p>
                                     <p>{annotation.description}</p>
                                 </div>
                             )}
