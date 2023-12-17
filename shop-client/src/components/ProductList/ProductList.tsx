@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styles from './ProductList.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
-import { Product } from '@/utils/types/product.interface';
 import ProductCard from '../ProductCard/ProductCard';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { DataView } from 'primereact/dataview';
@@ -10,19 +9,19 @@ import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';
 
 const ProductList = () => {
     const [URLSearchParams, setURLSearchParams] = useSearchParams();
-    const [category, setCategory] = useState<string>('');
     const [search, setSearch] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
     const categories = [
-        { name: 'Elektronik', key: 'E' },
-        { name: 'Kleidung', key: 'K' },
-        { name: 'Möbel', key: 'M' },
+        { name: 'Elektronik', key: 'E', value: 'electronics' },
+        { name: 'Kleidung', key: 'K', value: 'clothing' },
+        { name: 'Möbel', key: 'M', value: 'furniture' },
     ];
 
     interface Category {
         name: string;
         key: string;
+        value: string;
     }
 
     const { searchInput } = useAppSelector((state) => state.filter);
@@ -36,13 +35,16 @@ const ProductList = () => {
         });
     }, [search, searchInput, selectedCategories, setURLSearchParams]);
 
-    const { data: products, isLoading, error } = useGetProductsQuery({ search, ...selectedCategories });
+    const { data: products, isLoading, error } = useGetProductsQuery({ search, category: [...selectedCategories.map((category) => category.value)] });
 
-    const onCategoryChange = (e: CheckboxChangeEvent) => {
+    const onCategoryChange = (event: CheckboxChangeEvent) => {
         let _selectedCategories = [...selectedCategories];
 
-        if (e.checked) _selectedCategories.push(e.value);
-        else _selectedCategories = _selectedCategories.filter((category) => category.key !== e.value.key);
+        if (event.checked) {
+            _selectedCategories.push(event.value);
+        } else {
+            _selectedCategories = _selectedCategories.filter((category) => category.key !== event.value.key);
+        }
 
         setSelectedCategories(_selectedCategories);
     };
@@ -53,7 +55,7 @@ const ProductList = () => {
         <section>
             <h1 className='px-4 md:px-8 text-2xl pb-4 text-color'>Neu im Sortiment</h1>
             <div className='grid gap-3 pb-2 px-4 md:px-8 md:gap-5 text-color'>
-                <aside className='col-2'>
+                <aside className='col-12 md:col-2'>
                     <h2 className='text-xl font-medium'>Filter</h2>
                     <div className='p-2 flex gap-3 md:flex-column md:gap-2'>
                         {categories.map((category) => {
@@ -74,8 +76,10 @@ const ProductList = () => {
                         })}
                     </div>
                 </aside>
-                <div className='col'>
+                <div className='col-12 md:col'>
                     <h2 className='text-xl font-medium'>Produkte</h2>
+                    {isLoading && <p>Produkte werden geladen ...</p>}
+                    {error && <p>Produkte konnten nicht geladen werden.</p>}
                     <DataView value={products} itemTemplate={productTemplate} />
                 </div>
             </div>
