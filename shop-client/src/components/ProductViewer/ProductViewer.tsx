@@ -121,7 +121,7 @@ const ProductViewer: React.FC<ProductViewerProps> = ({ model, annotations, name 
 
     return (
         <>
-            <article className='h-full relative surface-50 p-4'>
+            <article className='h-full relative surface-50 p-2'>
                 <model-viewer
                     className={styles.modelViewer}
                     src={model}
