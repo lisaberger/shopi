@@ -4,7 +4,6 @@ import '@google/model-viewer/dist/model-viewer';
 import { ModelViewerElement } from '@google/model-viewer/dist/model-viewer';
 import QRCode from 'react-qr-code';
 import { Button } from 'primereact/button';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 
 import styles from './ProductViewer.module.scss';
 
@@ -54,23 +53,23 @@ const ProductViewer = ({ model, annotations, name }) => {
     //     }
     // };
 
-    const handleVariantChange = (event: DropdownChangeEvent) => {
+    const handleVariantChange = (event: ChangeEventHandler<HTMLSelectElement>) => {
         if (modelRef.current) {
             modelRef.current.variantName = event.target.value === 'default' ? null : event.target.value;
         }
     };
 
-    const handleAnimationChange = (event: DropdownChangeEvent) => {
+    const handleAnimationChange = (event: ChangeEventHandler<HTMLSelectElement>) => {
         if (modelRef.current) {
             modelRef.current.animationName = event.target.value;
         }
     };
 
-    const [visible, setVisible] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const [visibleIndex, setVisibleIndex] = useState(null);
 
-    const handleAnnotationToggle = () => {
-        setVisible(!visible);
+    const handleAnnotationToggle = (index) => {
+        setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
     const handleOpenOverlay = () => {
@@ -114,6 +113,7 @@ const ProductViewer = ({ model, annotations, name }) => {
                 <model-viewer
                     className={styles.modelViewer}
                     src={model}
+                    // src='/api/media/cabinet.glb'
                     alt={name}
                     camera-controls
                     disable-tap
@@ -124,7 +124,7 @@ const ProductViewer = ({ model, annotations, name }) => {
                 >
                     {annotations?.map((annotation, index) => (
                         <button
-                            onClick={handleAnnotationToggle}
+                            onClick={() => handleAnnotationToggle(index)}
                             key={`hotspot-${index}`}
                             className={styles.Hotspot}
                             slot={`hotspot-${index}`}
@@ -132,8 +132,9 @@ const ProductViewer = ({ model, annotations, name }) => {
                             data-visibility-attribute='visible'
                         >
                             {index + 1}
-                            {visible && (
-                                <div className={`${styles.HotspotAnnotation} hidden text-xs text-white bg-black-alpha-70`}>
+
+                            {visibleIndex === index && (
+                                <div className={`${styles.HotspotAnnotation} text-xs text-white bg-black-alpha-70`}>
                                     <p className='font-bold'>{annotation.title}</p>
                                     <p>{annotation.description}</p>
                                 </div>
@@ -142,11 +143,39 @@ const ProductViewer = ({ model, annotations, name }) => {
                     ))}
 
                     <div className='flex p-2 gap-2'>
-                        <Dropdown value={variants} options={variants} onChange={handleVariantChange} placeholder='Varianten' />
+                        {variants.length > 0 && (
+                            <div>
+                                <select id='variant' className='h-full p-2 border-round-sm border-primary text-color' onChange={handleVariantChange}>
+                                    <option value='' disabled selected>
+                                        Varianten
+                                    </option>
+                                    {variants.map((variant, index) => (
+                                        <option key={index} value={variant}>
+                                            {variant}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
 
                         {animations.length > 0 && (
                             <div>
-                                <Dropdown value={animations} options={animations} onChange={handleAnimationChange} placeholder='Animationen' />
+                                <span className='mr-1'>
+                                    <select
+                                        id='animation'
+                                        className='h-full p-2 border-round-sm border-primary text-color'
+                                        onChange={handleAnimationChange}
+                                    >
+                                        <option value='' disabled selected>
+                                            Animationen
+                                        </option>
+                                        {animations.map((animation, index) => (
+                                            <option key={index} value={animation}>
+                                                {animation}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </span>
                                 <Button icon={animationIcon} onClick={handleAnimation} />
                             </div>
                         )}
