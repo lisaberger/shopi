@@ -8,6 +8,7 @@ import logo from '@/assets/logo/logo-bild-marke.svg';
 import styles from './Header.module.scss';
 import { useState } from 'react';
 import { Button } from 'primereact/button';
+import Banner from '@/components/Banner';
 
 const Logo = () => {
     return (
@@ -21,16 +22,22 @@ const Logo = () => {
 };
 
 const Header = () => {
+    const [banner, setBanner] = useState(true);
+
+    const closeBannerHandler = () => {
+        setBanner(false);
+    };
+
     const { userInfo } = useAppSelector((state) => state.auth);
 
-    const [logoutApiCall] = useLogoutMutation();
+    const [logoutApi] = useLogoutMutation();
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
         try {
-            await logoutApiCall().unwrap();
+            await logoutApi().unwrap();
 
             dispatch(logout());
             navigate('/login');
@@ -58,45 +65,53 @@ const Header = () => {
     );
 
     return (
-        <header className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative`}>
-            <nav className='flex justify-content-between w-full align-items-center'>
-                <Logo />
-                <Searchbar />
-                {menuButton}
-                <div className={`${styles.menu} ${expanded}`}>
-                    <ul className={styles.list}>
-                        <li>
-                            <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
-                                <i className={`${styles.icon} pi pi-shopping-cart p-overlay-badge`}>
-                                    <Badge value='1' />
-                                </i>
-                                <p>Warenkorb</p>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
-                                <i className={`${styles.icon} pi pi-heart`} />
-                                <p>Merkliste</p>
-                            </Link>
-                        </li>
-                        {userInfo ? (
+        <header>
+            {banner && <Banner onCloseBanner={closeBannerHandler} />}
+            <div className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative`}>
+                <nav className='flex justify-content-between w-full align-items-center'>
+                    <Logo />
+                    <Searchbar />
+                    {menuButton}
+                    <div className={`${styles.menu} ${expanded}`}>
+                        <ul className={styles.list}>
                             <li>
-                                <Link to='/profile'>
-                                    <p>{userInfo.name}</p>
-                                </Link>
-                                <p onClick={logoutHandler}>Logout</p>
-                            </li>
-                        ) : (
-                            <li>
-                                <Link to='/login' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
-                                    <i className={`${styles.icon} pi pi-user`} />
-                                    <p>Login</p>
+                                <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                    <i className={`${styles.icon} pi pi-shopping-cart p-overlay-badge`}>
+                                        <Badge value='1' />
+                                    </i>
+                                    <p>Warenkorb</p>
                                 </Link>
                             </li>
-                        )}
-                    </ul>
-                </div>
-            </nav>
+                            <li>
+                                <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                    <i className={`${styles.icon} pi pi-heart`} />
+                                    <p>Merkliste</p>
+                                </Link>
+                            </li>
+                            {userInfo ? (
+                                <>
+                                    <li>
+                                        <Link to='/profile' className={styles.item}>
+                                            <i className={`${styles.icon} pi pi-user`} />
+                                            <p>{userInfo.name}</p>
+                                        </Link>
+                                    </li>
+                                    <Button severity='secondary' onClick={logoutHandler}>
+                                        Logout
+                                    </Button>
+                                </>
+                            ) : (
+                                <li>
+                                    <Link to='/login' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                        <i className={`${styles.icon} pi pi-user`} />
+                                        <p>Login</p>
+                                    </Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </header>
     );
 };
