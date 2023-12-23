@@ -8,7 +8,7 @@ import logo from '@/assets/logo/logo-bild-marke.svg';
 import styles from './Header.module.scss';
 import { useState } from 'react';
 import { Button } from 'primereact/button';
-import Banner from '@/components/Banner';
+import Banner from '@/components/Banner/Banner';
 
 const Logo = () => {
     return (
@@ -75,7 +75,7 @@ const Header = () => {
                     <div className={`${styles.menu} ${expanded}`}>
                         <ul className={styles.list}>
                             <li>
-                                <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                                <Link to='/cart' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
                                     <i className={`${styles.icon} pi pi-shopping-cart p-overlay-badge`}>
                                         <Badge value='1' />
                                     </i>

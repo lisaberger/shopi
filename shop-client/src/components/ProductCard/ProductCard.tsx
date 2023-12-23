@@ -1,16 +1,25 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Product360Viewer from '../Product360Viewer/Product360Viewer';
+import { useAppDispatch } from '@/store/hooks';
+import { addToCart } from '@/store/slices/cartSlice';
 
 const ProductCard = ({ product }) => {
     const [liked, setLiked] = useState(false);
+    const [qty, setQty] = useState(1);
 
     const toggleLike = () => {
         setLiked(!liked);
     };
 
-    console.log(product);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const addToCartHandler = () => {
+        dispatch(addToCart({ ...product, qty }));
+        navigate('/cart');
+    };
 
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
@@ -36,9 +45,10 @@ const ProductCard = ({ product }) => {
                     <h3 className='pb-2 text-lg font-bold'>{product.name}</h3>
                     <div className='flex align-items-center justify-content-between'>
                         <span className='text-base'>$12</span>
-                        <i className='pi pi-shopping-cart'></i>
+                        <i className='pi pi-shopping-cart' onClick={addToCartHandler}></i>
                     </div>
                 </Link>
+                <p onClick={addToCartHandler}>Zum Warenkorb</p>
             </div>
         </div>
     );
