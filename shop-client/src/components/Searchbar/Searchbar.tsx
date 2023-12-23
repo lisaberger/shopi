@@ -5,15 +5,17 @@ import { useAppDispatch } from '@/store/hooks';
 import { setSearchInput } from '@/store/slices/filterSlice';
 
 import styles from './Searchbar.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Searchbar = () => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const timeOutId = setTimeout(() => dispatch(setSearchInput(searchValue)), 1000);
-        return () => clearTimeout(timeOutId);
+        const delay = setTimeout(() => dispatch(setSearchInput(searchValue)), 1000);
+        return () => clearTimeout(delay);
     }, [dispatch, searchValue]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +24,7 @@ const Searchbar = () => {
 
     const searchHandler = () => {
         dispatch(setSearchInput(searchValue));
+        navigate('/');
     };
 
     return (

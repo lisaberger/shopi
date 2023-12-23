@@ -1,7 +1,7 @@
 import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer';
+import Footer from '@/components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
-import Banner from '@/components/Banner';
+import Banner from '@/components/Banner/Banner';
 import { useState } from 'react';
 
 const RootPage = () => {

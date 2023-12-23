@@ -2,12 +2,17 @@ import { PRODUCTS_URL } from '@/utils/constants';
 import { apiSlice } from './apiSlice';
 import { Product } from '@/utils/types/product.interface';
 
+interface Query {
+    search: string;
+    category: string[];
+}
+
 export const productsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getProducts: builder.query<Product[], object>({
-            query: (queries) => ({
+        getProducts: builder.query<Product[], Query[]>({
+            query: (query) => ({
                 url: PRODUCTS_URL,
-                params: { ...queries },
+                params: query,
             }),
             providesTags: ['Products'],
         }),

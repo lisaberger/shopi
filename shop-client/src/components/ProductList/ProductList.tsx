@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
-import styles from './ProductList.module.scss';
-import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
 import ProductCard from '../ProductCard/ProductCard';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hooks';
 import { DataView } from 'primereact/dataview';
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';
+import { useEffect, useState } from 'react';
 
 const ProductList = () => {
-    const [URLSearchParams, setURLSearchParams] = useSearchParams();
     const [search, setSearch] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
@@ -28,14 +25,13 @@ const ProductList = () => {
 
     useEffect(() => {
         setSearch(searchInput);
+    }, [searchInput]);
 
-        setURLSearchParams({
-            search,
-            category: [...selectedCategories.map((category) => category.name)],
-        });
-    }, [search, searchInput, selectedCategories, setURLSearchParams]);
-
-    const { data: products, isLoading, error } = useGetProductsQuery({ search, category: [...selectedCategories.map((category) => category.value)] });
+    const {
+        data: products,
+        isLoading,
+        error,
+    } = useGetProductsQuery({ search, categories: [...selectedCategories.map((category) => category.value)] });
 
     const onCategoryChange = (event: CheckboxChangeEvent) => {
         let _selectedCategories = [...selectedCategories];
@@ -49,7 +45,7 @@ const ProductList = () => {
         setSelectedCategories(_selectedCategories);
     };
 
-    const productTemplate = (product) => <ProductCard product={product} />;
+    const productCard = (product) => <ProductCard product={product} />;
 
     return (
         <section>
@@ -80,7 +76,7 @@ const ProductList = () => {
                     <h2 className='text-xl font-medium'>Produkte</h2>
                     {isLoading && <p>Produkte werden geladen ...</p>}
                     {error && <p>Produkte konnten nicht geladen werden.</p>}
-                    <DataView value={products} itemTemplate={productTemplate} />
+                    <DataView value={products} itemTemplate={productCard} />
                 </div>
             </div>
         </section>
