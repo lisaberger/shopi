@@ -6,6 +6,7 @@ import { Canvas } from '@react-three/fiber';
 import styles from './Teaser.module.scss';
 import { useGetTeasersQuery } from '@/store/slices/teasersApiSlice';
 import { Product } from '@/utils/types/product.interface';
+import { Link } from 'react-router-dom';
 
 interface CarouselItem {
     id: string;
@@ -28,33 +29,37 @@ const Teaser = () => {
             <>
                 {isLoading && <p>Teaser wird geladen ...</p>}
                 {error && <p>Teaser konnte nicht geladen werden.</p>}
-                <article
-                    className='flex flex-column align-items-center justifty-content-center pt-3 px-2 md:px-8 md:flex-row md:pt-4 md:align-items-start'
-                    style={{ maxWidth: '80vw', margin: '0 auto' }}
-                >
-                    <div className='md:w-6 flex flex-column align-items-center mb-3 md:align-items-start'>
-                        <h1 className='text-5xl font-semibold'>{teaser.title}</h1>
-                        <p className='mt-2 max-w-30rem'>{teaser.description}</p>
-                        <Button className='mt-4' type='button' label='Mehr erfahren' icon='pi pi-bell' outlined />
-                    </div>
+                {teasers && (
+                    <article
+                        className='flex flex-column align-items-center justifty-content-center pt-3 px-2 md:px-8 md:flex-row md:pt-4 md:align-items-start'
+                        style={{ maxWidth: '80vw', justifyContent: 'center' }}
+                    >
+                        <div className='md:w-6 flex flex-column align-items-center mb-3 md:align-items-start'>
+                            <h1 className='text-5xl font-semibold'>{teaser.title}</h1>
+                            <p className='mt-2 max-w-30rem'>{teaser.description}</p>
+                            <Link to={`/product/${teaser.product._id}`}>
+                                <Button className='mt-4 text-color' type='button' label='Mehr erfahren' icon='pi pi-bell' />
+                            </Link>
+                        </div>
 
-                    <div className={`${styles.canvas} relative flex justify-content-center`} style={{ touchAction: 'none' }}>
-                        <Canvas>
-                            <Suspense
-                                fallback={
-                                    <Stage>
-                                        <Gltf src={teaser.product.preview} />
+                        <div className={`${styles.canvas} relative flex justify-content-center`} style={{ touchAction: 'none' }}>
+                            <Canvas>
+                                <Suspense
+                                    fallback={
+                                        <Stage>
+                                            <Gltf src={teaser.product.preview} />
+                                        </Stage>
+                                    }
+                                >
+                                    <Stage adjustCamera={true}>
+                                        <Gltf src={teaser.product.model} />
                                     </Stage>
-                                }
-                            >
-                                <Stage adjustCamera={true}>
-                                    <Gltf src={teaser.product.model} />
-                                </Stage>
-                            </Suspense>
-                            <OrbitControls enableDamping enablePan={false} />
-                        </Canvas>
-                    </div>
-                </article>
+                                </Suspense>
+                                <OrbitControls enableDamping enablePan={false} />
+                            </Canvas>
+                        </div>
+                    </article>
+                )}
             </>
         );
     };
