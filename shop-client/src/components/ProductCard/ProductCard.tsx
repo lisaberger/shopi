@@ -10,6 +10,8 @@ const ProductCard = ({ product }) => {
         setLiked(!liked);
     };
 
+    console.log(product);
+
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
             <div className='p-3 border-1 surface-border surface-card border-round'>

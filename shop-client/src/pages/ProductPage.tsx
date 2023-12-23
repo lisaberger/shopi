@@ -14,7 +14,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <section className='p-4 md:px-8'>
+            <section className='p-4 md:px-8' style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <Link to='/'>
                     <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>

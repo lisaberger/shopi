@@ -20,14 +20,16 @@ const Product360Viewer: React.FC<Product360ViewerProps> = ({ images }) => {
 
     return (
         <div className='w-9'>
-            <ReactImageTurntable
-                images={images}
-                autoRotate={{ disabled: true }}
-                onPointerDown={() => setRotationDisabled(true)}
-                onPointerUp={() => setRotationDisabled(false)}
-                onKeyDown={handleKeyDown}
-                onKeyUp={() => setRotationDisabled(false)}
-            />
+            {images && (
+                <ReactImageTurntable
+                    images={images}
+                    autoRotate={{ disabled: true }}
+                    onPointerDown={() => setRotationDisabled(true)}
+                    onPointerUp={() => setRotationDisabled(false)}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={() => setRotationDisabled(false)}
+                />
+            )}
         </div>
     );
 };
