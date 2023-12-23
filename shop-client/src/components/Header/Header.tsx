@@ -29,6 +29,7 @@ const Header = () => {
     };
 
     const { userInfo } = useAppSelector((state) => state.auth);
+    const { cartItems } = useAppSelector((state) => state.cart);
 
     const [logoutApi] = useLogoutMutation();
 
@@ -77,7 +78,7 @@ const Header = () => {
                             <li>
                                 <Link to='/cart' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
                                     <i className={`${styles.icon} pi pi-shopping-cart p-overlay-badge`}>
-                                        <Badge value='1' />
+                                        {cartItems.length > 0 && <Badge value={cartItems.length} />}
                                     </i>
                                     <p>Warenkorb</p>
                                 </Link>

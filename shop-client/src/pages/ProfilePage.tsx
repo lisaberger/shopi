@@ -16,7 +16,6 @@ const ProfilePage = () => {
 
     const updateHandler = (event) => {
         event.preventDefault();
-        console.log(name, email, password, confirmPassword);
     };
 
     useEffect(() => {
