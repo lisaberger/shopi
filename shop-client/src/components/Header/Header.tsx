@@ -30,14 +30,14 @@ const Header = () => {
 
     const { userInfo } = useAppSelector((state) => state.auth);
 
-    const [logoutApiCall] = useLogoutMutation();
+    const [logoutApi] = useLogoutMutation();
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
         try {
-            await logoutApiCall().unwrap();
+            await logoutApi().unwrap();
 
             dispatch(logout());
             navigate('/login');
@@ -89,12 +89,17 @@ const Header = () => {
                                 </Link>
                             </li>
                             {userInfo ? (
-                                <li>
-                                    <Link to='/profile'>
-                                        <p>{userInfo.name}</p>
-                                    </Link>
-                                    <p onClick={logoutHandler}>Logout</p>
-                                </li>
+                                <>
+                                    <li>
+                                        <Link to='/profile' className={styles.item}>
+                                            <i className={`${styles.icon} pi pi-user`} />
+                                            <p>{userInfo.name}</p>
+                                        </Link>
+                                    </li>
+                                    <Button severity='secondary' onClick={logoutHandler}>
+                                        Logout
+                                    </Button>
+                                </>
                             ) : (
                                 <li>
                                     <Link to='/login' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
