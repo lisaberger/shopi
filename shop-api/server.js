@@ -5,6 +5,7 @@ dotenv.config();
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
+import teaserRoutes from './routes/teaserRoutes.js';
 import path from 'path';
 
 const connectDB = async () => {
@@ -29,6 +30,7 @@ app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/teasers', teaserRoutes);
 
 const __dirname = path.resolve();
 app.use('/api/media', express.static(path.join(__dirname, '/media')));

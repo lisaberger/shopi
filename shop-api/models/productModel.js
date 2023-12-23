@@ -16,6 +16,10 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        preview: {
+            type: String,
+            required: true,
+        },
         annotations: [
             {
                 type: mongoose.Schema.Types.ObjectId,

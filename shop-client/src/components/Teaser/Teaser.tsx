@@ -4,25 +4,37 @@ import { Suspense, useEffect, useState } from 'react';
 import { Gltf, Stage, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import styles from './Teaser.module.scss';
+import { useGetTeasersQuery } from '@/store/slices/teasersApiSlice';
+import { Product } from '@/utils/types/product.interface';
 
 interface CarouselItem {
     id: string;
-    name: string;
-    title: string;
     description: string;
-    image: string;
+    title: string;
+    product: Product;
 }
 
 const Teaser = () => {
     const [productTeaser, setProductTeaser] = useState<CarouselItem[]>([]);
 
+    const { data: teasers, isLoading, error } = useGetTeasersQuery();
+
+    useEffect(() => {
+        setProductTeaser(teasers);
+    }, [teasers]);
+
     const teaserTemplate = (teaser: CarouselItem) => {
         return (
             <>
-                <article className='flex flex-column justifty-content-center pt-3 px-2 md:px-8 md:flex-row  md:pt-4'>
-                    <div className='md:w-6'>
+                {isLoading && <p>Teaser wird geladen ...</p>}
+                {error && <p>Teaser konnte nicht geladen werden.</p>}
+                <article
+                    className='flex flex-column align-items-center justifty-content-center pt-3 px-2 md:px-8 md:flex-row md:pt-4 md:align-items-start'
+                    style={{ maxWidth: '80vw', margin: '0 auto' }}
+                >
+                    <div className='md:w-6 flex flex-column align-items-center mb-3 md:align-items-start'>
                         <h1 className='text-5xl font-semibold'>{teaser.title}</h1>
-                        <p className='mt-2'>{teaser.description}</p>
+                        <p className='mt-2 max-w-30rem'>{teaser.description}</p>
                         <Button className='mt-4' type='button' label='Mehr erfahren' icon='pi pi-bell' outlined />
                     </div>
 
@@ -31,12 +43,12 @@ const Teaser = () => {
                             <Suspense
                                 fallback={
                                     <Stage>
-                                        <Gltf src='/api/media/macbook/low/macbook-low.glb' />
+                                        <Gltf src={teaser.product.preview} />
                                     </Stage>
                                 }
                             >
                                 <Stage adjustCamera={true}>
-                                    <Gltf src={teaser.image} />
+                                    <Gltf src={teaser.product.model} />
                                 </Stage>
                             </Suspense>
                             <OrbitControls enableDamping enablePan={false} />
@@ -47,14 +59,10 @@ const Teaser = () => {
         );
     };
 
-    useEffect(() => {
-        setProductTeaser(ProductService.getProductsData());
-    }, []);
-
     return (
         <section className='relative'>
             <div className={`${styles.teaser} absolute`} />
-            <div className='px-4 md:px-8 pt-3 md:mb-8 text-white'>
+            <div className='px-4 md:px-8 pt-3 text-white mb-2'>
                 <Carousel value={productTeaser} numVisible={1} numScroll={1} itemTemplate={teaserTemplate} />
             </div>
         </section>
@@ -62,31 +70,3 @@ const Teaser = () => {
 };
 
 export default Teaser;
-
-export const ProductService = {
-    getProductsData() {
-        return [
-            {
-                id: '1',
-                name: 'iphone',
-                title: 'Entdecke das neue iPhone.',
-                description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: '/api/media/phone/hi/iphone-hi.gltf',
-            },
-            {
-                id: '2',
-                name: 'macbook',
-                title: 'Entdecke das neue Macbook.',
-                description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: '/api/media/macbook/hi/macbook-hi.gltf',
-            },
-            {
-                id: '3',
-                name: 'headphones',
-                title: 'Entdecke die neuen Headphones.',
-                description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-                image: '/api/media/headphones/hi/headphones-hi.gltf',
-            },
-        ];
-    },
-};
