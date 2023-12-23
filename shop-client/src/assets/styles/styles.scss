@@ -12,3 +12,8 @@
 /* utils */
 @import 'primeflex/primeflex.css' layer(utils);
 @import 'primeicons/primeicons.css' layer(utils);
+
+html,
+body {
+    height: 100%;
+}

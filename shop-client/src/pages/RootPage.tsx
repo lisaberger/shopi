@@ -1,25 +1,16 @@
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import { Outlet } from 'react-router-dom';
-import Banner from '@/components/Banner';
-import { useState } from 'react';
 
 const RootPage = () => {
-    const [banner, setBanner] = useState(true);
-
-    const closeBannerHandler = () => {
-        setBanner(false);
-    };
-
     return (
-        <>
-            {banner && <Banner onCloseBanner={closeBannerHandler} />}
+        <div className='h-full flex flex-column justify-content-between'>
             <Header />
-            <main>
+            <main className='h-full'>
                 <Outlet />
             </main>
             <Footer />
-        </>
+        </div>
     );
 };
 

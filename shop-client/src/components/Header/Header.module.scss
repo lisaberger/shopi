@@ -14,7 +14,6 @@
         border: none;
         display: none;
         z-index: 500;
-        height: calc(100vh - 70px);
 
         &.expanded {
             display: flex;
