@@ -22,7 +22,7 @@ const CartPage = () => {
     };
 
     return (
-        <section className='p-4 md:px-8 text-color surface-50' style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <section className='p-4 md:px-8 text-color' style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h1 className='text-xl'>Warenkorb</h1>
             <Link to='/'>
                 <Button icon='pi pi-arrow-left' className='mt-4' severity='secondary' size='small' label='Zurück' text outlined />
