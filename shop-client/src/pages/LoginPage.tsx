@@ -28,12 +28,14 @@ const LoginPage = () => {
     };
 
     return (
-        <section>
-            <div className='mt-5'>
+        <section style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)' }}>
+            <div className='m-auto w-25rem pt-5 px-4 text-white'>
                 <form onSubmit={loginHandler}>
-                    <h1 className='text-2xl'>Login</h1>
-                    <div className='flex flex-column gap-2'>
-                        <label htmlFor='email'>Email</label>
+                    <h1 className='font-semibold text-2xl'>Login</h1>
+                    <div className='mt-4 flex flex-column gap-2'>
+                        <label className='text-xs' htmlFor='email'>
+                            Email
+                        </label>
                         <InputText
                             id='email'
                             placeholder='Email eingeben'
@@ -42,22 +44,31 @@ const LoginPage = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className='flex flex-column gap-2'>
-                        <label htmlFor='password'>Passwort</label>
-                        <Password
-                            id='password'
-                            placeholder='Passwort eingeben'
-                            value={password}
-                            feedback={false}
-                            onChange={(e) => setPassword(e.target.value)}
-                            toggleMask
-                        />
+                    <div className='mt-4 flex flex-column gap-2'>
+                        <label className='text-xs' htmlFor='password'>
+                            Passwort
+                        </label>
+                        <div className='w-full'>
+                            <Password
+                                id='password'
+                                placeholder='Passwort eingeben'
+                                value={password}
+                                feedback={false}
+                                onChange={(e) => setPassword(e.target.value)}
+                                toggleMask
+                            />
+                        </div>
                     </div>
-                    <Button disabled={isLoading}>Login</Button>
+                    <Button className='mt-6' disabled={isLoading}>
+                        Login
+                    </Button>
                 </form>
 
                 <div className='py-3'>
-                    Noch kein Profil? <Link to='/register'>Registrieren</Link>
+                    Noch kein Profil?{' '}
+                    <Link to='/register' className='underline'>
+                        Registrieren
+                    </Link>
                 </div>
             </div>
         </section>

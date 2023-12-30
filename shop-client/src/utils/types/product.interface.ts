@@ -8,6 +8,7 @@ interface Product {
     brand: string;
     category: string;
     price: number;
+    preview: string;
     countInStock: number;
     rating: number;
     numReviews: number;

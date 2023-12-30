@@ -1,9 +1,11 @@
 import { Button } from 'primereact/button';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
 import ProductARViewer from '@/components/ProductARViewer/ProductARViewer';
+import { useAppDispatch } from '@/store/hooks';
+import { addToCart } from '@/store/slices/cartSlice';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
@@ -11,10 +13,17 @@ const ProductPage = () => {
     const { data: product, isLoading, error } = useGetProductByIdQuery(productId ? productId : '');
 
     const [qty, setQty] = useState(1);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const addToCartHandler = () => {
+        dispatch(addToCart({ ...product, qty }));
+        navigate('/cart');
+    };
 
     return (
         <>
-            <section className='p-4 md:px-8'>
+            <section className='p-4 md:px-8' style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <Link to='/'>
                     <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
@@ -51,7 +60,7 @@ const ProductPage = () => {
                                         placeholder='Menge'
                                     />
                                 )}
-                                <Button className='text-color ml-2' label='Zum Warenkorb hinzufügen' />
+                                <Button onClick={addToCartHandler} className='text-color ml-2' label='Zum Warenkorb hinzufügen' />
                             </div>
                         </div>
                     </section>

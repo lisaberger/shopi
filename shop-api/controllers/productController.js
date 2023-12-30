@@ -6,8 +6,7 @@ const getProducts = async (req, res) => {
     let query = {};
 
     if (categories) {
-        const categoryArray = categories.split(',');
-        query = { ...query, category: { $in: categoryArray } };
+        query = { ...query, category: { $in: categories } };
     }
 
     if (search) {
@@ -15,13 +14,14 @@ const getProducts = async (req, res) => {
         query = { ...query, $or: [{ name: searchRegex }, { description: searchRegex }] };
     }
 
-    try {
-        const products = await Product.find(query);
+    const products = await Product.find(query);
 
-        res.json(products);
-    } catch (error) {
-        res.status(404).json({ error: 'No Product Found' });
+    if (products) {
+        return res.json(products);
     }
+
+    res.status(404);
+    throw new Error('No products found');
 };
 
 const getProductById = async (req, res) => {
