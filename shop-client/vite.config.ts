@@ -9,6 +9,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': 'http://localhost:8000',
+            '/media': 'http://localhost:5000',
         },
     },
     resolve: {
