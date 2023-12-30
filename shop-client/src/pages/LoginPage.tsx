@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -16,7 +16,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const loginHandler = async (event) => {
+    const loginHandler = async (event: FormEvent) => {
         event.preventDefault();
         try {
             const res = await login({ email, password }).unwrap();

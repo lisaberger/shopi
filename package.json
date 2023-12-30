@@ -4,9 +4,11 @@
     "description": "Ecommerce application using 3D concepts build with MERN stack",
     "main": "shop-api/server.js",
     "scripts": {
+        "start": "npm start --shop-api",
         "server": "npm run dev --prefix shop-api",
         "client": "npm run dev --prefix shop-client",
-        "dev": "concurrently \"npm run server\" \"npm run client\""
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "build": "npm install --prefix shop-client && npm install --prefix shop-api && npm run build --prefix shop-client"
     },
     "repository": {
         "type": "git",

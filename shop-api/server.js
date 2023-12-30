@@ -30,7 +30,18 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 
-const __dirname = path.resolve();
-app.use('/api/media', express.static(path.join(__dirname, '/media')));
+if (process.env.NODE_ENV === 'production') {
+    const __dirname = path.resolve();
+    app.use('/api/media', express.static('/var/data/media'));
+    app.use(express.static(path.join(__dirname, '/shop-client/build')));
+
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'shop-client', 'build', 'index.html')));
+} else {
+    const __dirname = path.resolve();
+    app.use('/api/media', express.static(path.join(__dirname, '/media')));
+    app.get('/', (req, res) => {
+        res.send('API is running ...');
+    });
+}
 
 app.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`));

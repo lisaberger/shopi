@@ -124,8 +124,8 @@ const ProductARViewer: React.FC<ProductARViewerProps> = ({ model, annotations, n
             <article className='h-full relative surface-50 p-2'>
                 <model-viewer
                     className={styles.modelViewer}
-                    src={model}
-                    // src='/api/media/cabinet.glb'
+                    // src={model}
+                    src='/api/media/chair.glb'
                     alt={name}
                     camera-controls
                     disable-tap

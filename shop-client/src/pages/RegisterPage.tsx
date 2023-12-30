@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -15,9 +15,9 @@ const RegisterPage = () => {
 
     const [register, { isLoading }] = useRegisterMutation();
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const registerHandler = async (event) => {
+    const registerHandler = async (event: FormEvent) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
@@ -26,7 +26,7 @@ const RegisterPage = () => {
             try {
                 const res = await register({ name, email, password }).unwrap();
                 dispatch(setCredentials({ ...res }));
-                // navigate('/');
+                navigate('/');
             } catch (error) {
                 console.log(error);
             }

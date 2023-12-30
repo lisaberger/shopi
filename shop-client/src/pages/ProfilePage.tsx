@@ -3,7 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAppSelector } from '@/store/hooks';
 
 const ProfilePage = () => {
@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
     const { userInfo } = useAppSelector((state) => state.auth);
 
-    const updateHandler = (event) => {
+    const updateHandler = (event: FormEvent) => {
         event.preventDefault();
         console.log(name, email, password, confirmPassword);
     };
