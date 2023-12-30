@@ -8,8 +8,7 @@ export default defineConfig({
     plugins: [react(), basicSsl()],
     server: {
         proxy: {
-            '/api': 'http://localhost:8000',
-            '/media': 'http://localhost:5000',
+            '/api': 'http://localhost:5000',
         },
     },
     resolve: {

@@ -35,9 +35,9 @@ app.use('/api/teasers', teaserRoutes);
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path.resolve();
     app.use('/api/media', express.static('/var/data/media'));
-    app.use(express.static(path.join(__dirname, '/shop-client/dist')));
+    app.use(express.static(path.join(__dirname, '../', '/shop-client/dist')));
 
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'shop-client', 'dist', 'index.html')));
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 'shop-client', 'dist', 'index.html')));
 } else {
     const __dirname = path.resolve();
     app.use('/api/media', express.static(path.join(__dirname, '/media')));
