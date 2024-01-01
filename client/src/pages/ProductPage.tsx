@@ -25,7 +25,7 @@ const ProductPage = () => {
         <>
             <section className='p-4 md:px-8' style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <Link to='/'>
-                    <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
+                    <Button icon='pi pi-arrow-left' size='small' label='Zurück' text outlined />
                 </Link>
                 {error && <p>Fehler beim Laden des Produkts</p>}
                 {isLoading && <p>Produktinformationen werden geladen ...</p>}
@@ -36,17 +36,17 @@ const ProductPage = () => {
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center text-primary pb-1'>
-                                <i className='font-semibold pi pi-tag pr-2' />
-                                <p className='font-semibold'>{product.category}</p>
+                                <i className='pi pi-tag pr-2' />
+                                <p>{product.category}</p>
                             </div>
                             <h1 className='font-semibold text-3xl pb-2'>{product.name}</h1>
                             {product.countInStock ? (
-                                <span className='text-green-300 text-sm'>
+                                <span className='text-sm'>
                                     <i className='pi pi-check pr-2 text-sm' />
                                     Verfügbar
                                 </span>
                             ) : (
-                                <span className='text-red-300 text-sm'>Aktuell nicht verfügbar</span>
+                                <span className='text-sm'>Aktuell nicht verfügbar</span>
                             )}
                             <p className='text-lg font-semibold pt-4 pb-2'>Preis: € {product.price}</p>
 
