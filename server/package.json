@@ -1,7 +1,7 @@
 {
-    "name": "eshop-api",
+    "name": "shopi-server",
     "version": "1.0.0",
-    "description": "eShop express backend server",
+    "description": "shopi node backend",
     "type": "module",
     "scripts": {
         "start": "node server",
@@ -13,7 +13,6 @@
         "bcrypt": "^5.1.1",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.3.1",
-        "eshop": "file:..",
         "express": "^4.18.2",
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.0.2"
