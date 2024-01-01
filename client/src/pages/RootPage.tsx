@@ -1,13 +1,16 @@
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
 const RootPage = () => {
     return (
         <div className='h-full flex flex-column justify-content-between'>
-            <Header className='flex-none' />
+            <Header />
             <main className='flex-grow-1'>
-                <Outlet />
+                <Suspense>
+                    <Outlet />
+                </Suspense>
             </main>
             <Footer />
         </div>

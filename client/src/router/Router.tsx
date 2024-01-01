@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 // pages
@@ -13,11 +13,7 @@ const CartPage = lazy(() => import('@/pages/CartPage'));
 const router = createBrowserRouter([
     {
         path: '/',
-        element: (
-            <Suspense>
-                <RootPage />
-            </Suspense>
-        ),
+        element: <RootPage />,
         children: [
             { index: true, path: '/', element: <HomePage /> },
             { path: '/product/:id', element: <ProductPage /> },
