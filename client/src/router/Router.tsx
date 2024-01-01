@@ -1,18 +1,23 @@
+import { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 // views
-import HomePage from '@/pages/HomePage';
-import RootPage from '@/pages/RootPage';
-import ProductPage from '@/pages/ProductPage';
-import RegisterPage from '@/pages/RegisterPage';
-import LoginPage from '@/pages/LoginPage';
-import ProfilePage from '@/pages/ProfilePage';
-import CartPage from '@/pages/CartPage';
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const RootPage = lazy(() => import('@/pages/RootPage'));
+const ProductPage = lazy(() => import('@/pages/ProductPage'));
+const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
+const CartPage = lazy(() => import('@/pages/CartPage'));
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <RootPage />,
+        element: (
+            <Suspense fallback={<div>Loading...</div>}>
+                <RootPage />
+            </Suspense>
+        ),
         children: [
             { index: true, path: '/', element: <HomePage /> },
             { path: '/product/:id', element: <ProductPage /> },
