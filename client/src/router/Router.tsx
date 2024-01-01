@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-// views
+// pages
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const RootPage = lazy(() => import('@/pages/RootPage'));
 const ProductPage = lazy(() => import('@/pages/ProductPage'));

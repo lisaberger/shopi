@@ -70,7 +70,7 @@ const Header = () => {
     );
 
     return (
-        <header>
+        <header className='flex-none'>
             {banner && <Banner onCloseBanner={closeBannerHandler} />}
             <div className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative flex align-items-center`}>
                 <nav className='flex justify-content-between w-full align-items-center'>

@@ -5,8 +5,8 @@ import { Outlet } from 'react-router-dom';
 const RootPage = () => {
     return (
         <div className='h-full flex flex-column justify-content-between'>
-            <Header />
-            <main className='h-full'>
+            <Header className='flex-none' />
+            <main className='flex-grow-1'>
                 <Outlet />
             </main>
             <Footer />
