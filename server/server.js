@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import errorHandler from './middleware/errorHandler.js';
 import cookieParser from 'cookie-parser';
 dotenv.config();
 import mongoose from 'mongoose';
@@ -45,5 +46,7 @@ if (process.env.NODE_ENV === 'production') {
         res.send('API is running ...');
     });
 }
+
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`));

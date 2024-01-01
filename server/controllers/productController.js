@@ -1,6 +1,7 @@
 import Product from '../models/productModel.js';
+import asyncHandler from 'express-async-handler';
 
-const getProducts = async (req, res) => {
+const getProducts = asyncHandler(async (req, res) => {
     const { categories, search } = req.query;
 
     let query = {};
@@ -22,9 +23,9 @@ const getProducts = async (req, res) => {
 
     res.status(404);
     throw new Error('No products found');
-};
+});
 
-const getProductById = async (req, res) => {
+const getProductById = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id).populate('annotations');
 
     if (product) {
@@ -33,6 +34,6 @@ const getProductById = async (req, res) => {
 
     res.status(404);
     throw new Error('Product not found');
-};
+});
 
 export { getProducts, getProductById };
