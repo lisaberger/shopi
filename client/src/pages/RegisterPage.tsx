@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '@/store/slices/usersApiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '@/store/slices/authSlice';
@@ -34,9 +34,12 @@ const RegisterPage = () => {
     };
 
     return (
-        <section style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)' }}>
+        <section
+            className='h-full flex flex-column justify-content-between'
+            style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)' }}
+        >
             <div className='m-auto w-25rem pt-5 px-4 text-white'>
-                <h1 className='text-2xl font-semibold'>Register</h1>
+                <h1 className='text-xl font-semibold'>Register</h1>
                 <form onSubmit={registerHandler}>
                     <div className='mt-2 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='name'>
@@ -92,14 +95,14 @@ const RegisterPage = () => {
                             />
                         </div>
                     </div>
-                    <Button className='mt-6' disabled={isLoading}>
+                    <Button className='mt-4 text-color' disabled={isLoading}>
                         Registrieren
                     </Button>
                 </form>
 
-                <div className='py-3'>
+                <div className='pt-3 text-sm'>
                     Ich besitze schon einen Account?{' '}
-                    <Link to='/login' className='underline'>
+                    <Link to='/login' className='underline text-primary'>
                         Login
                     </Link>
                 </div>

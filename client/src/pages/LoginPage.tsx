@@ -28,10 +28,13 @@ const LoginPage = () => {
     };
 
     return (
-        <section style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)' }}>
+        <section
+            className='h-full flex flex-column justify-content-between'
+            style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)', height: '100%' }}
+        >
             <div className='m-auto w-25rem pt-5 px-4 text-white'>
                 <form onSubmit={loginHandler}>
-                    <h1 className='font-semibold text-2xl'>Login</h1>
+                    <h1 className='text-xl font-semibold'>Login</h1>
                     <div className='mt-4 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='email'>
                             Email
@@ -59,14 +62,14 @@ const LoginPage = () => {
                             />
                         </div>
                     </div>
-                    <Button className='mt-6' disabled={isLoading}>
+                    <Button className='mt-4 text-color' disabled={isLoading}>
                         Login
                     </Button>
                 </form>
 
-                <div className='py-3'>
+                <div className='py-3 text-sm'>
                     Noch kein Profil?{' '}
-                    <Link to='/register' className='underline'>
+                    <Link to='/register' className='underline text-primary'>
                         Registrieren
                     </Link>
                 </div>

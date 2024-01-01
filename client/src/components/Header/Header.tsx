@@ -1,14 +1,15 @@
-import { Badge } from 'primereact/badge';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '@/store/slices/authSlice';
 import { useLogoutMutation } from '@/store/slices/usersApiSlice';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { Badge } from 'primereact/badge';
+import { Button } from 'primereact/button';
 import Searchbar from '@/components/Searchbar/Searchbar';
+import Banner from '@/components/Banner/Banner';
+
 import logo from '@/assets/logo/logo-bild-marke.svg';
 import styles from './Header.module.scss';
-import { useState } from 'react';
-import { Button } from 'primereact/button';
-import Banner from '@/components/Banner/Banner';
 
 const Logo = () => {
     return (
@@ -28,8 +29,10 @@ const Header = () => {
         setBanner(false);
     };
 
-    const { userInfo } = useAppSelector((state) => state.auth);
     const { cartItems } = useAppSelector((state) => state.cart);
+
+    // user
+    const { userInfo } = useAppSelector((state) => state.auth);
 
     const [logoutApi] = useLogoutMutation();
 
@@ -47,6 +50,7 @@ const Header = () => {
         }
     };
 
+    // responsive menu
     const [isNavExpanded, setIsNavExpanded] = useState(false);
 
     const toggleHeaderHandler = () => {
@@ -68,7 +72,7 @@ const Header = () => {
     return (
         <header>
             {banner && <Banner onCloseBanner={closeBannerHandler} />}
-            <div className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative`}>
+            <div className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative flex align-items-center`}>
                 <nav className='flex justify-content-between w-full align-items-center'>
                     <Logo />
                     <Searchbar />
