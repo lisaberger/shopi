@@ -41,7 +41,7 @@ const RegisterPage = () => {
             <div className='m-auto w-25rem pt-5 px-4 text-white'>
                 <h1 className='text-xl font-semibold'>Register</h1>
                 <form onSubmit={registerHandler}>
-                    <div className='mt-2 flex flex-column gap-2'>
+                    <div className='mt-4 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='name'>
                             Name
                         </label>
@@ -80,7 +80,7 @@ const RegisterPage = () => {
                             />
                         </div>
                     </div>
-                    <div className='mt-2 flex flex-column gap-2'>
+                    <div className='mt-4 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='confirmPassword'>
                             Passwort wiederholen
                         </label>
