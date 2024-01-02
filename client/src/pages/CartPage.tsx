@@ -24,7 +24,7 @@ const CartPage = () => {
                     ) : (
                         <div>
                             {cartItems.map((cartItem: CartItem, index: number) => (
-                                <CartItemComponent cartItem={cartItem} index={index} />
+                                <CartItemComponent key={cartItem._id} cartItem={cartItem} index={index} />
                             ))}
                         </div>
                     )}

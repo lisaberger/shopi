@@ -5,12 +5,17 @@ import { Annotation } from '@/utils/types/annotation.interface';
 interface AnnotationItemComponent {
     annotation: Annotation;
     index: number;
+    onAnnotationClicked: ({ dataTarget: string, dataTarget: string }) => void;
 }
 
-const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation, index }) => {
+const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation, index, onAnnotationClicked }) => {
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
+
     const handleAnnotationToggle = (index: number) => {
         setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
+        if (annotation.cameraOrbit && annotation.cameraTarget) {
+            onAnnotationClicked({ dataOrbit: annotation.cameraOrbit, dataTarget: annotation.cameraTarget });
+        }
     };
 
     return (

@@ -12,7 +12,7 @@ const VariantDropdownComponent: React.FC<VariantDropdownComponent> = ({ variantO
     return (
         <div>
             <select id='variant' className='h-full p-2 border-round-sm border-primary text-color' onChange={handleVariantChange}>
-                <option value='' disabled selected>
+                <option value='default' disabled>
                     Varianten
                 </option>
                 {variantOptions.map((variant, index) => (

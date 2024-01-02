@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from 'primereact/carousel';
 import { useGetTeasersQuery } from '@/store/slices/teasersApiSlice';
 import { TeaserItem } from '@/utils/types/teaser.interface';
@@ -19,11 +19,7 @@ const TeaserContainer = () => {
             <>
                 {isLoading && <p>Teaser wird geladen ...</p>}
                 {error && <p>Teaser konnte nicht geladen werden.</p>}
-                {teasers && (
-                    <Suspense>
-                        <TeaserItemComponent teaser={teaser} />
-                    </Suspense>
-                )}
+                {teasers && <TeaserItemComponent teaser={teaser} />}
             </>
         );
     };

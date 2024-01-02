@@ -28,7 +28,7 @@ const AnimationDropdownComponent: React.FC<AnimationDropdownComponent> = ({
         <div>
             <span className='mr-1'>
                 <select id='animation' className='h-full p-2 border-round-sm border-primary text-color' onChange={handleAnimationChange}>
-                    <option value='' disabled selected>
+                    <option value='default' disabled>
                         Animationen
                     </option>
                     {animationOptions.map((animation, index) => (

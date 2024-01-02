@@ -18,6 +18,14 @@ const annotationSchema = mongoose.Schema({
         required: true,
         ref: 'Product',
     },
+    cameraTarget: {
+        type: String,
+        required: false,
+    },
+    cameraOrbit: {
+        type: String,
+        required: false,
+    },
 });
 
 const Annotation = mongoose.model('Annotation', annotationSchema);

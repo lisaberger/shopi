@@ -12,7 +12,7 @@ interface ProductARViewer {
     name: string;
 }
 
-const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, annotations, name }) => {
+const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, preview, annotations, name }) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleOpenOverlay = () => {
@@ -26,7 +26,7 @@ const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, annotation
     return (
         <>
             <article className='h-full relative surface-50 p-2'>
-                <ModelViewerComponent annotations={annotations} model={model} name={name} />
+                <ModelViewerComponent annotations={annotations} preview={preview} model={model} name={name} />
 
                 <Button
                     className='hidden md:block mx-auto'

@@ -6,6 +6,7 @@ import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
 import ProductARViewerContainer from '@/containers/ProductARViewer/ProductARViewerContainer';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
+import ModelViewerComponent from '@/components/ModelViewer/ModelViewerComponent';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
@@ -32,7 +33,12 @@ const ProductPage = () => {
                 {product && (
                     <section className='grid mt-2 text-color'>
                         <div className='col-12 md:col-6 h-full bg-surface-50'>
-                            <ProductARViewerContainer model={product.model} name={product.name} annotations={product.annotations} />
+                            <ProductARViewerContainer
+                                model={product.model}
+                                name={product.name}
+                                preview={product.preview}
+                                annotations={product.annotations}
+                            />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center pb-1'>

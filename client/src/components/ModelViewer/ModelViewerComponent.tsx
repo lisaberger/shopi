@@ -39,11 +39,22 @@ interface ModelViewerComponent {
     name: string;
 }
 
-const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, annotations, name }) => {
+const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
     const [variants, setVariants] = useState<string[]>([]);
     const [animations, setAnimations] = useState<string[]>([]);
     const [animationIsRunning, setAnimationIsRunning] = useState(false);
+
+    // const handleCreateAnnotation = (event: MouseEvent) => {
+    //     const { clientX, clientY } = event;
+
+    //     if (modelRef.current) {
+    //         const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
+    //         const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
+
+    //         console.log('surface', hit, 'position + normal', hitdata?.position.toString());
+    //     }
+    // };
 
     /* initialise and update animations and variants */
     useEffect(() => {
@@ -55,8 +66,10 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, annotatio
 
     if (modelRef.current) {
         modelRef.current.addEventListener('load', () => {
-            setVariants([...modelRef.current.availableVariants]);
-            setAnimations([...modelRef.current.availableAnimations]);
+            if (modelRef.current) {
+                setVariants([...modelRef.current.availableVariants]);
+                setAnimations([...modelRef.current.availableAnimations]);
+            }
         });
     }
 
@@ -84,18 +97,39 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, annotatio
         }
     };
 
+    const handleAnnotationClick = ({ dataOrbit, dataTarget }) => {
+        if (modelRef.current) {
+            modelRef.current.cameraTarget = dataTarget;
+            modelRef.current.cameraOrbit = dataOrbit;
+            modelRef.current.fieldOfView = '45deg';
+        }
+    };
+
+    const [loadingValue, setloadingValue] = useState(0);
+
+    const onProgress = (event) => {
+        setloadingValue(Math.round(event.detail.totalProgress * 100));
+    };
+
+    if (modelRef.current) {
+        modelRef.current.addEventListener('progress', onProgress);
+    }
+
     return (
         <model-viewer
             className={styles.modelViewer}
             src={model}
             alt={name}
             camera-controls
-            disable-tap
+            shadowIntensity='1'
             ar
             ar-modes='webxr scene-viewer quick-look'
             ref={modelRef}
+            // onClick={handleCreateAnnotation}
         >
-            {annotations?.map((annotation: Annotation, index: number) => <AnnotationItemComponent annotation={annotation} index={index} />)}
+            {annotations?.map((annotation: Annotation, index: number) => (
+                <AnnotationItemComponent key={index} annotation={annotation} index={index} onAnnotationClicked={handleAnnotationClick} />
+            ))}
 
             <div className='flex p-2 gap-2'>
                 {variants.length > 0 && <VariantDropdownComponent variantOptions={variants} onVariantChange={handleVariantChange} />}
@@ -108,6 +142,19 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, annotatio
                     />
                 )}
             </div>
+
+            {/* <div slot='progress-bar'>
+                {loadingValue !== 100 && (
+                    <div className='flex flex-column justify-content-center align-items-center h-full w-full'>
+                        <ProgressBar className='w-full' value={loadingValue} />
+                        <Canvas>
+                            <Stage>
+                                <Gltf src={preview} />
+                            </Stage>
+                        </Canvas>
+                    </div>
+                )}
+            </div> */}
         </model-viewer>
     );
 };
