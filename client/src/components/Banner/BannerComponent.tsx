@@ -4,7 +4,7 @@ interface Banner {
     onCloseBanner: () => void;
 }
 
-const Banner: React.FC<Banner> = (props) => {
+const BannerComponent: React.FC<Banner> = (props) => {
     const onCloseHandler = () => {
         props.onCloseBanner();
     };
@@ -23,4 +23,4 @@ const Banner: React.FC<Banner> = (props) => {
     );
 };
 
-export default Banner;
+export default BannerComponent;

@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface FilterState {
+    searchInput: string;
+}
+
+const initialState: FilterState = {
     searchInput: '',
 };
 const filterSlice = createSlice({

@@ -4,18 +4,8 @@
     background-image: linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861);
 }
 
-.canvas {
-    height: 240px !important;
-    width: 240px !important;
-}
-
 @media (min-width: 768px) {
     .teaser {
         height: 350px;
-    }
-
-    .canvas {
-        height: 400px !important;
-        width: 400px !important;
     }
 }

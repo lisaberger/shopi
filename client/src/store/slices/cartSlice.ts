@@ -1,6 +1,10 @@
+import { CartItem } from '@/utils/types/cart.interface';
 import { createSlice } from '@reduxjs/toolkit';
+interface CartState {
+    cartItems: CartItem[];
+}
 
-const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : { cartItems: [] };
+const initialState: CartState = localStorage.getItem('cart') ? JSON.parse(String(localStorage.getItem('cart'))) : { cartItems: [] };
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -24,7 +28,7 @@ const cartSlice = createSlice({
 
             localStorage.setItem('cart', JSON.stringify(state));
         },
-        clearCartItems: (state, action) => {
+        clearCartItems: (state) => {
             state.cartItems = [];
             localStorage.setItem('cart', JSON.stringify(state));
         },

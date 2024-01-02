@@ -1,5 +1,5 @@
 import { useGetProductsQuery } from '@/store/slices/productsApiSlice';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCardComponent';
 import { useAppSelector } from '@/store/hooks';
 import { DataView } from 'primereact/dataview';
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';

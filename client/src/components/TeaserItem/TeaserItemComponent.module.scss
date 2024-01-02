@@ -1,0 +1,11 @@
+.canvas {
+    height: 240px !important;
+    width: 240px !important;
+}
+
+@media (min-width: 768px) {
+    .canvas {
+        height: 400px !important;
+        width: 400px !important;
+    }
+}

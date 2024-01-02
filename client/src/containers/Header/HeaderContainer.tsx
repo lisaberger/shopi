@@ -5,11 +5,11 @@ import { useLogoutMutation } from '@/store/slices/usersApiSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Badge } from 'primereact/badge';
 import { Button } from 'primereact/button';
-import Searchbar from '@/components/Searchbar/Searchbar';
-import Banner from '@/components/Banner/Banner';
+import SearchbarComponent from '@/components/Searchbar/SearchbarComponent';
+import Banner from '@/components/Banner/BannerComponent';
 
 import logo from '@/assets/logo/logo-bild-marke.svg';
-import styles from './Header.module.scss';
+import styles from './HeaderContainer.module.scss';
 
 const Logo = () => {
     return (
@@ -22,7 +22,7 @@ const Logo = () => {
     );
 };
 
-const Header = () => {
+const HeaderContainer = () => {
     const [banner, setBanner] = useState(true);
 
     const closeBannerHandler = () => {
@@ -75,7 +75,7 @@ const Header = () => {
             <div className={`${styles.header} px-4 md:px-8 py-2 p-menubar relative flex align-items-center`}>
                 <nav className='flex justify-content-between w-full align-items-center'>
                     <Logo />
-                    <Searchbar />
+                    <SearchbarComponent />
                     {menuButton}
                     <div className={`${styles.menu} ${expanded}`}>
                         <ul className={styles.list}>
@@ -121,4 +121,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderContainer;

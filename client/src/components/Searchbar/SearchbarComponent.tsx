@@ -4,10 +4,10 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
 import { setSearchInput } from '@/store/slices/filterSlice';
 
-import styles from './Searchbar.module.scss';
+import styles from './SearchbarComponent.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-const Searchbar = () => {
+const SearchbarComponent = () => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const dispatch = useAppDispatch();
@@ -35,4 +35,4 @@ const Searchbar = () => {
     );
 };
 
-export default Searchbar;
+export default SearchbarComponent;

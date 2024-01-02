@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-import Product360Viewer from '../Product360Viewer/Product360Viewer';
+import Product360Viewer from '../Product360Viewer/Product360ViewerComponent';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';

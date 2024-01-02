@@ -1,6 +1,11 @@
+import { UserInfo } from '@/utils/types/user.inferface';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface AuthState {
+    userInfo: UserInfo;
+}
+
+const initialState: AuthState = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!) : null,
 };
 const authSlice = createSlice({

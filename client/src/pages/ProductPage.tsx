@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
-import ProductARViewer from '@/components/ProductARViewer/ProductARViewer';
+import ProductARViewerContainer from '@/containers/ProductARViewer/ProductARViewerContainer';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 
@@ -32,7 +32,7 @@ const ProductPage = () => {
                 {product && (
                     <section className='grid mt-2 text-color'>
                         <div className='col-12 md:col-6 h-full bg-surface-50'>
-                            <ProductARViewer model={product.model} name={product.name} annotations={product.annotations} />
+                            <ProductARViewerContainer model={product.model} name={product.name} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center pb-1'>
