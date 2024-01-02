@@ -39,7 +39,7 @@ const TeaserItemComponent: React.FC<TeaserItemComponent> = ({ teaser }) => {
                             <Gltf src={teaser.product.model} />
                         </Stage>
                     </Suspense>
-                    <OrbitControls minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI - Math.PI / 4} enableDamping enablePan={false} />
+                    <OrbitControls minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI - Math.PI / 4} enableDamping enablePan={false} autoRotate />
                 </Canvas>
             </div>
         </article>
