@@ -105,15 +105,15 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, 
         }
     };
 
-    const [loadingValue, setloadingValue] = useState(0);
+    // const [loadingValue, setloadingValue] = useState(0);
 
-    const onProgress = (event) => {
-        setloadingValue(Math.round(event.detail.totalProgress * 100));
-    };
+    // const onProgress = (event) => {
+    //     setloadingValue(Math.round(event.detail.totalProgress * 100));
+    // };
 
-    if (modelRef.current) {
-        modelRef.current.addEventListener('progress', onProgress);
-    }
+    // if (modelRef.current) {
+    //     modelRef.current.addEventListener('progress', onProgress);
+    // }
 
     return (
         <model-viewer
