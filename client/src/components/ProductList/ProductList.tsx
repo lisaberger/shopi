@@ -34,7 +34,7 @@ const ProductList = () => {
     const productCard = (product: Product) => <ProductCard product={product} />;
 
     return (
-        <section>
+        <section style={{ maxWidth: '1500px', margin: '0 auto' }}>
             <h1 className='px-4 md:px-8 text-2xl pb-4 text-color'>Neu im Sortiment</h1>
             <div className='grid gap-3 pb-2 px-4 md:px-8 md:gap-5 text-color'>
                 <aside className='col-12 md:col-2'>
@@ -59,7 +59,8 @@ const ProductList = () => {
                     </div>
                 </aside>
                 <div className='col-12 md:col'>
-                    <h2 className='text-xl font-medium'>Produkte</h2>
+                    <h2 className='text-xl font-medium inline'>Produkte</h2>
+                    <span className=' ml-2 text-sm'>({products?.length})</span>
                     {isLoading && <p>Produkte werden geladen ...</p>}
                     {error && <p>Produkte konnten nicht geladen werden.</p>}
                     <DataView value={products} itemTemplate={productCard} />
