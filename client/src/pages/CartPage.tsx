@@ -1,17 +1,17 @@
 import Product360Viewer from '@/components/Product360Viewer/Product360Viewer';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
+import { Product } from '@/utils/types/product.interface';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Dropdown } from 'primereact/dropdown';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CartPage = () => {
     const cart = useAppSelector((state) => state.cart);
     const { cartItems } = cart;
 
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const addToCartHandler = (product, qty) => {
         dispatch(addToCart({ ...product, qty }));
@@ -35,7 +35,7 @@ const CartPage = () => {
                         </>
                     ) : (
                         <div>
-                            {cartItems.map((cartItem, index) => (
+                            {cartItems.map((cartItem: Product, index: number) => (
                                 <div className='grid gap-2 align-items-center justify-content-center p-2'>
                                     <div className='col-12 md:col-1'>{index + 1}</div>
                                     <div className='col-12 md:col-2 flex justify-content-center'>
@@ -43,7 +43,7 @@ const CartPage = () => {
                                     </div>
 
                                     <div className='col-12 md:col-3'>
-                                        <Link to=''>{cartItem.name}</Link>
+                                        <Link to={`/product/${cartItem._id}`}>{cartItem.name}</Link>
                                     </div>
                                     <div className='md:col-2'>€ {cartItem.price}</div>
                                     <div className='md:col-2'>
@@ -64,11 +64,9 @@ const CartPage = () => {
                 <aside className='col-12 md:col-4'>
                     <Card>
                         <h2 className='text-xl mb-2'>Summe</h2>
-                        <p>€ {cartItems.reduce((acc, cartItem) => acc + cartItem.qty * cartItem.price, 0).toFixed(2)}</p>
+                        <p>€ {cartItems.reduce((sum: number, cartItem: Product) => sum + cartItem.qty * cartItem.price, 0).toFixed(2)}</p>
                         <div className='mt-4'>
-                            <Button className='w-full' disabled={cartItems.length === 0}>
-                                Zur Kasse
-                            </Button>
+                            <Button icon='pi pi-euro' className='w-full' disabled={cartItems.length === 0} label='Zur Kasse' />
                         </div>
                     </Card>
                 </aside>

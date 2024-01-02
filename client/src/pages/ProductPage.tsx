@@ -35,13 +35,13 @@ const ProductPage = () => {
                             <ProductARViewer model={product.model} name={product.name} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
-                            <div className='flex align-items-center text-primary pb-1'>
+                            <div className='flex align-items-center pb-1'>
                                 <i className='pi pi-tag pr-2' />
                                 <p>{product.category.name}</p>
                             </div>
                             <h1 className='font-semibold text-3xl pb-2'>{product.name}</h1>
                             {product.countInStock ? (
-                                <span className='text-sm'>
+                                <span className='text-sm text-primary'>
                                     <i className='pi pi-check pr-2 text-sm' />
                                     Verfügbar
                                 </span>

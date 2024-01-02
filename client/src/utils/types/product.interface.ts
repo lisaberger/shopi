@@ -12,6 +12,7 @@ interface Product {
     countInStock: number;
     preview: string;
     rating: number;
+    images: string[];
     annotations: Annotation[];
 }
 

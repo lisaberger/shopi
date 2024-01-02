@@ -63,7 +63,7 @@ const ProductList = () => {
                     <span className=' ml-2 text-sm'>({products?.length})</span>
                     {isLoading && <p>Produkte werden geladen ...</p>}
                     {error && <p>Produkte konnten nicht geladen werden.</p>}
-                    <DataView value={products} itemTemplate={productCard} />
+                    <DataView value={products} itemTemplate={productCard} paginator rows={5} />
                 </div>
             </div>
         </section>
