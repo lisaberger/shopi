@@ -1,4 +1,5 @@
 import { Annotation } from './annotation.interface';
+import { Category } from './category.interface';
 
 interface Product {
     _id: string;
@@ -6,12 +7,11 @@ interface Product {
     model: string;
     description: string;
     brand: string;
-    category: string;
+    category: Category;
     price: number;
-    preview: string;
     countInStock: number;
+    preview: string;
     rating: number;
-    numReviews: number;
     annotations: Annotation[];
 }
 

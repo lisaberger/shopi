@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
                 <div className='flex flex-wrap align-items-center justify-content-between gap-2 relative'>
                     <div className='flex align-items-center gap-2'>
                         <i className='pi pi-tag'></i>
-                        <span className='font-semibold text-s'>{product.category}</span>
+                        <span className='font-semibold text-s'>{product.category.name}</span>
                     </div>
 
                     <span onClick={toggleLike}>

@@ -37,7 +37,7 @@ const ProductPage = () => {
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center text-primary pb-1'>
                                 <i className='pi pi-tag pr-2' />
-                                <p>{product.category}</p>
+                                <p>{product.category.name}</p>
                             </div>
                             <h1 className='font-semibold text-3xl pb-2'>{product.name}</h1>
                             {product.countInStock ? (

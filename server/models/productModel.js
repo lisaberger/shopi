@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Annotation from './annotationModel.js';
+import Category from './categoryModel.js';
 
 const productSchema = mongoose.Schema(
     {
@@ -32,8 +33,9 @@ const productSchema = mongoose.Schema(
             required: true,
         },
         category: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
+            ref: 'Category',
         },
         description: {
             type: String,

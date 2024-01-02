@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import teaserRoutes from './routes/teaserRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 import path from 'path';
 
 const connectDB = async () => {
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/teasers', teaserRoutes);
+app.use('/api/categories', categoryRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path.resolve();

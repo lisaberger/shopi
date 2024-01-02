@@ -4,48 +4,34 @@ import { useAppSelector } from '@/store/hooks';
 import { DataView } from 'primereact/dataview';
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';
 import { useEffect, useState } from 'react';
+import { useGetCategoriesQuery } from '@/store/slices/categoriesApiSlice';
+import { Category } from '@/utils/types/category.interface';
+import { Product } from '@/utils/types/product.interface';
 
 const ProductList = () => {
     const [search, setSearch] = useState<string>('');
-    const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    const categories = [
-        { name: 'Elektronik', key: 'E', value: 'electronics' },
-        { name: 'Kleidung', key: 'K', value: 'clothing' },
-        { name: 'Möbel', key: 'M', value: 'furniture' },
-    ];
-
-    interface Category {
-        name: string;
-        key: string;
-        value: string;
-    }
-
+    const { data: categories } = useGetCategoriesQuery({});
     const { searchInput } = useAppSelector((state) => state.filter);
 
     useEffect(() => {
         setSearch(searchInput);
     }, [searchInput]);
 
-    const {
-        data: products,
-        isLoading,
-        error,
-    } = useGetProductsQuery({ search, categories: [...selectedCategories.map((category) => category.value)] });
+    const { data: products, isLoading, error } = useGetProductsQuery({ search, categories: selectedCategories });
 
     const onCategoryChange = (event: CheckboxChangeEvent) => {
-        let _selectedCategories = [...selectedCategories];
+        const categoryId = event.value;
 
-        if (event.checked) {
-            _selectedCategories.push(event.value);
-        } else {
-            _selectedCategories = _selectedCategories.filter((category) => category.key !== event.value.key);
-        }
+        const updatedCategories = event.checked
+            ? [...selectedCategories, categoryId]
+            : selectedCategories.filter((category) => category !== categoryId);
 
-        setSelectedCategories(_selectedCategories);
+        setSelectedCategories(updatedCategories);
     };
 
-    const productCard = (product) => <ProductCard product={product} />;
+    const productCard = (product: Product) => <ProductCard product={product} />;
 
     return (
         <section>
@@ -54,17 +40,17 @@ const ProductList = () => {
                 <aside className='col-12 md:col-2'>
                     <h2 className='text-xl font-medium'>Filter</h2>
                     <div className='p-2 flex gap-3 md:flex-column md:gap-2'>
-                        {categories.map((category) => {
+                        {categories?.map((category: Category) => {
                             return (
-                                <div key={category.key} className='flex align-items-center'>
+                                <div key={category._id} className='flex align-items-center'>
                                     <Checkbox
-                                        inputId={category.key}
+                                        inputId={category._id}
                                         name='category'
-                                        value={category}
+                                        value={category._id}
                                         onChange={onCategoryChange}
-                                        checked={selectedCategories.some((item) => item.key === category.key)}
+                                        checked={selectedCategories.includes(category._id)}
                                     />
-                                    <label htmlFor={category.key} className='ml-2'>
+                                    <label htmlFor={category._id} className='ml-2'>
                                         {category.name}
                                     </label>
                                 </div>
