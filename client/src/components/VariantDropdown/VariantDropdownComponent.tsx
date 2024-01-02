@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
-const VariantDropdownComponent = ({ variantOptions, onVariantChange }) => {
-    const handleVariantChange = (event) => {
+interface VariantDropdownComponent {
+    variantOptions: string[];
+    onVariantChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const VariantDropdownComponent: React.FC<VariantDropdownComponent> = ({ variantOptions, onVariantChange }) => {
+    const handleVariantChange = (event: ChangeEvent<HTMLSelectElement>) => {
         onVariantChange(event);
     };
     return (

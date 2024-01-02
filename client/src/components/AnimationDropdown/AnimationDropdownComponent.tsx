@@ -1,13 +1,26 @@
 import { Button } from 'primereact/button';
+import { ChangeEvent, MouseEvent } from 'react';
 
-const AnimationDropdownComponent = ({ animationOptions, onAnimationChange, onToggleAnimation, animationIsRunning }) => {
+interface AnimationDropdownComponent {
+    animationOptions: string[];
+    onAnimationChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+    onToggleAnimation: (event: MouseEvent<HTMLButtonElement>) => void;
+    animationIsRunning: boolean;
+}
+
+const AnimationDropdownComponent: React.FC<AnimationDropdownComponent> = ({
+    animationOptions,
+    onAnimationChange,
+    onToggleAnimation,
+    animationIsRunning,
+}) => {
     const animationIcon = animationIsRunning ? 'pi pi-pause' : 'pi pi-play';
 
-    const handleAnimationChange = (event) => {
+    const handleAnimationChange = (event: ChangeEvent<HTMLSelectElement>) => {
         onAnimationChange(event);
     };
 
-    const handleAnimation = (event) => {
+    const handleAnimation = (event: MouseEvent<HTMLButtonElement>) => {
         onToggleAnimation(event);
     };
 

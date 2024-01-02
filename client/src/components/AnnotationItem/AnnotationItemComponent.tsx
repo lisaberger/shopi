@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import styles from './AnnotationItemComponent.module.scss';
+import { Annotation } from '@/utils/types/annotation.interface';
 
-const AnnotationItemComponent = ({ annotation, index }) => {
+interface AnnotationItemComponent {
+    annotation: Annotation;
+    index: number;
+}
+
+const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation, index }) => {
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
     const handleAnnotationToggle = (index: number) => {
         setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
