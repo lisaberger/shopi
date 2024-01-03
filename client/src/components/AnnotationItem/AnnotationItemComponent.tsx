@@ -5,7 +5,7 @@ import { Annotation } from '@/utils/types/annotation.interface';
 interface AnnotationItemComponent {
     annotation: Annotation;
     index: number;
-    onAnnotationClicked: ({ dataTarget: string, dataTarget: string }) => void;
+    onAnnotationClicked: ({ dataOrbit, dataTarget }) => void;
 }
 
 const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation, index, onAnnotationClicked }) => {
