@@ -1,4 +1,4 @@
-# shopi
+# shopi 🛍
 
 **Shopi** is a prototype for a simple ecommerce webshop that uses 3D visualization concepts at various points to enhance and create a more engaging shopping experience.
 
