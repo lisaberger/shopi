@@ -45,16 +45,16 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, 
     const [animations, setAnimations] = useState<string[]>([]);
     const [animationIsRunning, setAnimationIsRunning] = useState(false);
 
-    // const handleCreateAnnotation = (event: MouseEvent) => {
-    //     const { clientX, clientY } = event;
+    const handleCreateAnnotation = (event: MouseEvent) => {
+        const { clientX, clientY } = event;
 
-    //     if (modelRef.current) {
-    //         const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
-    //         const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
+        if (modelRef.current) {
+            const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
+            const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
 
-    //         console.log('surface', hit, 'position + normal', hitdata?.position.toString());
-    //     }
-    // };
+            console.log('surface', hit, 'position + normal', hitdata?.position.toString());
+        }
+    };
 
     /* initialise and update animations and variants */
     useEffect(() => {
@@ -125,7 +125,7 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, 
             ar
             ar-modes='webxr scene-viewer quick-look'
             ref={modelRef}
-            // onClick={handleCreateAnnotation}
+            onClick={handleCreateAnnotation}
         >
             {annotations?.map((annotation: Annotation, index: number) => (
                 <AnnotationItemComponent key={index} annotation={annotation} index={index} onAnnotationClicked={handleAnnotationClick} />

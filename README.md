@@ -42,6 +42,10 @@ npm install
 
 Env Variables
 
+```
+cd server
+```
+
 Rename `.env.rename` file to `.env` and add the following
 
 ```
