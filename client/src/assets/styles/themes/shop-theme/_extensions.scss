@@ -1,4 +1,6 @@
 /* Customizations to the designer theme should be defined here */
+
+/* DatsaView */
 .p-dataview .p-dataview-content {
     background-color: transparent;
 }
@@ -7,6 +9,13 @@
     border: none;
 }
 
+/* Paginator */
 .p-paginator-bottom {
     background-color: transparent;
+}
+
+/* Password Input */
+.p-password-input,
+.p-password {
+    width: 100%;
 }

@@ -29,7 +29,7 @@ const Teaser: FC<TeaserProps> = () => {
     return (
         <section className='relative z-1'>
             <div className={`${styles.teaser} absolute`} />
-            <div className='px-4 md:px-8 pt-8 text-white mb-2'>
+            <div className={`${styles.spacing} px-4 md:px-8 text-white mb-2`}>
                 <Carousel value={productTeaser} numVisible={1} numScroll={1} itemTemplate={teaserItem} />
             </div>
         </section>

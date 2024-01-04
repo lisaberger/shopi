@@ -29,12 +29,12 @@ const LoginPage = () => {
 
     return (
         <section
-            className='h-full flex flex-column justify-content-between'
+            className='h-full flex flex-column flex-start'
             style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)', height: '100%' }}
         >
-            <div className='m-auto w-25rem pt-5 px-4 text-white'>
+            <div className='mx-auto w-25rem pt-5 px-4 text-white'>
                 <form onSubmit={loginHandler}>
-                    <h1 className='text-xl font-semibold'>Login</h1>
+                    <h1 className='text-xl font-bold'>Login</h1>
                     <div className='mt-4 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='email'>
                             Email
@@ -45,6 +45,7 @@ const LoginPage = () => {
                             aria-describedby='email-help'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            className={`${error ? 'p-invalid' : ''}`}
                         />
                     </div>
                     <div className='mt-4 flex flex-column gap-2'>
@@ -62,14 +63,13 @@ const LoginPage = () => {
                             />
                         </div>
                     </div>
-                    {isError && <p>{error?.data.message}</p>}
-                    <Button className='mt-4 text-color' disabled={isLoading}>
+                    {isError && <p className='text-sm text-red-500 mt-2 text-primary'>{error?.data.message}</p>}
+                    <Button className='mt-4' disabled={isLoading}>
                         Login
                     </Button>
-                    {isSuccess && <p>Successful login</p>}
                 </form>
 
-                <div className='py-3 text-sm'>
+                <div className='py-3 text-xs'>
                     Noch kein Profil?{' '}
                     <Link to='/register' className='underline text-primary'>
                         Registrieren

@@ -38,8 +38,8 @@ const RegisterPage = () => {
             className='h-full flex flex-column justify-content-between'
             style={{ backgroundImage: 'linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861)' }}
         >
-            <div className='m-auto w-25rem pt-5 px-4 text-white'>
-                <h1 className='text-xl font-semibold'>Register</h1>
+            <div className='mx-auto w-25rem pt-5 px-4 text-white'>
+                <h1 className='text-xl font-bold'>Register</h1>
                 <form onSubmit={registerHandler}>
                     <div className='mt-4 flex flex-column gap-2'>
                         <label className='text-xs' htmlFor='name'>
@@ -100,7 +100,7 @@ const RegisterPage = () => {
                     </Button>
                 </form>
 
-                <div className='pt-3 text-sm'>
+                <div className='pt-3 text-xs'>
                     Ich besitze schon einen Account?{' '}
                     <Link to='/login' className='underline text-primary'>
                         Login

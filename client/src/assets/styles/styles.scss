@@ -1,7 +1,7 @@
 /* SHOP STYLES */
 
 /* layer order */
-@layer reset, theme, utils;
+@layer reset, theme, utils, overrides;
 
 /* reset */
 @import './reset/_reset.scss' layer(reset);
@@ -13,7 +13,24 @@
 @import 'primeflex/primeflex.css' layer(utils);
 @import 'primeicons/primeicons.css' layer(utils);
 
-html,
-body {
-    height: 100%;
+/* overrides*/
+@layer overrides {
+    html,
+    body {
+        height: 100%;
+    }
+
+    :root {
+        --bannerHeight: 35px;
+        --navbarHeight: 70px;
+        --subnavbarHeight: 40px;
+    }
+
+    @media (min-width: 768px) {
+        :root {
+            --bannerHeight: 30px;
+            --navbarHeight: 60px;
+            --subnavbarHeight: 35px;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import { Button } from 'primereact/button';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
+import { Rating } from 'primereact/rating';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
 import ProductARViewer from '@/containers/ProductARViewer/ProductARViewer.container';
@@ -25,30 +26,31 @@ const ProductPage = () => {
         <>
             <section className='p-4 md:px-8' style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <Link to='/'>
-                    <Button icon='pi pi-arrow-left' size='small' label='Zurück' text outlined />
+                    <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
                 {product && (
                     <section className='grid mt-2 text-color'>
                         {error && <p>Fehler beim Laden des Produkts</p>}
                         {isLoading && <p>Produktinformationen werden geladen ...</p>}
-                        <div className='col-12 md:col-6 h-full bg-surface-50'>
+                        <div className='col-12 md:col-6 h-full'>
                             <ProductARViewer model={product.model} name={product.name} preview={product.preview} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center pb-1'>
                                 <i className='pi pi-tag pr-2' />
-                                <p>{product.category.name}</p>
+                                <p className='font-medium'>{product.category.name}</p>
                             </div>
                             <h1 className='font-bold text-2xl pb-2'>{product.name}</h1>
+                            <Rating value={product.rating} readOnly cancel={false} />
                             {product.countInStock ? (
-                                <span className='text-sm text-primary'>
+                                <div className='text-xs mt-2'>
                                     <i className='pi pi-check pr-2 text-sm' />
                                     Verfügbar
-                                </span>
+                                </div>
                             ) : (
                                 <span className='text-sm'>Aktuell nicht verfügbar</span>
                             )}
-                            <p className='text-lg font-semibold pt-4 pb-2'>Preis: € {product.price}</p>
+                            <p className='text-lg font-medium pt-4 pb-2'>Preis: € {product.price}</p>
 
                             <p className='text-base'>{product.description}</p>
                             <div className='pt-4'>

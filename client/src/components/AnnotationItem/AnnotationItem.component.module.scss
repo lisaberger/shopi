@@ -1,32 +1,33 @@
 .hotspot {
-    // background: #ffb800;
     background-color: var(--primary-color);
     border: none;
     border-radius: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     height: 24px;
-    font-family: 'Space Grotesk';
     width: 24px;
     position: relative;
     transition: opacity 0.3s;
-}
 
-.hotspot:not([data-visible]) {
-    background: transparent;
-    border: 4px solid #fff;
-    box-shadow: none;
-    height: 32px;
-    color: white;
-    pointer-events: none;
-    width: 32px;
+    &:not([data-visible]) {
+        background: transparent;
+        border: 4px solid #fff;
+        box-shadow: none;
+        height: 32px;
+        color: white;
+        pointer-events: none;
+        width: 32px;
+    }
+
+    &:focus {
+        border: 4px solid #495057;
+        height: 32px;
+        outline: none;
+        width: 32px;
+    }
 }
 
 .hotspot:focus {
-    border: 4px solid #495057;
-    height: 32px;
-    outline: none;
-    width: 32px;
 }
 
 .hotspot > * {

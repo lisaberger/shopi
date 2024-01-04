@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Searchbar from '../Searchbar/Searchbar.component';
-import { UserInfo } from '@/utils/types/user.inferface';
+import { IUserInfo } from '@/utils/types/user.inferface';
 import { Button } from 'primereact/button';
 import { Badge } from 'primereact/badge';
 import { FC, useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ import styles from './Navbar.component.module.scss';
 interface NavbarProps {
     variant: 'transparent' | 'white';
     cartItemsCount: number;
-    userInfo: UserInfo;
+    userInfo: IUserInfo;
     onLogout: () => void;
 }
 
@@ -62,7 +62,7 @@ const Navbar: FC<NavbarProps> = ({ cartItemsCount, userInfo, onLogout, variant }
         <div
             className={`${styles.navbar} ${navbarTheme} ${
                 activeScroll ? 'bg-white transition-duration-500 text-color' : ''
-            } px-4 md:px-8 py-2 relative flex align-items-center`}
+            } px-4 md:px-8 relative flex align-items-center`}
         >
             <nav className='flex justify-content-between w-full align-items-center'>
                 <Logo />

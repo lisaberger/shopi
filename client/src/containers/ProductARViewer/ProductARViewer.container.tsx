@@ -25,7 +25,7 @@ const ProductARViewer: FC<ProductARViewerProps> = ({ model, annotations, name })
 
     return (
         <>
-            <article className='h-full relative surface-50 p-2'>
+            <article className='h-full relative p-2'>
                 <ModelViewer annotations={annotations} model={model} name={name} />
 
                 <Button
@@ -33,7 +33,7 @@ const ProductARViewer: FC<ProductARViewerProps> = ({ model, annotations, name })
                     severity='secondary'
                     rounded
                     text
-                    label='In AR betrachten'
+                    label='In AR öffnen'
                     icon='pi pi-box'
                     onClick={handleOpenOverlay}
                 />

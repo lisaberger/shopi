@@ -40,7 +40,7 @@ const Header: FC<HeaderProps> = ({ navbarVariant }) => {
     return (
         <>
             <Navbar variant={navbarVariant} userInfo={userInfo} cartItemsCount={cartItems.length} onLogout={logoutHandler} />
-            {activeScroll && <Subnavbar />}
+            {(activeScroll || navbarVariant === 'white') && <Subnavbar />}
         </>
     );
 };

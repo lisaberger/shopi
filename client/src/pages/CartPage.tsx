@@ -3,6 +3,7 @@ import { useAppSelector } from '@/store/hooks';
 import { ICartItem } from '@/utils/types/cart.interface';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { Divider } from 'primereact/divider';
 import { Link } from 'react-router-dom';
 
 const CartPage = () => {
@@ -11,16 +12,26 @@ const CartPage = () => {
 
     return (
         <section className='p-4 md:px-8 text-color' style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h1 className='text-xl'>Warenkorb</h1>
             <Link to='/'>
-                <Button icon='pi pi-arrow-left' className='mt-4' severity='secondary' size='small' label='Zurück' text outlined />
+                <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
             </Link>
+            <h1 className='text-xl font-bold mt-4'>Warenkorb</h1>
+            <Divider />
 
-            <div className='grid p-2 md:px-8'>
+            <div className='grid'>
                 <article className='col-12 md:col-8'>
+                    <div className='hidden lg:flex grid gap-2 align-items-center mt-2 justify-content-center'>
+                        <p className='col-12 md:col-1 text-sm font-medium'>Artikel</p>
+                        <p className='col-12 md:col-2 text-sm font-medium flex justify-content-center'>Produktvorschau</p>
+                        <p className='col-12 md:col-3 text-sm font-medium'>Bezeichnung</p>
+                        <p className='md:col-2 text-sm font-medium'>Preis</p>
+                        <p className='md:col-2 text-sm font-medium'>Menge</p>
+                        <p className='md:col-1 text-sm font-medium'></p>
+                    </div>
+
                     {cartItems.length === 0 ? (
                         <>
-                            <p>Warenkorb ist leer</p>
+                            <p className='text-color-secondary'>Der Warenkorb ist leer</p>
                         </>
                     ) : (
                         <div>
@@ -32,7 +43,7 @@ const CartPage = () => {
                 </article>
                 <aside className='col-12 md:col-4'>
                     <Card>
-                        <h2 className='text-xl mb-2'>Summe</h2>
+                        <h2 className='text-xl mb-1 font-bold'>Summe</h2>
                         <p>€ {cartItems.reduce((sum: number, cartItem: ICartItem) => sum + cartItem.qty * cartItem.price, 0).toFixed(2)}</p>
                         <div className='mt-4'>
                             <Button icon='pi pi-euro' className='w-full' disabled={cartItems.length === 0} label='Zur Kasse' />

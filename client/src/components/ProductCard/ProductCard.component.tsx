@@ -4,10 +4,10 @@ import Product360Viewer from '../Product360Viewer/Product360Viewer.component';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
-import { Product } from '@/utils/types/product.interface';
+import { IProduct } from '@/utils/types/product.interface';
 
 interface ProductCardProps {
-    product: Product;
+    product: IProduct;
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
@@ -51,7 +51,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                 <Link to={`/product/${product._id}`}>
                     <h3 className='text-base font-bold'>{product.name}</h3>
                     <div className='mb-2 flex align-items-center justify-content-between'>
-                        <span className='text-base'>€ {product.price}</span>
+                        <span className='text-base text-color-secondary'>€ {product.price}</span>
                     </div>
                 </Link>
                 <Button

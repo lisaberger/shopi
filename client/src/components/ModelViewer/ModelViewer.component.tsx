@@ -6,6 +6,9 @@ import VariantDropdown from '../VariantDropdown/VariantDropdown.component';
 import AnimationDropdown from '../AnimationDropdown/AnimationDropdown.component';
 import { IAnnotation } from '@/utils/types/annotation.interface';
 import styles from './ModelViewer.component.module.scss';
+import { Canvas } from '@react-three/fiber';
+import { Stage, Gltf } from '@react-three/drei';
+import { ProgressBar } from 'primereact/progressbar';
 
 declare global {
     namespace JSX {
@@ -113,15 +116,15 @@ const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, 
     /**
      * custom loading bar
      */
-    // const [loadingValue, setloadingValue] = useState(0);
+    const [loadingValue, setloadingValue] = useState(0);
 
-    // const onProgress = (event) => {
-    //     setloadingValue(Math.round(event.detail.totalProgress * 100));
-    // };
+    const onProgress = (event) => {
+        setloadingValue(Math.round(event.detail.totalProgress * 100));
+    };
 
-    // if (modelRef.current) {
-    //     modelRef.current.addEventListener('progress', onProgress);
-    // }
+    if (modelRef.current) {
+        modelRef.current.addEventListener('progress', onProgress);
+    }
 
     return (
         <model-viewer
@@ -151,18 +154,18 @@ const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, 
                 )}
             </div>
 
-            {/* <div slot='progress-bar'>
+            <div slot='progress-bar'>
                 {loadingValue !== 100 && (
                     <div className='flex flex-column justify-content-center align-items-center h-full w-full'>
                         <ProgressBar className='w-full' value={loadingValue} />
-                        <Canvas>
+                        {/* <Canvas>
                             <Stage>
                                 <Gltf src={preview} />
                             </Stage>
-                        </Canvas>
+                        </Canvas> */}
                     </div>
                 )}
-            </div> */}
+            </div>
         </model-viewer>
     );
 };

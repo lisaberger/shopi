@@ -4,8 +4,12 @@
     background-image: linear-gradient(to right top, #263238, #2d3b42, #34454c, #3c4e56, #435861);
 }
 
+.spacing {
+    padding-top: 120px;
+}
+
 @media (min-width: 768px) {
     .teaser {
-        height: 420px;
+        height: 450px;
     }
 }

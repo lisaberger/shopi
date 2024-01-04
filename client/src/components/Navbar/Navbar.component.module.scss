@@ -1,5 +1,5 @@
 .navbar {
-    height: 70px;
+    height: var(--navbarHeight);
 
     .menu {
         position: absolute;
@@ -7,8 +7,11 @@
         left: 0;
         width: 100%;
         border: none;
+        background-color: white;
+        color: var(--text-color);
         display: none;
         z-index: 500;
+        padding: 8px 0;
 
         &.expanded {
             display: flex;
@@ -21,11 +24,10 @@
                 width: 100%;
                 display: flex;
                 align-items: center;
-                font-size: 1rem;
+                padding: 8px 24px;
 
-                .icon {
-                    font-size: 1.1rem;
-                    padding-right: 1rem;
+                .icon + p {
+                    margin-left: 16px;
                 }
             }
         }
@@ -40,6 +42,8 @@
             display: flex;
             width: auto;
             align-items: center;
+            background-color: transparent;
+            color: inherit;
 
             .list {
                 width: 100%;
@@ -58,6 +62,10 @@
                     .icon {
                         font-size: 1rem;
                         padding-right: 0rem;
+                    }
+
+                    .icon + p {
+                        margin-left: 0;
                     }
                 }
             }
