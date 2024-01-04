@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ModelViewerElement } from '@google/model-viewer/dist/model-viewer';
-import AnnotationItemComponent from '../AnnotationItem/AnnotationItemComponent';
-import VariantDropdownComponent from '../VariantDropdown/VariantDropdownComponent';
-import AnimationDropdownComponent from '../AnimationDropdown/AnimationDropdownComponent';
-import { Annotation } from '@/utils/types/annotation.interface';
-import styles from './ModelViewerComponent.module.scss';
+import AnnotationItem from '../AnnotationItem/AnnotationItem.component';
+import VariantDropdown from '../VariantDropdown/VariantDropdown.component';
+import AnimationDropdown from '../AnimationDropdown/AnimationDropdown.component';
+import { IAnnotation } from '@/utils/types/annotation.interface';
+import styles from './ModelViewer.component.module.scss';
 
 declare global {
     namespace JSX {
@@ -33,30 +33,35 @@ interface ModelViewerJSX {
     alt?: string;
 }
 
-interface ModelViewerComponent {
+interface ModelViewerProps {
     model: string;
-    annotations: Annotation[];
+    annotations: IAnnotation[];
     name: string;
 }
 
-const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, annotations, name }) => {
+const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
     const [variants, setVariants] = useState<string[]>([]);
     const [animations, setAnimations] = useState<string[]>([]);
     const [animationIsRunning, setAnimationIsRunning] = useState(false);
 
-    const handleCreateAnnotation = (event: MouseEvent) => {
-        const { clientX, clientY } = event;
+    /**
+     * function to get model surface and position values
+     */
+    // const handleCreateAnnotation = (event: MouseEvent) => {
+    //     const { clientX, clientY } = event;
 
-        if (modelRef.current) {
-            const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
-            const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
+    //     if (modelRef.current) {
+    //         const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
+    //         const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
 
-            console.log('surface', hit, 'position + normal', hitdata?.position.toString());
-        }
-    };
+    //         console.log('surface', hit, 'position + normal', hitdata?.position.toString());
+    //     }
+    // };
 
-    /* initialise and update animations and variants */
+    /**
+     * initialise and update animations and variants
+     */
     useEffect(() => {
         if (modelRef.current) {
             setVariants([...modelRef.current.availableVariants]);
@@ -105,6 +110,9 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, 
         }
     };
 
+    /**
+     * custom loading bar
+     */
     // const [loadingValue, setloadingValue] = useState(0);
 
     // const onProgress = (event) => {
@@ -125,16 +133,16 @@ const ModelViewerComponent: React.FC<ModelViewerComponent> = ({ model, preview, 
             ar
             ar-modes='webxr scene-viewer quick-look'
             ref={modelRef}
-            onClick={handleCreateAnnotation}
+            // onClick={handleCreateAnnotation}
         >
-            {annotations?.map((annotation: Annotation, index: number) => (
-                <AnnotationItemComponent key={index} annotation={annotation} index={index} onAnnotationClicked={handleAnnotationClick} />
+            {annotations?.map((annotation: IAnnotation, index: number) => (
+                <AnnotationItem key={index} annotation={annotation} index={index} onAnnotationClicked={handleAnnotationClick} />
             ))}
 
             <div className='flex p-2 gap-2'>
-                {variants.length > 0 && <VariantDropdownComponent variantOptions={variants} onVariantChange={handleVariantChange} />}
+                {variants.length > 0 && <VariantDropdown variantOptions={variants} onVariantChange={handleVariantChange} />}
                 {animations.length > 0 && (
-                    <AnimationDropdownComponent
+                    <AnimationDropdown
                         animationOptions={animations}
                         onAnimationChange={handleAnimationChange}
                         onToggleAnimation={handleAnimation}

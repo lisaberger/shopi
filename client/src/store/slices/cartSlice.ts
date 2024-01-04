@@ -1,7 +1,7 @@
-import { CartItem } from '@/utils/types/cart.interface';
+import { ICartItem } from '@/utils/types/cart.interface';
 import { createSlice } from '@reduxjs/toolkit';
 interface CartState {
-    cartItems: CartItem[];
+    cartItems: ICartItem[];
 }
 
 const initialState: CartState = localStorage.getItem('cart') ? JSON.parse(String(localStorage.getItem('cart'))) : { cartItems: [] };

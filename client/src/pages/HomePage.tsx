@@ -1,5 +1,5 @@
-import Teaser from '@/containers/Teaser/TeaserContainer';
-import ProductList from '@/containers/ProductList/ProductListContainer';
+import Teaser from '@/containers/Teaser/Teaser.container';
+import ProductList from '@/containers/ProductList/ProductList.container';
 import { useAppSelector } from '@/store/hooks';
 
 const HomePage = () => {

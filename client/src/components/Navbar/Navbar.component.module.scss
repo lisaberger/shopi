@@ -1,17 +1,11 @@
-.header {
+.navbar {
     height: 70px;
-
-    .logo {
-        height: 2.5rem;
-        margin-right: 5px;
-    }
 
     .menu {
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: white;
         border: none;
         display: none;
         z-index: 500;
@@ -28,10 +22,9 @@
                 display: flex;
                 align-items: center;
                 font-size: 1rem;
-                padding: 0.6rem 1.5rem;
 
                 .icon {
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     padding-right: 1rem;
                 }
             }
@@ -40,13 +33,12 @@
 }
 
 @media (min-width: 768px) {
-    .header {
+    .navbar {
         .menu {
             position: static;
             height: auto;
             display: flex;
             width: auto;
-            background-color: inherit;
             align-items: center;
 
             .list {

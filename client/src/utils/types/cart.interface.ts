@@ -1,7 +1,7 @@
-import { Product } from './product.interface';
+import { IProduct } from './product.interface';
 
-type CartItem = Product & {
+type ICartItem = IProduct & {
     qty: number;
 };
 
-export type { CartItem };
+export type { ICartItem };

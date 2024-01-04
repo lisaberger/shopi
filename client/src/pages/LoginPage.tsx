@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [login, { isLoading }] = useLoginMutation();
+    const [login, { isLoading, isError, error, isSuccess }] = useLoginMutation();
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -19,8 +19,8 @@ const LoginPage = () => {
     const loginHandler = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            const res = await login({ email, password }).unwrap();
-            dispatch(setCredentials({ ...res }));
+            const response = await login({ email, password }).unwrap();
+            dispatch(setCredentials({ ...response }));
             navigate('/');
         } catch (error) {
             console.log(error);
@@ -62,9 +62,11 @@ const LoginPage = () => {
                             />
                         </div>
                     </div>
+                    {isError && <p>{error?.data.message}</p>}
                     <Button className='mt-4 text-color' disabled={isLoading}>
                         Login
                     </Button>
+                    {isSuccess && <p>Successful login</p>}
                 </form>
 
                 <div className='py-3 text-sm'>

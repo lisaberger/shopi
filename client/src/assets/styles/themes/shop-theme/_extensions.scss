@@ -1,1 +1,12 @@
 /* Customizations to the designer theme should be defined here */
+.p-dataview .p-dataview-content {
+    background-color: transparent;
+}
+
+.p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
+    border: none;
+}
+
+.p-paginator-bottom {
+    background-color: transparent;
+}

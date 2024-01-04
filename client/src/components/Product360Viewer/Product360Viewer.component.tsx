@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { ReactImageTurntable } from 'react-image-turntable';
+import { KeyboardEvent } from 'react';
 
-interface Product360Viewer {
+interface Product360ViewerProps {
     images: string[];
 }
 
-const Product360Viewer: React.FC<Product360Viewer> = ({ images }) => {
+const Product360Viewer: FC<Product360ViewerProps> = ({ images }) => {
     const [rotationDisabled, setRotationDisabled] = useState(false);
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (rotationDisabled) return;
 
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {

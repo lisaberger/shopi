@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import styles from './AnnotationItemComponent.module.scss';
-import { Annotation } from '@/utils/types/annotation.interface';
+import { FC, useState } from 'react';
+import styles from './AnnotationItem.component.module.scss';
+import { IAnnotation } from '@/utils/types/annotation.interface';
 
-interface AnnotationItemComponent {
-    annotation: Annotation;
+interface AnnotationItemProps {
+    annotation: IAnnotation;
     index: number;
-    onAnnotationClicked: ({ dataOrbit, dataTarget }) => void;
+    onAnnotationClicked: ({ dataOrbit, dataTarget }: { dataOrbit: string; dataTarget: string }) => void;
 }
 
-const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation, index, onAnnotationClicked }) => {
+const AnnotationItem: FC<AnnotationItemProps> = ({ annotation, index, onAnnotationClicked }) => {
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
 
     const handleAnnotationToggle = (index: number) => {
@@ -39,4 +39,4 @@ const AnnotationItemComponent: React.FC<AnnotationItemComponent> = ({ annotation
     );
 };
 
-export default AnnotationItemComponent;
+export default AnnotationItem;

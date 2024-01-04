@@ -1,4 +1,4 @@
-interface Annotation {
+interface IAnnotation {
     title: string;
     surface: string;
     description: string;
@@ -6,4 +6,4 @@ interface Annotation {
     cameraTarget?: string;
 }
 
-export type { Annotation };
+export type { IAnnotation };

@@ -1,19 +1,19 @@
-import { Annotation } from './annotation.interface';
-import { Category } from './category.interface';
+import { IAnnotation } from './annotation.interface';
+import { ICategory } from './category.interface';
 
-interface Product {
+interface IProduct {
     _id: string;
     name: string;
     model: string;
     description: string;
     brand: string;
-    category: Category;
+    category: ICategory;
     price: number;
     countInStock: number;
     preview: string;
     rating: number;
     images: string[];
-    annotations: Annotation[];
+    annotations: IAnnotation[];
 }
 
-export type { Product };
+export type { IProduct };

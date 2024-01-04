@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Product360Viewer from '../Product360Viewer/Product360ViewerComponent';
+import Product360Viewer from '../Product360Viewer/Product360Viewer.component';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
+import { Product } from '@/utils/types/product.interface';
 
-const ProductCard = ({ product }) => {
+interface ProductCardProps {
+    product: Product;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const [liked, setLiked] = useState(false);
-    const [qty, setQty] = useState(1);
+    const [qty] = useState(1);
 
     const toggleLike = () => {
         setLiked(!liked);

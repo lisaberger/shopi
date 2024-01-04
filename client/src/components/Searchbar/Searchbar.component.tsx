@@ -1,13 +1,15 @@
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
 import { setSearchInput } from '@/store/slices/filterSlice';
 
-import styles from './SearchbarComponent.module.scss';
+import styles from './Searchbar.component.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-const SearchbarComponent = () => {
+interface SearchbarProps {}
+
+const Searchbar: FC<SearchbarProps> = () => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ const SearchbarComponent = () => {
         setSearchValue(event.target.value);
     };
 
-    const searchHandler = () => {
+    const handleSearch = () => {
         dispatch(setSearchInput(searchValue));
         navigate('/');
     };
@@ -30,9 +32,9 @@ const SearchbarComponent = () => {
     return (
         <span className={`${styles.searchbar} px-4 lg:max-w-30rem p-inputgroup p-inputtext-sm`}>
             <InputText value={searchValue} onChange={handleInputChange} placeholder='Produkt suchen' />
-            <Button onClick={searchHandler} icon='pi pi-search' className='p-button-warning' />
+            <Button onClick={handleSearch} icon='pi pi-search' className='p-button-warning' />
         </span>
     );
 };
 
-export default SearchbarComponent;
+export default Searchbar;

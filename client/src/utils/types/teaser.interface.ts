@@ -1,10 +1,10 @@
-import { Product } from './product.interface';
+import { IProduct } from './product.interface';
 
-interface TeaserItem {
+interface ITeaserItem {
     _id: string;
     title: string;
     description: string;
-    product: Product;
+    product: IProduct;
 }
 
-export type { TeaserItem };
+export type { ITeaserItem };

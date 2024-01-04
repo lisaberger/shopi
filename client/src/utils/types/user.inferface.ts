@@ -1,14 +1,18 @@
-interface User {
+interface IUser {
     name: string;
     email: string;
     password: string;
     isAdmin: boolean;
-    image?: string;
 }
 
-interface UserInfo {
+interface IUserInfo {
     name: string;
     email: string;
 }
 
-export type { User, UserInfo };
+interface IUserLogin {
+    email: string;
+    password: string;
+}
+
+export type { IUser, IUserInfo, IUserLogin };

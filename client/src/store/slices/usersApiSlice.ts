@@ -1,20 +1,10 @@
+import { IUser, IUserLogin } from '@/utils/types/user.inferface';
 import { apiSlice } from './apiSlice';
 import { USERS_URL } from '@/utils/constants';
 
-interface User {
-    name: string;
-    password: string;
-    email: string;
-}
-
-interface Login {
-    email: string;
-    password: string;
-}
-
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (build) => ({
-        getUsers: build.query<User[], void>({
+        getUsers: build.query<IUser[], void>({
             query: () => ({
                 url: USERS_URL,
             }),
@@ -22,7 +12,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             keepUnusedDataFor: 5,
         }),
         register: build.mutation({
-            query: (user: User) => ({
+            query: (user: IUser) => ({
                 url: `${USERS_URL}`,
                 method: 'POST',
                 body: user,
@@ -30,7 +20,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Users'],
         }),
         login: build.mutation({
-            query: (user: Login) => ({
+            query: (user: IUserLogin) => ({
                 url: `${USERS_URL}/login`,
                 method: 'POST',
                 body: user,

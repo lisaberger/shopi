@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import '@google/model-viewer/dist/model-viewer';
 import { Button } from 'primereact/button';
-import { Annotation } from '@/utils/types/annotation.interface.ts';
-import ModelViewerComponent from '@/components/ModelViewer/ModelViewerComponent';
-import QRCodeOverlayComponent from '@/components/QrCodeOverlay/QrCodeOverlayComponent';
+import { IAnnotation } from '@/utils/types/annotation.interface.ts';
+import ModelViewer from '@/components/ModelViewer/ModelViewer.component';
+import QRCodeOverlay from '@/components/QrCodeOverlay/QrCodeOverlay.component';
 
-interface ProductARViewer {
+interface ProductARViewerProps {
     model: string;
-    annotations: Annotation[];
+    annotations: IAnnotation[];
     name: string;
 }
 
-const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, preview, annotations, name }) => {
+const ProductARViewer: FC<ProductARViewerProps> = ({ model, annotations, name }) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleOpenOverlay = () => {
@@ -26,7 +26,7 @@ const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, preview, a
     return (
         <>
             <article className='h-full relative surface-50 p-2'>
-                <ModelViewerComponent annotations={annotations} preview={preview} model={model} name={name} />
+                <ModelViewer annotations={annotations} model={model} name={name} />
 
                 <Button
                     className='hidden md:block mx-auto'
@@ -38,10 +38,10 @@ const ProductARViewerContainer: React.FC<ProductARViewer> = ({ model, preview, a
                     onClick={handleOpenOverlay}
                 />
 
-                {isActive && <QRCodeOverlayComponent onClose={handleCloseOverlay} />}
+                {isActive && <QRCodeOverlay onClose={handleCloseOverlay} />}
             </article>
         </>
     );
 };
 
-export default ProductARViewerContainer;
+export default ProductARViewer;

@@ -1,8 +1,8 @@
-import { UserInfo } from '@/utils/types/user.inferface';
+import { IUserInfo } from '@/utils/types/user.inferface';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
-    userInfo: UserInfo;
+    userInfo: IUserInfo;
 }
 
 const initialState: AuthState = {

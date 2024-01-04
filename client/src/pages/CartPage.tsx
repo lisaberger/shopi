@@ -1,6 +1,6 @@
-import CartItemComponent from '@/components/CartItem/CartItemComponent';
+import CartItem from '@/components/CartItem/CartItem.component';
 import { useAppSelector } from '@/store/hooks';
-import { CartItem } from '@/utils/types/cart.interface';
+import { ICartItem } from '@/utils/types/cart.interface';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ const CartPage = () => {
             <Link to='/'>
                 <Button icon='pi pi-arrow-left' className='mt-4' severity='secondary' size='small' label='Zurück' text outlined />
             </Link>
+
             <div className='grid p-2 md:px-8'>
                 <article className='col-12 md:col-8'>
                     {cartItems.length === 0 ? (
@@ -23,8 +24,8 @@ const CartPage = () => {
                         </>
                     ) : (
                         <div>
-                            {cartItems.map((cartItem: CartItem, index: number) => (
-                                <CartItemComponent key={cartItem._id} cartItem={cartItem} index={index} />
+                            {cartItems.map((cartItem: ICartItem, index: number) => (
+                                <CartItem key={cartItem._id} cartItem={cartItem} index={index} />
                             ))}
                         </div>
                     )}
@@ -32,7 +33,7 @@ const CartPage = () => {
                 <aside className='col-12 md:col-4'>
                     <Card>
                         <h2 className='text-xl mb-2'>Summe</h2>
-                        <p>€ {cartItems.reduce((sum: number, cartItem: CartItem) => sum + cartItem.qty * cartItem.price, 0).toFixed(2)}</p>
+                        <p>€ {cartItems.reduce((sum: number, cartItem: ICartItem) => sum + cartItem.qty * cartItem.price, 0).toFixed(2)}</p>
                         <div className='mt-4'>
                             <Button icon='pi pi-euro' className='w-full' disabled={cartItems.length === 0} label='Zur Kasse' />
                         </div>

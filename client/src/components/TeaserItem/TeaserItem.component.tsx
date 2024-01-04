@@ -1,18 +1,18 @@
 import { Stage, Gltf } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Button } from 'primereact/button';
-import { Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { OrbitControls } from '@react-three/drei';
-import { TeaserItem } from '@/utils/types/teaser.interface';
+import { ITeaserItem } from '@/utils/types/teaser.interface';
 
-import styles from './TeaserItemComponent.module.scss';
+import styles from './TeaserItem.component.module.scss';
 
-interface TeaserItemComponent {
-    teaser: TeaserItem;
+interface TeaserItemProps {
+    teaser: ITeaserItem;
 }
 
-const TeaserItemComponent: React.FC<TeaserItemComponent> = ({ teaser }) => {
+const TeaserItem: FC<TeaserItemProps> = ({ teaser }) => {
     return (
         <article
             className='flex flex-column align-items-center justifty-content-center pt-3 px-2 md:px-8 md:flex-row md:pt-4 md:align-items-start'
@@ -46,4 +46,4 @@ const TeaserItemComponent: React.FC<TeaserItemComponent> = ({ teaser }) => {
     );
 };
 
-export default TeaserItemComponent;
+export default TeaserItem;

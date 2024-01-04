@@ -1,11 +1,12 @@
 import { Button } from 'primereact/button';
+import { FC } from 'react';
 import QRCode from 'react-qr-code';
 
-interface QRCodeOverlayComponent {
+interface QRCodeOverlayProps {
     onClose: () => void;
 }
 
-const QRCodeOverlayComponent: React.FC<QRCodeOverlayComponent> = ({ onClose }) => {
+const QRCodeOverlay: FC<QRCodeOverlayProps> = ({ onClose }) => {
     const qrValue = window.location.href;
 
     return (
@@ -30,4 +31,4 @@ const QRCodeOverlayComponent: React.FC<QRCodeOverlayComponent> = ({ onClose }) =
     );
 };
 
-export default QRCodeOverlayComponent;
+export default QRCodeOverlay;

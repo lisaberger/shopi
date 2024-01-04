@@ -3,10 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 import { useGetProductByIdQuery } from '@/store/slices/productsApiSlice';
-import ProductARViewerContainer from '@/containers/ProductARViewer/ProductARViewerContainer';
+import ProductARViewer from '@/containers/ProductARViewer/ProductARViewer.container';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
-import ModelViewerComponent from '@/components/ModelViewer/ModelViewerComponent';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
@@ -28,24 +27,19 @@ const ProductPage = () => {
                 <Link to='/'>
                     <Button icon='pi pi-arrow-left' size='small' label='Zurück' text outlined />
                 </Link>
-                {error && <p>Fehler beim Laden des Produkts</p>}
-                {isLoading && <p>Produktinformationen werden geladen ...</p>}
                 {product && (
                     <section className='grid mt-2 text-color'>
+                        {error && <p>Fehler beim Laden des Produkts</p>}
+                        {isLoading && <p>Produktinformationen werden geladen ...</p>}
                         <div className='col-12 md:col-6 h-full bg-surface-50'>
-                            <ProductARViewerContainer
-                                model={product.model}
-                                name={product.name}
-                                preview={product.preview}
-                                annotations={product.annotations}
-                            />
+                            <ProductARViewer model={product.model} name={product.name} preview={product.preview} annotations={product.annotations} />
                         </div>
                         <div className='col-12 md:col-6 md:pl-5'>
                             <div className='flex align-items-center pb-1'>
                                 <i className='pi pi-tag pr-2' />
                                 <p>{product.category.name}</p>
                             </div>
-                            <h1 className='font-semibold text-3xl pb-2'>{product.name}</h1>
+                            <h1 className='font-bold text-2xl pb-2'>{product.name}</h1>
                             {product.countInStock ? (
                                 <span className='text-sm text-primary'>
                                     <i className='pi pi-check pr-2 text-sm' />

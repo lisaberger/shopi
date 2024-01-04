@@ -1,23 +1,24 @@
-import Product360Viewer from '@/components/Product360Viewer/Product360ViewerComponent';
+import Product360Viewer from '@/components/Product360Viewer/Product360Viewer.component';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
-import { CartItem } from '@/utils/types/cart.interface';
+import { ICartItem } from '@/utils/types/cart.interface';
+import { FC } from 'react';
 
-interface CartItemComponent {
-    cartItem: CartItem;
+interface CartItemProps {
+    cartItem: ICartItem;
     index: number;
 }
 
-const CartItemComponent: React.FC<CartItemComponent> = ({ cartItem, index }) => {
+const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
     const dispatch = useAppDispatch();
-    const addToCartHandler = (product: CartItem, qty: number) => {
+    const addToCartHandler = (product: ICartItem, qty: number) => {
         dispatch(addToCart({ ...product, qty }));
     };
 
-    const removeFromCartHandler = (id) => {
+    const removeFromCartHandler = (id: string) => {
         dispatch(removeFromCart(id));
     };
 
@@ -36,7 +37,7 @@ const CartItemComponent: React.FC<CartItemComponent> = ({ cartItem, index }) => 
                 <Dropdown
                     value={cartItem.qty}
                     options={[...Array(cartItem.countInStock).keys()].map((x) => x + 1)}
-                    onChange={(e) => addToCartHandler(cartItem, Number(e.target.value))}
+                    onChange={(event) => addToCartHandler(cartItem, Number(event.target.value))}
                 />
             </div>
             <div className='md:col-1'>
@@ -46,4 +47,4 @@ const CartItemComponent: React.FC<CartItemComponent> = ({ cartItem, index }) => 
     );
 };
 
-export default CartItemComponent;
+export default CartItem;
