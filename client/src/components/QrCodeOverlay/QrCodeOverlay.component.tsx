@@ -10,7 +10,7 @@ const QRCodeOverlay: FC<QRCodeOverlayProps> = ({ onClose }) => {
     const qrValue = window.location.href;
 
     return (
-        <div className='bg-black-alpha-90 absolute top-0 text-sm w-full p-4 pb-8'>
+        <div className='bg-black-alpha-90 absolute top-0 text-sm w-full h-full p-4 pb-8'>
             <div className='mb-4 '>
                 <Button size='small' label='schließen' rounded text icon='pi pi-times' onClick={() => onClose()} />
             </div>

@@ -51,16 +51,16 @@ const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, 
     /**
      * function to get model surface and position values
      */
-    // const handleCreateAnnotation = (event: MouseEvent) => {
-    //     const { clientX, clientY } = event;
+    const handleCreateAnnotation = (event: MouseEvent) => {
+        const { clientX, clientY } = event;
 
-    //     if (modelRef.current) {
-    //         const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
-    //         const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
+        if (modelRef.current) {
+            const hit = modelRef.current.surfaceFromPoint(clientX, clientY);
+            const hitdata = modelRef.current.positionAndNormalFromPoint(clientX, clientY);
 
-    //         console.log('surface', hit, 'position + normal', hitdata?.position.toString());
-    //     }
-    // };
+            console.log('surface', hit, 'position + normal', hitdata?.position.toString());
+        }
+    };
 
     /**
      * initialise and update animations and variants
@@ -136,7 +136,7 @@ const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, 
             ar
             ar-modes='webxr scene-viewer quick-look'
             ref={modelRef}
-            // onClick={handleCreateAnnotation}
+            onClick={handleCreateAnnotation}
         >
             {annotations?.map((annotation: IAnnotation, index: number) => (
                 <AnnotationItem key={index} annotation={annotation} index={index} onAnnotationClicked={handleAnnotationClick} />

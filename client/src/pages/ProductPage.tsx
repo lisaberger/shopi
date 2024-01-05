@@ -29,7 +29,7 @@ const ProductPage = () => {
                     <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Zurück' text outlined />
                 </Link>
                 {product && (
-                    <section className='grid mt-2 text-color'>
+                    <section className='grid md:mt-2 text-color'>
                         {error && <p>Fehler beim Laden des Produkts</p>}
                         {isLoading && <p>Produktinformationen werden geladen ...</p>}
                         <div className='col-12 md:col-6 h-full'>
@@ -42,8 +42,9 @@ const ProductPage = () => {
                             </div>
                             <h1 className='font-bold text-2xl pb-2'>{product.name}</h1>
                             <Rating value={product.rating} readOnly cancel={false} />
+                            <p className='mt-2 font-semibold'>{product.brand}</p>
                             {product.countInStock ? (
-                                <div className='text-xs mt-2'>
+                                <div className='text-xs mt-1'>
                                     <i className='pi pi-check pr-2 text-sm' />
                                     Verfügbar
                                 </div>

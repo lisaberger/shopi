@@ -31,8 +31,8 @@ const AnnotationItem: FC<AnnotationItemProps> = ({ annotation, index, onAnnotati
 
             {visibleIndex === index && (
                 <div className={`${styles.annotation} text-xs text-white bg-black-alpha-70`}>
-                    <p className='font-bold'>{annotation.title}</p>
-                    <p>{annotation.description}</p>
+                    <p className='font-bold text-primary'>{annotation.title}</p>
+                    <p className='font-regular'>{annotation.description}</p>
                 </div>
             )}
         </button>

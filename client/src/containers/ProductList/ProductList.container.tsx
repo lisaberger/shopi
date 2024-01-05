@@ -79,7 +79,7 @@ const ProductList = () => {
                     </div>
                     {isLoading && <p>Produkte werden geladen ...</p>}
                     {error && <p className='text-color-secondary'>Produkte konnten nicht geladen werden.</p>}
-                    {products && <DataView value={products} itemTemplate={productCard} paginator rows={5} />}
+                    {products && <DataView value={products} itemTemplate={productCard} paginator rows={9} />}
                 </div>
             </div>
         </section>

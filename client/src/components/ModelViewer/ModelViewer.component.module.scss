@@ -5,7 +5,7 @@
 model-viewer {
     display: block;
     width: 100%;
-    min-height: 60vh;
+    height: 40vh;
 }
 
 #ar-button {
@@ -71,4 +71,10 @@ model-viewer[ar-status='session-started'] > #ar-prompt {
 
 model-viewer > #ar-prompt > img {
     animation: circle 4s linear infinite;
+}
+
+@media (min-width: 768px) {
+    model-viewer {
+        height: 50vh;
+    }
 }
