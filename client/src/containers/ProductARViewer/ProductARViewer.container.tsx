@@ -10,9 +10,10 @@ interface ProductARViewerProps {
     model: string;
     annotations: IAnnotation[];
     name: string;
+    preview: string;
 }
 
-const ProductARViewer: FC<ProductARViewerProps> = ({ model, annotations, name }) => {
+const ProductARViewer: FC<ProductARViewerProps> = ({ preview, model, annotations, name }) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleOpenOverlay = () => {
@@ -26,7 +27,7 @@ const ProductARViewer: FC<ProductARViewerProps> = ({ model, annotations, name })
     return (
         <>
             <article className='h-full relative p-2'>
-                <ModelViewer annotations={annotations} model={model} name={name} />
+                <ModelViewer preview={preview} annotations={annotations} model={model} name={name} />
 
                 <Button
                     className='hidden md:block mx-auto'

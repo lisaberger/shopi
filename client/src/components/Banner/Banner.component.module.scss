@@ -1,3 +1,7 @@
 .banner {
     height: var(--bannerHeight);
+
+    div {
+        height: inherit;
+    }
 }

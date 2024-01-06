@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Product360Viewer from '../Product360Viewer/Product360Viewer.component';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
 import { IProduct } from '@/utils/types/product.interface';
-
+import { ProgressBar } from 'primereact/progressbar';
 interface ProductCardProps {
     product: IProduct;
 }
@@ -13,6 +13,8 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const [liked, setLiked] = useState(false);
     const [qty] = useState(1);
+    const [selected, setSelected] = useState(false);
+    const [loadingBar, setLoadingBar] = useState(true);
 
     const toggleLike = () => {
         setLiked(!liked);
@@ -25,6 +27,19 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         dispatch(addToCart({ ...product, qty }));
         navigate('/cart');
     };
+
+    const onSelectHandler = () => {
+        setSelected(true);
+    };
+
+    useEffect(() => {
+        if (selected) {
+            setLoadingBar(true);
+            const timeout = setTimeout(() => setLoadingBar(false), 1000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [selected]);
 
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
@@ -44,8 +59,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                     </span>
                 </div>
 
-                <div className='flex flex-column align-items-center gap-3 py-4'>
-                    <Product360Viewer images={product ? product.images : []} />
+                <div className='flex flex-column align-items-center gap-3 py-4' onMouseEnter={onSelectHandler} onTouchStart={onSelectHandler}>
+                    <Product360Viewer images={selected ? product.images : [product.poster]} />
+                    {selected && loadingBar && <ProgressBar mode='indeterminate' style={{ height: '6px' }} className='w-full' />}
                 </div>
 
                 <Link to={`/product/${product._id}`}>

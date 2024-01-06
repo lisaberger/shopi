@@ -21,6 +21,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 url: `${PRODUCTS_URL}/${productId}`,
             }),
         }),
+        getProductImages: builder.query({
+            query: (productId) => ({
+                url: `${PRODUCTS_URL}/${productId}`,
+            }),
+        }),
     }),
 });
 

@@ -40,9 +40,10 @@ interface ModelViewerProps {
     model: string;
     annotations: IAnnotation[];
     name: string;
+    preview: string;
 }
 
-const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, name }) => {
+const ModelViewerComponent: React.FC<ModelViewerProps> = ({ preview, model, annotations, name }) => {
     const modelRef = useRef<ModelViewerElement>();
     const [variants, setVariants] = useState<string[]>([]);
     const [animations, setAnimations] = useState<string[]>([]);
@@ -158,11 +159,13 @@ const ModelViewerComponent: React.FC<ModelViewerProps> = ({ model, annotations, 
                 {loadingValue !== 100 && (
                     <div className='flex flex-column justify-content-center align-items-center h-full w-full'>
                         <ProgressBar className='w-full' value={loadingValue} />
-                        {/* <Canvas>
-                            <Stage>
-                                <Gltf src={preview} />
-                            </Stage>
-                        </Canvas> */}
+                        {preview && (
+                            <Canvas>
+                                <Stage>
+                                    <Gltf src={preview} />
+                                </Stage>
+                            </Canvas>
+                        )}
                     </div>
                 )}
             </div>
