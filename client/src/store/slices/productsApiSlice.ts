@@ -3,8 +3,8 @@ import { apiSlice } from './apiSlice';
 import { IProduct } from '@/utils/types/product.interface';
 
 interface Query {
-    search: string;
-    category: string[];
+    search?: string;
+    category?: string[];
 }
 
 export const productsApiSlice = apiSlice.injectEndpoints({

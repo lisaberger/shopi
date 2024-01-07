@@ -14,6 +14,7 @@ interface IProduct {
     rating: number;
     images: string[];
     annotations: IAnnotation[];
+    poster: string;
 }
 
 export type { IProduct };

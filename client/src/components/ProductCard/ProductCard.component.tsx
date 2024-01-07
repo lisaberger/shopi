@@ -1,11 +1,12 @@
 import { FC, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Product360Viewer from '../Product360Viewer/Product360Viewer.component';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
 import { IProduct } from '@/utils/types/product.interface';
 import { ProgressBar } from 'primereact/progressbar';
+import { addToWishlist, removeFromWishlist } from '@/store/slices/wishlistSlice';
 interface ProductCardProps {
     product: IProduct;
 }
@@ -16,9 +17,17 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const [selected, setSelected] = useState(false);
     const [loadingBar, setLoadingBar] = useState(true);
 
-    const toggleLike = () => {
-        setLiked(!liked);
-    };
+    const { wishlistItems } = useAppSelector((state) => state.wishlist);
+
+    useEffect(() => {
+        if (wishlistItems.some((wishlistItem) => wishlistItem._id === product._id)) {
+            setLiked(true);
+        }
+    }, [product._id, wishlistItems]);
+
+    // const toggleLike = () => {
+    //     setLiked(!liked);
+    // };
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -26,6 +35,20 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const addToCartHandler = () => {
         dispatch(addToCart({ ...product, qty }));
         navigate('/cart');
+    };
+
+    const wishlistHandler = () => {
+        const isItemInWishlist = wishlistItems.some((wishlistItem) => wishlistItem._id === product._id);
+
+        if (isItemInWishlist) {
+            // If the item is in the wishlist, remove it
+            dispatch(removeFromWishlist(product._id));
+            setLiked(false);
+        } else {
+            // If the item is not in the wishlist, add it
+            dispatch(addToWishlist({ ...product, qty }));
+            setLiked(true);
+        }
     };
 
     const onSelectHandler = () => {
@@ -50,7 +73,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                         <span className='font-semibold text-s'>{product.category.name}</span>
                     </div>
 
-                    <span onClick={toggleLike}>
+                    <span onClick={wishlistHandler}>
                         {!liked ? (
                             <i className='pi pi-heart' />
                         ) : (

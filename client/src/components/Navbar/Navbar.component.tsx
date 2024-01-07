@@ -85,7 +85,7 @@ const Navbar: FC<NavbarProps> = ({ cartItemsCount, userInfo, onLogout, variant }
                             </Link>
                         </li>
                         <li>
-                            <Link to='/' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
+                            <Link to='/wish' onClick={closeHeaderOnNavigationHandler} className={styles.item}>
                                 <i className={`${styles.icon} pi pi-heart`} />
                                 <p>Merkliste</p>
                             </Link>

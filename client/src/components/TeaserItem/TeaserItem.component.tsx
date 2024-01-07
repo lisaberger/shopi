@@ -15,14 +15,14 @@ interface TeaserItemProps {
 const TeaserItem: FC<TeaserItemProps> = ({ teaser }) => {
     return (
         <article
-            className='flex flex-column align-items-center justifty-content-center md:pt-3 px-2 md:px-8 md:flex-row md:pt-4 md:align-items-start'
+            className='flex flex-column align-items-center justifty-content-center px-2 md:px-8 md:flex-row md:pt-2 md:align-items-start'
             style={{ maxWidth: '80vw', justifyContent: 'center' }}
         >
             <div className='md:w-6 flex flex-column align-items-center mb-3 md:align-items-start'>
-                <h1 className='text-5xl font-semibold max-w-40rem'>{teaser.title}</h1>
-                <p className='mt-2 max-w-25rem'>{teaser.description}</p>
+                <h1 className='text-5xl font-bold max-w-40rem'>{teaser.title}</h1>
+                <p className='text-light mt-2 max-w-30rem'>{teaser.description}</p>
                 <Link to={`/product/${teaser.product._id}`}>
-                    <Button className='mt-4 text-color' type='button' label='Mehr erfahren' icon='pi pi-bell' />
+                    <Button className='mt-4 text-color' type='button' label='Mehr erfahren' />
                 </Link>
             </div>
 

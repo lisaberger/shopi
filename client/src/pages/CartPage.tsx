@@ -20,9 +20,9 @@ const CartPage = () => {
 
             <div className='grid'>
                 <article className='col-12 md:col-8'>
-                    <div className='hidden lg:flex grid gap-2 align-items-center mt-2 justify-content-center'>
+                    <div className='hidden lg:flex grid gap-2 mt-2 justify-content-center'>
                         <p className='col-12 md:col-1 text-sm font-medium'>Artikel</p>
-                        <p className='col-12 md:col-2 text-sm font-medium flex justify-content-center'>Produktvorschau</p>
+                        <p className='col-12 md:col-2 text-sm font-medium'>Produktvorschau</p>
                         <p className='col-12 md:col-3 text-sm font-medium'>Bezeichnung</p>
                         <p className='md:col-2 text-sm font-medium'>Preis</p>
                         <p className='md:col-2 text-sm font-medium'>Menge</p>
@@ -30,9 +30,12 @@ const CartPage = () => {
                     </div>
 
                     {cartItems.length === 0 ? (
-                        <>
-                            <p className='text-color-secondary'>Der Warenkorb ist leer</p>
-                        </>
+                        <div className='flex justify-content-center'>
+                            <span className='mt-2 text-sm text-color-secondary flex align-items-center'>
+                                <i className=' text-sm mr-1 pi pi-info-circle' />
+                                <p>Der Warenkorb ist leer</p>
+                            </span>
+                        </div>
                     ) : (
                         <div>
                             {cartItems.map((cartItem: ICartItem, index: number) => (
