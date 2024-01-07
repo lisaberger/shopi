@@ -1,5 +1,6 @@
 import Product360Viewer from '@/components/Product360Viewer/Product360Viewer.component';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { addToCart } from '@/store/slices/cartSlice';
 import { addToWishlist, removeFromWishlist } from '@/store/slices/wishlistSlice';
 import { Button } from 'primereact/button';
 import { Divider } from 'primereact/divider';
@@ -17,6 +18,10 @@ const WishlistPage = () => {
 
     const removeFromWishlistHandler = (id: string) => {
         dispatch(removeFromWishlist(id));
+    };
+
+    const addToCartHandler = (product, qty: number) => {
+        dispatch(addToCart({ ...product, qty }));
     };
 
     return (
@@ -47,7 +52,7 @@ const WishlistPage = () => {
                 ) : (
                     <div>
                         {wishlistItems.map((wishlistItem, index: number) => (
-                            <div className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
+                            <div key={wishlistItem._id} className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
                                 <div className='col-12 md:col-1'>{index + 1}</div>
                                 <div className='bg-white col-12 md:col-2 flex justify-content-center'>
                                     <Product360Viewer images={wishlistItem.images} />
@@ -68,7 +73,7 @@ const WishlistPage = () => {
                                     <Button icon='pi pi-trash' onClick={() => removeFromWishlistHandler(wishlistItem._id)} />
                                     <Button
                                         severity='secondary'
-                                        onClick={() => addToWishlistHandler(wishlistItem, Number(event.target.value))}
+                                        onClick={() => addToCartHandler(wishlistItem, 1)}
                                         outlined
                                         icon='pi pi-shopping-cart'
                                         label='In den Warenkorb'

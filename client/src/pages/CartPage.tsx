@@ -25,8 +25,8 @@ const CartPage = () => {
                         <p className='col-12 md:col-2 text-sm font-medium'>Produktvorschau</p>
                         <p className='col-12 md:col-3 text-sm font-medium'>Bezeichnung</p>
                         <p className='md:col-2 text-sm font-medium'>Preis</p>
-                        <p className='md:col-2 text-sm font-medium'>Menge</p>
-                        <p className='md:col-1 text-sm font-medium'></p>
+                        <p className='md:col-1 text-sm font-medium'>Menge</p>
+                        <p className='md:col-2 text-sm font-medium'></p>
                     </div>
 
                     {cartItems.length === 0 ? (

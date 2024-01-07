@@ -6,6 +6,7 @@ import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { Button } from 'primereact/button';
 import { ICartItem } from '@/utils/types/cart.interface';
 import { FC } from 'react';
+import { addToWishlist } from '@/store/slices/wishlistSlice';
 
 interface CartItemProps {
     cartItem: ICartItem;
@@ -22,6 +23,10 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
         dispatch(removeFromCart(id));
     };
 
+    const addToWishlistHandler = (product, qty: number) => {
+        dispatch(addToWishlist({ ...product, qty }));
+    };
+
     return (
         <div className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
             <div className='col-12 md:col-1'>{index + 1}</div>
@@ -33,15 +38,16 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
                 <Link to={`/product/${cartItem._id}`}>{cartItem.name}</Link>
             </div>
             <div className='md:col-2'>€ {cartItem.price}</div>
-            <div className='md:col-2'>
+            <div className='md:col-1'>
                 <Dropdown
                     value={cartItem.qty}
                     options={[...Array(cartItem.countInStock).keys()].map((x) => x + 1)}
                     onChange={(event) => addToCartHandler(cartItem, Number(event.target.value))}
                 />
             </div>
-            <div className='md:col-1'>
+            <div className='md:col-2 flex gap-2 md:ml-2'>
                 <Button icon='pi pi-trash' onClick={() => removeFromCartHandler(cartItem._id)} />
+                <Button icon='pi pi-heart' severity='secondary' outlined onClick={() => addToWishlistHandler(cartItem, 1)} />
             </div>
         </div>
     );
