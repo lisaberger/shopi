@@ -17,7 +17,7 @@ const Subnavbar = () => {
                 <i className={`${styles.icon} pi pi-angle-down ml-1`} />
             </div>
             <Link to='/showroom' className='ml-auto text-white'>
-                <i className='pi pi-image mr-2' />
+                {/* <i className='pi pi-image mr-2' /> */}
                 Showrooms
             </Link>
         </div>
