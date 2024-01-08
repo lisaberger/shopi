@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Subnavbar.component.module.scss';
 
 const Subnavbar = () => {
@@ -15,6 +16,10 @@ const Subnavbar = () => {
                 <p>Elektronik</p>
                 <i className={`${styles.icon} pi pi-angle-down ml-1`} />
             </div>
+            <Link to='/showroom' className='ml-auto text-white'>
+                <i className='pi pi-image mr-2' />
+                Showrooms
+            </Link>
         </div>
     );
 };

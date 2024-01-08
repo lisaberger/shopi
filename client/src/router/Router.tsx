@@ -10,6 +10,7 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const CartPage = lazy(() => import('@/pages/CartPage'));
 const WishlistPage = lazy(() => import('@/pages/WishlistPage'));
+const ShowroomPage = lazy(() => import('@/pages/ShowroomPage'));
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
             { path: '/login', element: <LoginPage /> },
             { path: '/profile', element: <ProfilePage /> },
             { path: '/wish', element: <WishlistPage /> },
+            { path: '/showroom', element: <ShowroomPage /> },
         ],
     },
 ]);
