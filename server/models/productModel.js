@@ -4,11 +4,6 @@ import Category from './categoryModel.js';
 
 const productSchema = mongoose.Schema(
     {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'User',
-        },
         name: {
             type: String,
             required: true,
@@ -21,6 +16,11 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        poster: {
+            type: String,
+            required: true,
+        },
+
         annotations: [
             {
                 type: mongoose.Schema.Types.ObjectId,
