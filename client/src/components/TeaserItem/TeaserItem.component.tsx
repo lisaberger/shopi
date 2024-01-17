@@ -26,16 +26,16 @@ const TeaserItem: FC<TeaserItemProps> = ({ teaser }) => {
                 </Link>
             </div>
 
-            <div className={`${styles.canvas} relative flex justify-content-center`} style={{ touchAction: 'none' }}>
+            <div className={`${styles.canvas} relative flex justify-content-center`}>
                 <Canvas>
                     <Suspense
                         fallback={
-                            <Stage>
+                            <Stage environment={{ files: '/small_empty_room_1_1k.hdr' }}>
                                 <Gltf src={teaser.product.preview} />
                             </Stage>
                         }
                     >
-                        <Stage adjustCamera={true}>
+                        <Stage adjustCamera={true} environment={{ files: '/small_empty_room_1_1k.hdr' }} castShadow>
                             <Gltf src={teaser.product.model} />
                         </Stage>
                     </Suspense>

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { useCursor, MeshPortalMaterial, CameraControls, Gltf, Environment, Grid } from '@react-three/drei';
+import { useCursor, MeshPortalMaterial, CameraControls, Gltf, Environment } from '@react-three/drei';
 import { easing, geometry } from 'maath';
 import { useLocation, useRoute } from 'wouter';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,7 @@ const ShowroomPage = () => {
                 <h1 className='text-xl font-bold mt-4'>Showrooms</h1>
                 <Divider />
 
-                <div id='container' className='h-20 w-20 relative' style={{ height: '60vh' }}>
+                <div id='container' className='h-20 w-20 relative z-3' style={{ height: '60vh' }}>
                     <a className='absolute z-4 m-2' onClick={() => setLocation('/showroom')}>
                         {params && <Button icon='pi pi-arrow-left' severity='secondary' size='small' label='Showroom verlassen' text outlined />}
                         {!params && (
@@ -54,27 +54,27 @@ const ShowroomPage = () => {
                         )}
                     </a>
                     {!isMobile && (
-                        <Canvas eventSource={document.getElementById('root')} eventPrefix='client'>
+                        <Canvas shadows eventPrefix='client' style={{ height: '100%' }}>
                             <Frame id='01' bg='#e4cdac' position={[-2.15, 0, 0]}>
-                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' position={[-2.5, -1.7, -3]} />
-                                <Environment preset='city' />
+                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' castShadow scale={0.5} position={[0, -1, 0]} />
+                                <Environment files='/adams_place_bridge_1k.hdr' background />
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
-                                <Environment preset='city' />
-                                <Gltf src='/api/media/phone/hi/iphone-hi.gltf' position={[0, -2, -2]} />
+                                <Environment files='/small_empty_room_1_1k.hdr' background />
+                                <Gltf src='/api/media/phone/hi/iphone-hi.gltf' castShadow scale={0.5} position={[0, -1, 0]} />
                             </Frame>
                             <Frame id='03' bg='#e4cdac' position={[2.15, 0, 0]}>
-                                <Environment preset='city' />
-                                <Gltf src='/api/media/macbook/hi/macbook-hi.glb' position={[2, -0.8, -2]} />
+                                <Environment files='/small_empty_room_1_1k.hdr' />
+                                <Gltf src='/api/media/macbook/hi/macbook-hi.glb' castShadow scale={0.5} position={[0, -1, 0]} />
                             </Frame>
                             <Rig />
                         </Canvas>
                     )}
                     {isMobile && (
-                        <Canvas eventSource={document.getElementById('container')} eventPrefix='client'>
+                        <Canvas eventPrefix='client'>
                             <Frame id='01' bg='#e4cdac' position={[0, -2.15, 0]}>
-                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' position={[-2.5, -1.7, -3]} />
-                                <Environment preset='city' />
+                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' castShadow scale={0.5} position={[0, -1, 0]} />
+                                <Environment files='/adams_place_bridge_1k.hdr' background />
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
                                 <Environment preset='city' />
@@ -111,6 +111,7 @@ function Frame({ id, bg, width = 2, height = 2, children, ...props }) {
                 onDoubleClick={(e) => (e.stopPropagation(), setLocation('/item/' + e.object.name))}
                 onPointerOver={(e) => hover(true)}
                 onPointerOut={() => hover(false)}
+                castShadow
             >
                 <roundedPlaneGeometry args={[width, height, 0.02]} />
                 <MeshPortalMaterial ref={portal} events={params?.id === id} side={THREE.DoubleSide}>
@@ -129,8 +130,8 @@ function Rig({ position = new THREE.Vector3(0, 0, 2), focus = new THREE.Vector3(
     useEffect(() => {
         const active = scene.getObjectByName(params?.id);
         if (active) {
-            active.parent.localToWorld(position.set(0, 0.5, 0.25));
-            active.parent.localToWorld(focus.set(0, 0, -2));
+            active.parent.localToWorld(position.set(0, 1, 2));
+            active.parent.localToWorld(focus.set(0, 0, 0));
         }
         controls?.setLookAt(...position.toArray(), ...focus.toArray(), true);
     });
