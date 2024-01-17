@@ -1,31 +1,22 @@
-# Shopi-Client
+# Shopi-Frontend
 
-This is where the magic 🧙‍♂️ happens. With react three fiber and model-viewer, 3D models are integrated at different points and in various ways, creating a novel form of interaction.
+This is where the magic 🧙‍♂️ happens. Leveraging **React Three Fiber** and Google's **Model-Viewer**, 3D models are integrated at different points and in various ways, creating a novel form of interaction.
 
-## Usage
+<img src="../docs/shopi-pages.png" />
 
-### Run
-dev
+## Pages
 
-```bash
-npm run dev
-```
+- Home Page
+- Product Page
+- Cart Page
+- Wishlist Page
 
-### Build
-build
+## Frontend-Tools
 
-```bash
-npm run build
-```
-
-## Tools
-
-- React + Vite + Typescript
+- React, Vite & Typescript
 - React Three Fiber
 - Drei
 - Model Viewer
 - Eslint & Stylelint
-- Primereact
-- Primeflex
+- Primereact, Primeflex & PrimeIcons
 - Prettier
-- Docker

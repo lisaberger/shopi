@@ -4,9 +4,8 @@
 
 <img src="./docs/shopi-screens.png" />
 
- <p style="text-align: center">
-  Live Demo 👀: <a href="https://shopi-ct70.onrender.com">https://shopi-ct70.onrender.com</a>
-</p>
+Live Demo 👀: <a href="https://shopi-ct70.onrender.com">https://shopi-ct70.onrender.com</a><br />
+Feature demo 🎥: Short Video clips in **docs** directory
 
 It's built on the **MERN-Stack** (MongoDB, Express.js, React.js, Node.js), utilizing **React Three Fiber** and Google's **Model Viewer** for the implementation of 3D features.
 
