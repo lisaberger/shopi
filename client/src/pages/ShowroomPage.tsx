@@ -9,6 +9,9 @@ import { Divider } from 'primereact/divider';
 import { Button } from 'primereact/button';
 
 extend(geometry);
+/**
+ * Based on this React Three Fiber Example: https://codesandbox.io/p/sandbox/enter-portals-9m4tpc
+ */
 
 const ShowroomPage = () => {
     const [, setLocation] = useLocation();
@@ -16,17 +19,12 @@ const ShowroomPage = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        // Funktion zum Aktualisieren des Zustands, wenn die Bildschirmbreite geändert wird
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768); // Beispiel: Zeige mobile Ansicht bei einer Breite von weniger als 768 Pixel
+            setIsMobile(window.innerWidth < 768);
         };
-        // Füge einen Event-Listener für die Änderung der Bildschirmgröße hinzu
         window.addEventListener('resize', handleResize);
-
-        // Initialisiere den Zustand basierend auf der aktuellen Bildschirmbreite
         handleResize();
 
-        // Aufräumarbeiten beim Komponentenabbau
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -58,7 +56,7 @@ const ShowroomPage = () => {
                     {!isMobile && (
                         <Canvas eventSource={document.getElementById('root')} eventPrefix='client'>
                             <Frame id='01' bg='#e4cdac' position={[-2.15, 0, 0]}>
-                                <Gltf src='/api/media/headphones/hi/headphones-hi.gltf' position={[-2.5, -1.7, -3]} />
+                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' position={[-2.5, -1.7, -3]} />
                                 <Environment preset='city' />
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
@@ -75,7 +73,7 @@ const ShowroomPage = () => {
                     {isMobile && (
                         <Canvas eventSource={document.getElementById('container')} eventPrefix='client'>
                             <Frame id='01' bg='#e4cdac' position={[0, -2.15, 0]}>
-                                <Gltf src='/api/media/headphones/hi/headphones-hi.gltf' position={[-2.5, -1.7, -3]} />
+                                <Gltf src='/api/media/headphones/hi/headphones-hi.glb' position={[-2.5, -1.7, -3]} />
                                 <Environment preset='city' />
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
