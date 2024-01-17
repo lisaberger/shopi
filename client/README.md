@@ -5,11 +5,13 @@ This is where the magic 🧙‍♂️ happens. Leveraging **React Three Fiber** 
 <img src="../docs/shopi-pages.png" />
 
 ## Pages
-
+The most important pages are:
 - Home Page
 - Product Page
 - Cart Page
 - Wishlist Page
+
+(Experimental: Showroom Page)
 
 ## Frontend-Tools
 
