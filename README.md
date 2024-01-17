@@ -2,7 +2,7 @@
 
 **Shopi** is a prototype for a simple ecommerce webshop that uses 3D visualization concepts at various points to enhance and create a more engaging shopping experience.
 
-<img src="./docs/shopi-screens.png" />
+<img src="./docs/images/shopi-screens.png" />
 
 Live Demo 👀: <a href="https://shopi-ct70.onrender.com">https://shopi-ct70.onrender.com</a><br />
 Feature demo 🎥: Short Video clips in **docs** directory
