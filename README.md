@@ -1,22 +1,24 @@
-# shopi 🛍
+# <span style="display: flex; align-items: center"><img style="margin-right: 10px" src="./client/public/logo-bild-marke.svg"/> shopi</span>
 
 **Shopi** is a prototype for a simple ecommerce webshop that uses 3D visualization concepts at various points to enhance and create a more engaging shopping experience.
 
-<img src="./client/public/shopi-screen.jpg" />
+<img src="./docs/shopi-screens.png" />
 
-Live Demo: <https://shopi-ct70.onrender.com/>
+ <p style="text-align: center">
+  Live Demo 👀: <a href="https://shopi-ct70.onrender.com">https://shopi-ct70.onrender.com</a>
+</p>
+
+It's built on the **MERN-Stack** (MongoDB, Express.js, React.js, Node.js), utilizing **React Three Fiber** and Google's **Model Viewer** for the implementation of 3D features.
 
 **3D-Features** included:
-
 - 360°-Product-Viewer
 - Interactive 3D-Product-Viewer
-- AR-Product-Viewer
+- Interactive AR-Product-Viewer
 - Hotspots with Annotations
-- Switch between Model Variants
-- Run Animations
-- Progressive Loading States (Low-Poly Preview)
-- 3D-Icon
+- Switch between Color Variants and Animations
+- Progressive Loading States through Low-Poly Models
 - OR-Code to quickly open 3D-Model on mobile Devices
+- 3D-Icon
 
 ## Usage
 
@@ -74,18 +76,18 @@ npm run client
 npm run build
 ```
 
-# Tools
+## Tools
 
 ### Backend
 
-- [Node](https://nodejs.org/en/)
-- [Express](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
+[Node](https://nodejs.org/en/)
+[Express](https://expressjs.com/)
+[MongoDB](https://www.mongodb.com/)
 
 ### Frontend
 
-- [React](https://reactjs.org/)
-- [Primereact](https://primereact.org/)
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
-- [Model Viewer](https://modelviewer.dev/)
-- [Vite](https://vitejs.dev/)
+[React](https://reactjs.org/)
+[Primereact](https://primereact.org/)
+[React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
+[Model Viewer](https://modelviewer.dev/)
+[Vite](https://vitejs.dev/)
