@@ -16,8 +16,10 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const [qty] = useState(1);
     const [selected, setSelected] = useState(false);
     const [loadingBar, setLoadingBar] = useState(true);
+    const [isCartItem, setIsCartItem] = useState(false);
 
     const { wishlistItems } = useAppSelector((state) => state.wishlist);
+    const { cartItems } = useAppSelector((state) => state.cart);
 
     useEffect(() => {
         if (wishlistItems.some((wishlistItem) => wishlistItem._id === product._id)) {
@@ -25,9 +27,11 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         }
     }, [product._id, wishlistItems]);
 
-    // const toggleLike = () => {
-    //     setLiked(!liked);
-    // };
+    useEffect(() => {
+        if (cartItems.some((cartItem) => cartItem._id === product._id)) {
+            setIsCartItem(true);
+        }
+    }, [product._id, cartItems]);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -41,11 +45,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         const isItemInWishlist = wishlistItems.some((wishlistItem) => wishlistItem._id === product._id);
 
         if (isItemInWishlist) {
-            // If the item is in the wishlist, remove it
             dispatch(removeFromWishlist(product._id));
             setLiked(false);
         } else {
-            // If the item is not in the wishlist, add it
             dispatch(addToWishlist({ ...product, qty }));
             setLiked(true);
         }
@@ -63,6 +65,8 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             return () => clearTimeout(timeout);
         }
     }, [selected]);
+
+    const buttonLabel = isCartItem ? 'Bereits im Warenkorb' : 'Zum Warenkorb hinzufügen';
 
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
@@ -98,8 +102,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                     onClick={addToCartHandler}
                     outlined
                     icon='pi pi-shopping-cart'
-                    label='Zum Warenkorb hinzufügen'
+                    label={buttonLabel}
                     className='w-full'
+                    disabled={isCartItem}
                 />
             </div>
         </div>
