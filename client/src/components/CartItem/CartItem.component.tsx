@@ -25,6 +25,7 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
 
     const addToWishlistHandler = (product, qty: number) => {
         dispatch(addToWishlist({ ...product, qty }));
+        dispatch(removeFromCart(product._id));
     };
 
     return (

@@ -22,6 +22,7 @@ const WishlistPage = () => {
 
     const addToCartHandler = (product, qty: number) => {
         dispatch(addToCart({ ...product, qty }));
+        dispatch(removeFromWishlist(product._id));
     };
 
     return (
@@ -46,7 +47,7 @@ const WishlistPage = () => {
                     <div className='flex justify-content-center'>
                         <span className='mt-2 text-sm text-color-secondary flex align-items-center'>
                             <i className=' text-sm mr-1 pi pi-info-circle' />
-                            <p>Der Warenkorb ist leer</p>
+                            <p>Die Merkliste ist leer</p>
                         </span>
                     </div>
                 ) : (
