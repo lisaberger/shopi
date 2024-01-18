@@ -12,6 +12,11 @@ extend(geometry);
 /**
  * Based on this React Three Fiber Example: https://codesandbox.io/p/sandbox/enter-portals-9m4tpc
  */
+/**
+ * sources hdri:
+ *    Sergej Majboroda, CC0 - https://polyhaven.com/a/small_empty_room_1
+ *    Andreas Mischok, CC0 - https://polyhaven.com/a/adams_place_bridge
+ */
 
 const ShowroomPage = () => {
     const [, setLocation] = useLocation();
