@@ -19,8 +19,8 @@ const TeaserItem: FC<TeaserItemProps> = ({ teaser }) => {
             style={{ maxWidth: '80vw', justifyContent: 'center' }}
         >
             <div className='md:w-6 flex flex-column align-items-center mb-3 md:align-items-start'>
-                <h1 className='text-5xl font-bold max-w-40rem'>{teaser.title}</h1>
-                <p className='text-light mt-2 max-w-30rem'>{teaser.description}</p>
+                <h1 className='line-height-2 text-center md:text-left text-5xl font-bold max-w-40rem'>{teaser.title}</h1>
+                <p className='text-center md:text-left text-light mt-2 max-w-30rem'>{teaser.description}</p>
                 <Link to={`/product/${teaser.product._id}`}>
                     <Button className='mt-4 text-color' type='button' label='Mehr erfahren' />
                 </Link>

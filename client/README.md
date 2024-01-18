@@ -2,7 +2,7 @@
 
 This is where the magic 🧙‍♂️ happens. Leveraging **React Three Fiber** and Google's **Model-Viewer**, 3D models are integrated at different points and in various ways, creating a novel form of interaction.
 
-<img src="../docs/shopi-pages.png" />
+<img src="../docs/images/shopi-pages.png" />
 
 ## Pages
 The most important pages are:
