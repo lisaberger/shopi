@@ -18,7 +18,7 @@ const Product360Viewer: FC<Product360ViewerProps> = ({ images }) => {
     };
 
     return (
-        <div className='w-9 cursor-move'>
+        <div className={`${images.length > 1 ? 'cursor-move' : 'cursor-pointer'}`}>
             {images && (
                 <ReactImageTurntable
                     images={images}

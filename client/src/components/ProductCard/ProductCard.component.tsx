@@ -66,7 +66,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         }
     }, [selected]);
 
-    const buttonLabel = isCartItem ? 'Bereits im Warenkorb' : 'Zum Warenkorb hinzufügen';
+    const buttonLabel = isCartItem ? 'Im Warenkorb' : 'Zum Warenkorb hinzufügen';
 
     return (
         <div className='col-12 sm:col-6 lg:col-12 xl:col-4 p-2'>
@@ -86,7 +86,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                     </span>
                 </div>
 
-                <div className='flex flex-column align-items-center gap-3 py-4' onMouseEnter={onSelectHandler} onTouchStart={onSelectHandler}>
+                <div className='flex flex-column align-items-center gap-3 py-4' onClick={onSelectHandler} onTouchStart={onSelectHandler}>
                     <Product360Viewer images={selected ? product.images : [product.poster]} />
                     {selected && loadingBar && <ProgressBar mode='indeterminate' style={{ height: '6px' }} className='w-full' />}
                 </div>
