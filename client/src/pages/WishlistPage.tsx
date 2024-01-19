@@ -3,8 +3,10 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addToCart } from '@/store/slices/cartSlice';
 import { addToWishlist, removeFromWishlist } from '@/store/slices/wishlistSlice';
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { Dropdown } from 'primereact/dropdown';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const WishlistPage = () => {
@@ -23,6 +25,14 @@ const WishlistPage = () => {
     const addToCartHandler = (product, qty: number) => {
         dispatch(addToCart({ ...product, qty }));
         dispatch(removeFromWishlist(product._id));
+    };
+
+    const [visible, setVisible] = useState(false);
+    const [selectedCartItem, setSelectedCartItem] = useState(null);
+
+    const openDialog = (wishlistItem) => {
+        setSelectedCartItem(wishlistItem);
+        setVisible(true);
     };
 
     return (
@@ -53,38 +63,52 @@ const WishlistPage = () => {
                 ) : (
                     <div>
                         {wishlistItems.map((wishlistItem, index: number) => (
-                            <div key={wishlistItem._id} className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
-                                <div className='col-12 md:col-1'>{index + 1}</div>
-                                <div className='bg-white col-12 md:col-2 flex justify-content-center border-1 surface-border surface-card border-round'>
-                                    <Product360Viewer images={wishlistItem.images} />
-                                </div>
+                            <>
+                                <div key={wishlistItem._id} className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
+                                    <div className='col-12 md:col-1'>{index + 1}</div>
+                                    <div className='relative bg-white col-12 md:col-2 flex justify-content-center border-1 surface-border surface-card border-round'>
+                                        <Button
+                                            icon='pi pi-search-plus'
+                                            text
+                                            severity='secondary'
+                                            onClick={() => openDialog(wishlistItem)}
+                                            className='absolute z-4 bottom-0 right-0 none md:block'
+                                        />
+                                        <Product360Viewer images={wishlistItem.images} />
+                                    </div>
 
-                                <div className='col-12 md:col-3'>
-                                    <Link to={`/product/${wishlistItem._id}`}>{wishlistItem.name}</Link>
+                                    <div className='col-12 md:col-3'>
+                                        <Link to={`/product/${wishlistItem._id}`}>{wishlistItem.name}</Link>
+                                    </div>
+                                    <div className='md:col-1'>€ {wishlistItem.price}</div>
+                                    <div className='md:col-1'>
+                                        <Dropdown
+                                            value={wishlistItem.qty}
+                                            options={[...Array(wishlistItem.countInStock).keys()].map((x) => x + 1)}
+                                            onChange={(event) => addToWishlistHandler(wishlistItem, Number(event.target.value))}
+                                        />
+                                    </div>
+                                    <div className='md:col-3 flex gap-2'>
+                                        <Button icon='pi pi-trash' onClick={() => removeFromWishlistHandler(wishlistItem._id)} />
+                                        <Button
+                                            severity='secondary'
+                                            onClick={() => addToCartHandler(wishlistItem, 1)}
+                                            outlined
+                                            icon='pi pi-shopping-cart'
+                                            label='In den Warenkorb'
+                                        />
+                                    </div>
                                 </div>
-                                <div className='md:col-1'>€ {wishlistItem.price}</div>
-                                <div className='md:col-1'>
-                                    <Dropdown
-                                        value={wishlistItem.qty}
-                                        options={[...Array(wishlistItem.countInStock).keys()].map((x) => x + 1)}
-                                        onChange={(event) => addToWishlistHandler(wishlistItem, Number(event.target.value))}
-                                    />
-                                </div>
-                                <div className='md:col-3 flex gap-2'>
-                                    <Button icon='pi pi-trash' onClick={() => removeFromWishlistHandler(wishlistItem._id)} />
-                                    <Button
-                                        severity='secondary'
-                                        onClick={() => addToCartHandler(wishlistItem, 1)}
-                                        outlined
-                                        icon='pi pi-shopping-cart'
-                                        label='In den Warenkorb'
-                                    />
-                                </div>
-                            </div>
+                            </>
                         ))}
                     </div>
                 )}
             </article>
+            <Dialog visible={visible} header={selectedCartItem?.name} maximizable style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                <div className='p-2'>
+                    <Product360Viewer images={selectedCartItem ? selectedCartItem.images : []} />
+                </div>
+            </Dialog>
         </section>
     );
 };
