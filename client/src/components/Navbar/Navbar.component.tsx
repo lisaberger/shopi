@@ -71,7 +71,7 @@ const Navbar: FC<NavbarProps> = ({ cartItemsCount, userInfo, onLogout, variant }
                     icon={menuButtonIcon}
                     severity='secondary'
                     text
-                    className={`${activeScroll ? 'bg-white text-color' : ''} md:hidden cursor-pointer text-white`}
+                    className={`${activeScroll || variant === 'white' ? 'bg-white text-color' : ''} md:hidden cursor-pointer text-white`}
                     onClick={toggleHeaderHandler}
                 />
                 <div className={`${styles.menu} ${expanded}`}>
