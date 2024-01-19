@@ -66,7 +66,7 @@ const ShowroomPage = () => {
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
                                 <Environment files='/small_empty_room_1_1k.hdr' background />
-                                <Gltf src='/api/media/phone/hi/iphone-hi.gltf' castShadow scale={0.5} position={[0, -1, 0]} />
+                                <Gltf src='/api/media/phone/hi/phone-hi.glb' castShadow scale={0.5} position={[0, -1, 0]} />
                             </Frame>
                             <Frame id='03' bg='#e4cdac' position={[2.15, 0, 0]}>
                                 <Environment files='/small_empty_room_1_1k.hdr' />
@@ -83,7 +83,7 @@ const ShowroomPage = () => {
                             </Frame>
                             <Frame id='02' bg='#e4cdac'>
                                 <Environment preset='city' />
-                                <Gltf src='/api/media/phone/hi/iphone-hi.gltf' position={[0, -2, -2]} />
+                                <Gltf src='/api/media/phone/hi/phone-hi.glb' position={[0, -2, -2]} />
                             </Frame>
                             <Frame id='03' bg='#d1d1ca' position={[0, 2.15, 0]}>
                                 <Environment preset='city' />
