@@ -31,7 +31,7 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
     return (
         <div className='grid gap-2 align-items-center justify-content-center p-2 text-color-secondary'>
             <div className='col-12 md:col-1'>{index + 1}</div>
-            <div className='bg-white col-12 md:col-2 flex justify-content-center'>
+            <div className='bg-white col-12 md:col-2 flex justify-content-center border-1 surface-border surface-card border-round'>
                 <Product360Viewer images={cartItem.images} />
             </div>
 
